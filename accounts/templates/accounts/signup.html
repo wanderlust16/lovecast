@@ -2,9 +2,37 @@
 
 <form method="POST" action="{%url 'signup'%}">
     {% csrf_token %}
-    사용자 이름:
+    이메일:
     <br>
     <input name="username" type="text" value="">
+    <br>
+    <br>
+    성별:
+    <br>
+    남<input name="gender" type="radio" id="남">
+    여<input name="gender" type="radio" id="여">
+    <br>
+    <br>
+    나이:
+    <select name="age">
+        <option>19</option>
+        <option>20</option>
+        <option>21</option>
+        <option>22</option>
+        <option>23</option>
+        <option>24</option>
+        <option>25</option>
+    </select>
+    <br>
+    <br>
+    연애 상태
+    <select name="status">
+        <option>--</option>
+        <option>연애 중</option>
+        <option>SOLO~</option>
+        <option>복잡한 연애 중</option>
+        <option>돌싱</option>
+    </select>
     <br>
     <br>
     비밀번호:

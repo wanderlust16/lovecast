@@ -3,8 +3,19 @@
 {% block content %}
 
 <h2>My Page</h2>
-    <p> ID : {{id}} </p>
 
+{% for feed in feeds %}
+<div style="border: 1px solid palevioletred;">
+    {% if request.user == feed.author %}
+    <p>내가 쓴 글</p>
+    <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+    {% endif %}
+    {% if request.user == feed.sunny_users %}
+    <p>내가 예보한 글 </p>
+    <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+    {% endif %}
+</div>
+{% endfor %} 
 <a href = "/home/"> 홈</a>
 
 {% endblock content %}

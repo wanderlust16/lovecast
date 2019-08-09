@@ -6,6 +6,12 @@
       {% if user.is_authenticated %}        
         <a href = "/home/new"> 글쓰기 </a>
       {% endif %}   
+      <!--TOP 5 인기 순 정렬 -->
+      {% for topfive in ranking %}
+        <p>{{ topfive.title }} </p>
+        <a href="/home/{{ topfive.id }}">바로가기</a>
+       {% endfor %}
+
       {% for feed in feeds %}
         <div style="border: 1px solid palevioletred;">
           <a href="/home/{{ feed.id }}">더보기</a>
@@ -62,4 +68,6 @@
           </form>
         </div>
       {% endfor %} 
+
+       
 {% endblock content %}
