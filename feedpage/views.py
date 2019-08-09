@@ -8,7 +8,7 @@ from django.db.models import F,Sum
 def index(request):
     if request.method == 'GET': 
         feeds = Feed.objects.all()
-        ranking= Feed.objects.annotate(total=F('sunny_users')+F('cloudy_users')+F('rainy_users')).order_by('-total')
+        ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total')
         return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking})
     elif request.method == 'POST': 
         title = request.POST['title']

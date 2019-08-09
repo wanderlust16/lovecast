@@ -7,7 +7,7 @@
         <a href = "/home/new"> 글쓰기 </a>
       {% endif %}   
       <!--TOP 5 인기 순 정렬 -->
-      {% for topfive in ranking %}
+      {% for topfive in ranking|slice:":5" %}
         <p>{{ topfive.title }} </p>
         <a href="/home/{{ topfive.id }}">바로가기</a>
        {% endfor %}
