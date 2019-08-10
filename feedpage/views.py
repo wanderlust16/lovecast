@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.db.models import Count
 from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy
 from django.contrib.auth.models import User
+from django.db.models import F,Sum
 
 def index(request):
     if request.method == 'GET': 
         feeds = Feed.objects.all()
-        return render(request, 'feedpage/index.html', {'feeds': feeds})
+        ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total')
+        return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking})
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
@@ -81,9 +84,12 @@ def feed_rainy(request, pk):
     return redirect ('/home')
 
 def userinfo(request):
-        c_user= request.user
-        c_profile=Profile.objects.get(user=c_user)
-        context= {
-                'id' : c_user.id,
-        }
-        return render(request, 'feedpage/mypage.html', context=context)
+    c_user= request.user
+    c_profile=Profile.objects.get(user=c_user)
+    feeds = Feed.objects.all()
+    c_id =c_user.id
+    return render(request, 'feedpage/mypage.html', {'feeds':feeds})
+
+
+    
+    
