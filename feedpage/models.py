@@ -35,6 +35,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(User,max_length=20, blank=True)
     age = models.CharField(User,max_length=20, blank=True)
+    status= models.CharField(User,max_length=20, blank=True)
     def __str__(self):  
         return self.username
 

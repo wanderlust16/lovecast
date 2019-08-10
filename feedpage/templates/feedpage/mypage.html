@@ -8,7 +8,6 @@
 {% for feed in feeds %}
 <div style="border: 1px solid palevioletred;">
     {% if request.user == feed.author %}
-    
     <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
     {% endif %}  
 </div>
@@ -19,8 +18,7 @@
 <p>내가 예보한 글</p>
 {% for feed in feeds %}
 <div style="border: 1px solid blue;">
-    {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all%}
-    
+    {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
     <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
     {% endif %}
 </div>

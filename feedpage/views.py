@@ -89,5 +89,7 @@ def userinfo(request):
     feeds = Feed.objects.all()
     c_id =c_user.id
     return render(request, 'feedpage/mypage.html', {'feeds':feeds})
+
+
     
     

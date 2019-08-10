@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from feedpage.models import Profile
 from django.contrib import auth
 from django.shortcuts import redirect
 
@@ -8,10 +9,11 @@ def signup(request):
         if request.POST['password1'] == request.POST['password2']:
             user = User.objects.create_user(
                 username=request.POST['username'], 
-                gender= request.POST['gender'], 
-                age= request.POST['age'],
-                status= request.POST['status'],
                 password=request.POST['password1'])
+            gender= request.POST['gender']
+            age= request.POST['age']
+            status= request.POST['status']
+            Profile.objects.create(user=user, gender=gender, age=age, status=status)
             auth.login(request, user)
             return redirect('/home')
     return render(request, 'accounts/signup.html')
