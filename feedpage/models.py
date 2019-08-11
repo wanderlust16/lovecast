@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from taggit.managers import TaggableManager
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
-import re
+
 
 
 class Feed(models.Model):
@@ -14,6 +14,7 @@ class Feed(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
+    anonymous = models.BooleanField(default=False)
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE) 
     sunny_content =models.CharField(max_length=256)
     cloudy_content= models.CharField(max_length=256)
@@ -32,12 +33,16 @@ class Feed(models.Model):
         return self.title
 
 class Profile(models.Model):   
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    gender = models.CharField(User,max_length=20, blank=True)
-    age = models.CharField(User,max_length=20, blank=True)
-    status= models.CharField(User,max_length=20, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    nickname = models.CharField(max_length=20, blank=True)
+    gender = models.CharField(max_length=20, blank=True)
+    age = models.CharField(max_length=20, blank=True)
+    status= models.CharField(max_length=20, blank=True)
+    profile_photo = ProcessedImageField(upload_to= 'profile_photos',
+                                processors=[ResizeToFill(300, 400)],
+                                options={'quality': 90})
     def __str__(self):  
-        return self.username
+        return 'id=%d, user id=%d, gender=%s, nickname=%s, age=%s' % (self.id, self.user.id, self.gender, self.nickname, self.age)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):  
