@@ -6,7 +6,7 @@
   <header>
     <div style="text-align: right;">
         {% if user.is_authenticated %}
-             {{ user.get_username }}님, 안녕하세요
+             {{  user.profile.nickname }}님, 안녕하세요
              <a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a>
              <a href="{% url 'mypage'%}">My Page</a> 
         {% else %}

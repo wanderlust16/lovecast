@@ -3,7 +3,10 @@
 {% block content %}
 
 <h2>My Page</h2>
-<p>ID: {{ c.id }} </p>
+<p>닉네임: {{ user.profile.nickname}} </p>
+<p> 나이: {{user.profile.age}} </p>
+<p> 성별: {{user.profile.gender}} </p>
+<p> 연애 상태: {{user.profile.status}}</p>
 <p>내가 쓴 글</p>
 {% for feed in feeds %}
 <div style="border: 1px solid palevioletred;">

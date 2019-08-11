@@ -32,12 +32,13 @@ class Feed(models.Model):
         return self.title
 
 class Profile(models.Model):   
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    gender = models.CharField(User,max_length=20, blank=True)
-    age = models.CharField(User,max_length=20, blank=True)
-    status= models.CharField(User,max_length=20, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    nickname = models.CharField(max_length=20, blank=True)
+    gender = models.CharField(max_length=20, blank=True)
+    age = models.CharField(max_length=20, blank=True)
+    status= models.CharField(max_length=20, blank=True)
     def __str__(self):  
-        return self.username
+        return 'id=%d, user id=%d, gender=%s, nickname=%s, age=%s' % (self.id, self.user.id, self.gender, self.nickname, self.age)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):  

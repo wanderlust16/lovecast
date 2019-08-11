@@ -24,10 +24,10 @@ def new(request):
     return render(request, 'feedpage/new.html')
 
 def show(request, id):
-    if request.method == 'GET': # show
+    if request.method == 'GET': 
         feed = Feed.objects.get(id=id)
         return render(request, 'feedpage/show.html', {'feed': feed})
-    elif request.method == 'POST': # create
+    elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
         feed = Feed.objects.get(id=id)
@@ -87,7 +87,6 @@ def userinfo(request):
     c_user= request.user
     c_profile=Profile.objects.get(user=c_user)
     feeds = Feed.objects.all()
-    c_id =c_user.id
     return render(request, 'feedpage/mypage.html', {'feeds':feeds})
 
 
