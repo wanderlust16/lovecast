@@ -1,5 +1,68 @@
-<h1>로그인</h1>
-<form method="post" action="{% url 'login' %}">
+<!DOCTYPE html>
+
+{% load staticfiles%}
+    <html>
+        <head>
+            <meta charset="utf-8"
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--최신 인터넷 익스플로러로 구동한다-->
+            <meta name="viewport" content="width=device-width, initial-scale">  <!--반응형 웹페이지 선언-->
+
+            <title>오늘의 연애</title>  <!--웹페이지 이름-->
+
+            <!-- saved from url=(0013)about:internet --> <!--인터넷 익스플로러에서 발생하는 js 경고문 예방구문-->
+
+            <!-- icon link -->
+            <script src="https://kit.fontawesome.com/55af2b838e.js"></script>
+
+            <!-- font link 폰트:나눔고딕 -->
+            <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
+
+            <!-- user style -->
+            <link rel="stylesheet"  href="{% static 'accounts/style.css' %}" />  <!--사용자가 만든 css 파일을 쓴다는 의미-->
+        </head>
+
+        <body>
+            <div class = "background">
+                    <img style= "margin: 0; padding: 0; width: 100%;" src="{% static 'accounts/img/background2.jpg' %}"/>
+                
+                    <div class = "login_area">
+                        <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %} 
+
+                            <div class = "email_box">
+                                <label for="email_text">이메일</label>
+                                <input type="text" name="username" value="" id="email_text">
+                             </div>
+
+                            <div class = "password_box">
+                                <label for="password_text">비밀번호</label>
+                                <input type="password" name="password" value="" id="password_text">
+                            </div>
+
+                            <div class = "login_box">
+                                <label for="login_text">로그인</label>
+                                <input type="submit" value="" id="login_text"/>
+                            </div>
+
+                            <div class = "join_box">
+                                <label for="join_text">회원가입</label>
+                                <input type="join" value="" id="join_text"/>
+                            </div>
+                            
+                        </form>
+                    </div>
+
+            </div>
+        </body>
+
+    </html>
+
+
+
+
+<!-- 재은언니 코드
+    <h1>로그인</h1>
+    <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <p>
 	이메일:
@@ -10,4 +73,4 @@
 	<input type="password" name="password" value="">
   	</p>
     <input type="submit" value="로그인" />
-</form>
+    </form> -->
