@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>글쓰기</h1>
+    <form action="/home/" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <p>제목</p>
+      <input name="title" /> <br />
+      <p>어떤 고민이 있으신가요?</p>
+      <input name="content" /> <br />
+      <p>photo</p>
+      <input multiple="multiple" name="photo" type="file" /> <br />
+      
+      <!--선택지 보기 이름 input받기-->
+      <p>Sunny</p>
+      <input name="sunny_content" /><br />
+      <p>Cloudy</p>
+      <input name="cloudy_content" /><br />
+      <p>Rainy</p>
+      <input name="rainy_content" /><br />
+    
+      <input type="submit" value="submit" />
+    </form>
+{% endblock content %}
