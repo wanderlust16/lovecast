@@ -24,9 +24,9 @@
           {% load mathfilters %} 
           
           {% if feed.anonymous %}
-            <p></p>
+            <p>글쓴이: {{feed.nickname}}</p>
           {% else %}
-            <p>글쓴이 {{ feed.author.username }}</p>
+            <p>글쓴이: {{ feed.author.profile.nickname }} </p>
           {% endif %}
           <p>글 제목: {{ feed.title }}</p>
           {% if  feed.photo %}
@@ -60,6 +60,7 @@
           {% endwith %}
           {% for c in feed.feedcomment_set.all %}
             <p>{{ c.content }}</p>
+
             <form action="/home/{{ feed.id }}/comments/{{ c.id }}/" method="POST">
               {% csrf_token %}
               {% if request.user == c.author %}  

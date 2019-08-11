@@ -4,6 +4,7 @@ from django.db.models import Count
 from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
+from nicky.base import Nicky
 
 def index(request):
     if request.method == 'GET': 
@@ -18,7 +19,9 @@ def index(request):
         cloudy_content= request.POST['cloudy_content']
         rainy_content=request.POST['rainy_content']
         anonymous=request.POST.get('anonymous') == 'on'
-        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous)
+        nicky=Nicky()
+        nickname = nicky.get_nickname()
+        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous, nickname=nickname)
         return redirect('/home')
 
 def new(request):
