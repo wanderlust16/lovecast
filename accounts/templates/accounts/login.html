@@ -19,6 +19,10 @@
 
             <!-- user style -->
             <link rel="stylesheet"  href="{% static 'accounts/style.css' %}" />  <!--사용자가 만든 css 파일을 쓴다는 의미-->
+
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+            <script src="{% static 'accounts/login.js' %}"></script>
+
         </head>
 
         <body>
@@ -40,12 +44,14 @@
                             </div>
 
                             <div class = "login_box">
-                                <label for="login_text">로그인</label>
-                                <input type="submit" value="" id="login_text"/>
+                                <!-- <label for="login_text">로그인</label> -->
+                                <a class = "button1">로그인</a>
+                                <input type="submit" value="" id="login_text">
+                                <!-- <a class="button1" href="{% url 'login' %}" role="button">로그인</a> -->
                             </div>
 
                             <div class = "join_box">
-                                <a href="{% url 'signup' %}">회원가입</a>
+                                <a class="button2" href="{% url 'signup' %}" role="button">회원가입</a>
                             </div>
                             
                         </form>
