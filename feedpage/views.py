@@ -17,7 +17,8 @@ def index(request):
         sunny_content =request.POST['sunny_content']
         cloudy_content= request.POST['cloudy_content']
         rainy_content=request.POST['rainy_content']
-        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content)
+        anonymous=request.POST.get('anonymous') == 'on'
+        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous)
         return redirect('/home')
 
 def new(request):

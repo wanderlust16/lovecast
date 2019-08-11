@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'mathfilters',
     'taggit',
+
 ]
 
 MIDDLEWARE = [

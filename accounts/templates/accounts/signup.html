@@ -2,7 +2,7 @@
 <h2> 당신의 연애전선은 어떤가요? </h2>
 
 <h3>*필수정보</h3>
-<form method="POST" action="{%url 'signup'%}">
+<form method="POST" action="{%url 'signup'%}" enctype="multipart/form-data">
     {% csrf_token %}
     이메일:
     <br>
@@ -56,5 +56,7 @@
     </select>
     <br>
     <br>
+    프로필 사진 
+    <input name="profile_photo" type="file" /> <br />
     <input type="submit" value="Sign Up!">
 </form>

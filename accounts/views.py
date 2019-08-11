@@ -14,7 +14,7 @@ def signup(request):
             gender= request.POST['gender']
             age= request.POST['age']
             status= request.POST['status']
-            
+            profile_photo = request.FILES.get('profile_photo', False)
             for user in User.objects.all():
                 if hasattr(user,'Profile') and not user.Profile:
                     profile= Profile(user=user)
@@ -23,6 +23,7 @@ def signup(request):
             user.profile.age=age
             user.profile.gender=gender
             user.profile.status=status
+            user.profile.profile_photo=profile_photo
             auth.login(request, user)
             return redirect('/home')
     return render(request, 'accounts/signup.html')

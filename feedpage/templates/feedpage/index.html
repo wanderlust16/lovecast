@@ -22,7 +22,12 @@
         
 
           {% load mathfilters %} 
-          <p>글쓴이 {{ feed.author.username }}</p>
+          
+          {% if feed.anonymous %}
+            <p></p>
+          {% else %}
+            <p>글쓴이 {{ feed.author.username }}</p>
+          {% endif %}
           <p>글 제목: {{ feed.title }}</p>
           {% if  feed.photo %}
             <img  src="{{ feed.photo.url }}"  alt="">

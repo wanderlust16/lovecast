@@ -4,6 +4,7 @@
     <h1>글쓰기</h1>
     <form action="/home/" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
+      <p>익명으로 쓰기 <input type="checkbox" name="anonymous"/> </p>
       <p>제목</p>
       <input name="title" /> <br />
       <p>어떤 고민이 있으신가요?</p>
