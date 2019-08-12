@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import feedpage.views
+import accounts.views
 from django.conf.urls import include
 from django.conf import settings 
 from django.conf.urls.static import static 
@@ -23,7 +24,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', feedpage.views.index, name='index'),
+    path('', accounts.views.login, name='login'),
     path('home/', include('feedpage.urls')), #이름설정 논의해보기
     path('accounts/', include('accounts.urls')),
 ]
