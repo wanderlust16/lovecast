@@ -19,9 +19,7 @@
           {% if request.user == feed.author %}                                      
             <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
           {% endif %}
-        
 
-          {% load mathfilters %} 
           <p>글쓴이 {{ feed.author.username }}</p>
           <p>글 제목: {{ feed.title }}</p>
           {% if  feed.photo %}
@@ -29,6 +27,8 @@
           {% endif %}
           <p>{{ feed.content }}</p>
         
+          {% load mathfilters %} 
+
           <!-- SUNNY, CLOUDY, RAINY-->
           <!-- 버튼을 못 누르게 하는거는 jqeury 에서 하는건가..?-->
           {% with total=feed.sunny_users.count|add:feed.cloudy_users.count|add:feed.rainy_users.count %}
@@ -57,7 +57,9 @@
             <p>{{ c.content }}</p>
             <form action="/home/{{ feed.id }}/comments/{{ c.id }}/" method="POST">
               {% csrf_token %}
-              {% if request.user == c.author %}  
+              {% if request.user == c.author %}             
+              <a href="/feeds/{{ feed.id }}/comments/{{ c.id }}/like">{{ feedcomment.liked_users.count }} 댓추 </a>
+              <a href="/feeds/{{ feed.id }}/comments/{{ c.id }}/dislike">{{ feedcomment.disliked_users.count }} 댓비추 </a>
               <button>댓글 삭제</button>
               {% endif %}
             </form>
@@ -67,6 +69,7 @@
             <input type="text" name="content" />
             <button type="submit">댓글 달기</button>
           </form>
+            
         </div>
       {% endfor %} 
 

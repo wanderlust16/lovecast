@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
-from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy
+from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, CommentLike, CommentDislike
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 
@@ -22,6 +22,7 @@ def index(request):
 
 def new(request):
     return render(request, 'feedpage/new.html')
+
 
 def show(request, id):
     if request.method == 'GET': # show
@@ -91,5 +92,21 @@ def userinfo(request):
     return render(request, 'feedpage/mypage.html', {'feeds':feeds})
 
 
-    
+def comment_like(request, cpk):
+    feedcomment = FeedComment.objects.get(id = cpk)
+    commentlike_list = feedcomment.commentlike_set.filter(user_id = request.user.id)
+    if commentlike_list.count() > 0:
+        comment.like_set.get(user_id = request.user.id).delete()
+    else:
+        CommentLike.objects.create(user_id = request.user.id, comment_id = c.id)
+    return redirect ('/home')
+
+def comment_dislike(request, cpk):
+    feedcomment = FeedComment.objects.get(id = cpk)
+    commentdislike_list = feedcomment.commentdislike_set.filter(user_id = request.user.id)
+    if commentdislike_list.count() > 0:
+        comment.dislike_set.get(user_id = request.user.id).delete()
+    else:
+        CommentDislike.objects.create(user_id = request.user.id, comment_id = c.id)
+    return redirect ('/home')
     

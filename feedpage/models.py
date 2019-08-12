@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from taggit.managers import TaggableManager
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
-import re
+
 
 
 class Feed(models.Model):
@@ -21,9 +21,11 @@ class Feed(models.Model):
     sunny_users = models.ManyToManyField(User, blank=True, related_name='feeds_sunny', through='Sunny')
     cloudy_users = models.ManyToManyField(User, blank=True, related_name='feeds_cloudy', through='Cloudy')
     rainy_users = models.ManyToManyField(User, blank=True, related_name='feeds_rainy', through='Rainy')
-    photo = ProcessedImageField(upload_to= 'feed_photos',
-                                processors=[ResizeToFill(600, 800)],
-                                options={'quality': 90})
+    photo = ProcessedImageField(
+        upload_to= 'feed_photos',
+        processors=[ResizeToFill(600, 800)],
+        options={'quality': 90}
+        )
     def update_date(self):
         self.updated_at = timezone.now()
         self.save()
@@ -36,6 +38,7 @@ class Profile(models.Model):
     gender = models.CharField(User,max_length=20, blank=True)
     age = models.CharField(User,max_length=20, blank=True)
     status= models.CharField(User,max_length=20, blank=True)
+    nickname= models.CharField(User,max_length=20, blank=True)
     def __str__(self):  
         return self.username
 
@@ -53,6 +56,9 @@ class FeedComment(models.Model):
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE) 
+    liked_users = models.ManyToManyField(User, blank=True, related_name='comments_liked', through='CommentLike') 
+    disliked_users = models.ManyToManyField(User, blank=True, related_name='comments_disliked', through='CommentDislike')
+
     def __str__(self):
         return str(self.id)
 
@@ -69,5 +75,15 @@ class Cloudy(models.Model):
 class Rainy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class CommentLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class CommentDislike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 

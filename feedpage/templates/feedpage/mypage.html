@@ -3,7 +3,8 @@
 {% block content %}
 
 <h2>My Page</h2>
-<p>ID: {{ c.id }} </p>
+<p>ID: {{ user.get_username }} </p>
+<p>닉네임: {{ user.get_nickname }} </p>
 <p>내가 쓴 글</p>
 {% for feed in feeds %}
 <div style="border: 1px solid palevioletred;">
