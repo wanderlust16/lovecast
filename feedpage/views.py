@@ -5,6 +5,7 @@ from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 from nicky.base import Nicky
+from django.http import HttpResponse
 
 def index(request):
     if request.method == 'GET': 
@@ -96,7 +97,7 @@ def mypage(request):
     feeds = Feed.objects.all()
     return render(request, 'feedpage/mypage.html', {'feeds':feeds})
 
-def search(request):
+def search(request): # 해쉬태그 검색 + 결과보여주는 함수
     feeds=Feed.objects.all()
     hashtags = request.GET.get('hashtags','')
     for f in feeds:
@@ -105,4 +106,5 @@ def search(request):
         if hashtags in keyword:
             feeds= feeds.filter(hashtag_str__icontains=hashtags)
             return render(request, 'feedpage/search.html', {'feeds':feeds})
+        
     
