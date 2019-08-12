@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="border: 1px solid palevioletred;">
+    {% for feed in feeds %}
+        <p>글 제목: {{ feed.title }}</p>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

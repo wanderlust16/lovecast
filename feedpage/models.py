@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver   
-from taggit.managers import TaggableManager
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from nicky.base import Nicky
@@ -24,7 +23,9 @@ class Feed(models.Model):
     nickname=models.CharField(max_length=200, blank=True)
     photo = ProcessedImageField(upload_to= 'feed_photos',
                                 processors=[ResizeToFill(600, 800)],
-                                options={'quality': 90})                                                   
+                                options={'quality': 90})     
+    hashtags=models.TextField(blank=True)
+
     def update_date(self):
         self.updated_at = timezone.now()
         self.save()
@@ -81,3 +82,6 @@ class Rainy(models.Model):
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+#class HashTags(models.Model):
+#    feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
+#    content = models.TextField()
