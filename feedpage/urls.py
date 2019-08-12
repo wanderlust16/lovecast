@@ -4,7 +4,7 @@ from feedpage import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('new/', views.new, name='new'),
-    path('mypage/', views.userinfo, name='mypage'), #mypage 추가
+    path('mypage/', views.mypage, name='mypage'), 
     path('<int:id>/', views.show, name='show'),
     path('<int:id>/delete/', views.delete, name='delete'),
     path('<int:id>/edit/', views.edit, name='edit'),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('<int:pk>/sunny/', views.feed_sunny, name='sunny'),
     path('<int:pk>/cloudy/', views.feed_cloudy, name='cloudy'),
     path('<int:pk>/rainy/', views.feed_rainy, name='rainy'),
+    path('search/',views.search, name='search'),
     
 ]

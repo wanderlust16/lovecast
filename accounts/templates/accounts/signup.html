@@ -1,43 +1,12 @@
-<h1> Sign Up! </h1>
+<h1> 오늘의 연애에 오신 것을 환영합니다! </h1>
+<h2> 당신의 연애전선은 어떤가요? </h2>
 
-<form method="POST" action="{%url 'signup'%}">
+<h3>*필수정보</h3>
+<form method="POST" action="{%url 'signup'%}" enctype="multipart/form-data">
     {% csrf_token %}
     이메일:
     <br>
     <input name="username" type="text" value="">
-    <br>
-    <br>
-    성별:
-    <br>
-    남<input name="gender" type="radio" value="남">
-    여<input name="gender" type="radio" value="여">
-    <br>
-    <br>
-    닉네임:
-    <br>
-    <input name="nickname" type="text" value="">
-    <br>
-    <br>
-    나이:
-    <select name="age">
-        <option>19</option>
-        <option>20</option>
-        <option>21</option>
-        <option>22</option>
-        <option>23</option>
-        <option>24</option>
-        <option>25</option>
-    </select>
-    <br>
-    <br>
-    연애 상태
-    <select name="status">
-        <option>--</option>
-        <option>연애 중</option>
-        <option>SOLO~</option>
-        <option>복잡한 연애 중</option>
-        <option>돌싱</option>
-    </select>
     <br>
     <br>
     비밀번호:
@@ -50,5 +19,44 @@
     <input name="password2" type="password" value="">
     <br>
     <br>
+    닉네임:
+    <br>
+    <input name="nickname" type="text" value="">
+    <br>
+    <h3>*선택사항</h3>
+    
+    성별:
+    <br>
+    <br>
+    남<input name="gender" type="radio" value="남">
+    여<input name="gender" type="radio" value="여">
+    <br>
+    
+    <br>
+    나이:
+    <select name="age">
+        <option>19</option>
+        <option>20</option>
+        <option>21</option>
+        <option>22</option>
+        <option>23</option>
+        <option>24</option>
+        <option>25</option>
+    </select>
+    세
+    <br>
+    <br>
+    연애 정보
+    <select name="status">
+        <option>--</option>
+        <option>연애 중</option>
+        <option>SOLO~</option>
+        <option>복잡한 연애 중</option>
+        <option>돌싱</option>
+    </select>
+    <br>
+    <br>
+    프로필 사진 
+    <input name="profile_photo" type="file" /> <br />
     <input type="submit" value="Sign Up!">
 </form>

@@ -4,11 +4,16 @@ from django.db.models import Count
 from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
+from nicky.base import Nicky
 
 def index(request):
     if request.method == 'GET': 
-        feeds = Feed.objects.all()
-        ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total')
+        sort = request.GET.get('sort','')
+        ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total','-updated_at')
+        if sort == 'forecasts':
+            feeds=ranking
+        else:
+            feeds=Feed.objects.order_by('-created_at')
         return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking})
     elif request.method == 'POST': 
         title = request.POST['title']
@@ -17,17 +22,21 @@ def index(request):
         sunny_content =request.POST['sunny_content']
         cloudy_content= request.POST['cloudy_content']
         rainy_content=request.POST['rainy_content']
-        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content)
+        anonymous=request.POST.get('anonymous') == 'on'
+        hashtags=request.POST['hashtags']
+        nicky=Nicky()
+        nickname = nicky.get_nickname()
+        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous, nickname=nickname, hashtags=hashtags)
         return redirect('/home')
 
 def new(request):
     return render(request, 'feedpage/new.html')
 
 def show(request, id):
-    if request.method == 'GET': # show
+    if request.method == 'GET': 
         feed = Feed.objects.get(id=id)
         return render(request, 'feedpage/show.html', {'feed': feed})
-    elif request.method == 'POST': # create
+    elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
         feed = Feed.objects.get(id=id)
@@ -83,13 +92,14 @@ def feed_rainy(request, pk):
         Rainy.objects.create(user_id = request.user.id, feed_id = feed.id)
     return redirect ('/home')
 
-def userinfo(request):
-    c_user= request.user
-    c_profile=Profile.objects.get(user=c_user)
+def mypage(request):
     feeds = Feed.objects.all()
-    c_id =c_user.id
     return render(request, 'feedpage/mypage.html', {'feeds':feeds})
 
-
-    
+def search(request):
+    feeds=Feed.objects.all()
+    keyword = request.GET.get('hashtags', '')
+    if hashtags:
+        feeds= feeds.filter(hashtags__icontains=keyword)
+    return render(request, 'feedpage/search.html', {'feeds':feeds})
     

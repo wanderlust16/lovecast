@@ -10,10 +10,20 @@ def signup(request):
             user = User.objects.create_user(
                 username=request.POST['username'], 
                 password=request.POST['password1'])
+            nickname= request.POST['nickname']
             gender= request.POST['gender']
             age= request.POST['age']
             status= request.POST['status']
-            Profile.objects.create(user=user, gender=gender, age=age, status=status)
+            profile_photo = request.FILES.get('profile_photo', False)
+            for user in User.objects.all():
+                if hasattr(user,'Profile') and not user.Profile:
+                    profile= Profile(user=user)
+                    profile.save()
+            user.profile.nickname=nickname
+            user.profile.age=age
+            user.profile.gender=gender
+            user.profile.status=status
+            user.profile.profile_photo=profile_photo
             auth.login(request, user)
             return redirect('/home')
     return render(request, 'accounts/signup.html')
