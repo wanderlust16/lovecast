@@ -8,8 +8,12 @@ from nicky.base import Nicky
 
 def index(request):
     if request.method == 'GET': 
-        feeds = Feed.objects.all()
-        ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total')
+        sort = request.GET.get('sort','')
+        ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total','-updated_at')
+        if sort == 'forecasts':
+            feeds=ranking
+        else:
+            feeds=Feed.objects.order_by('-created_at')
         return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking})
     elif request.method == 'POST': 
         title = request.POST['title']

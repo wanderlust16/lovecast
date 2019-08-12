@@ -24,7 +24,7 @@ class Feed(models.Model):
     nickname=models.CharField(max_length=200, blank=True)
     photo = ProcessedImageField(upload_to= 'feed_photos',
                                 processors=[ResizeToFill(600, 800)],
-                                options={'quality': 90})
+                                options={'quality': 90})                                                   
     def update_date(self):
         self.updated_at = timezone.now()
         self.save()
@@ -62,9 +62,9 @@ class FeedComment(models.Model):
         return str(self.id)
 
 #class CommentLike(models.Model):
- #   user = models.ForeignKey(User, on_delete=models.CASCADE)
-  #  comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
-   # created_at = models.DateTimeField(auto_now_add=True)
+#   user = models.ForeignKey(User, on_delete=models.CASCADE)
+#   comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
+#   created_at = models.DateTimeField(auto_now_add=True)
 
 class Sunny(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
