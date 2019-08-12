@@ -18,17 +18,55 @@
             <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
 
             <!-- user style -->
-            <link rel="stylesheet"  href="{% static 'accounts/style.css' %}" />  <!--사용자가 만든 css 파일을 쓴다는 의미-->
+            <link rel="stylesheet"  href="{% static 'accounts/signup.css' %}" />  <!--사용자가 만든 css 파일을 쓴다는 의미-->
 
             <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-            <script src="{% static 'accounts/login.js' %}"></script>
+            <script src="{% static 'accounts/signup.js' %}"></script>
 
         </head>
 
+        <body>
+            <div class = "background">
+                    <div class = "square">
+                    <img style= "margin: 0; padding: 0; width: 100%;" src="{% static 'accounts/img/black_bg2.jpg' %}"/>
+                            <div class = "signup_area">
+                            <form method="POST" action="{%url 'signup'%}" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                                <img style= "position: absolute; width: auto; height: 670px;" src="{% static 'accounts/img/logo_bg.png' %}"/>
+                                <p1> 오늘의 연애에 오신 것을 환영합니다! </p1>
+                                <p2> 당신의 연애전선은 어떤가요? </p2>
+
+                                
+                                <div class = "essential_box">
+                                    <p3> * 필수정보 </p1>
+                                
+
+                                </div>
+
+                                <div class = "selection_box">
+                                    <p4> * 선택정보 </p1>
+
+                                </div>
+
+                                <div class = "signup_box">
+                                    <a class = "button1">회원가입</a>
+                                    <input type="submit" value="">
+                                </div>
+
+                            </form>
+                            </div>
+                    </div>
+            </div>
+        
+        </body>
 
 
 
-<h1> 오늘의 연애에 오신 것을 환영합니다! </h1>
+
+
+
+<!-- <h1> 오늘의 연애에 오신 것을 환영합니다! </h1>
 <h2> 당신의 연애전선은 어떤가요? </h2>
 
 <h3>*필수정보</h3>
@@ -89,4 +127,4 @@
     프로필 사진 
     <input name="profile_photo" type="file" /> <br />
     <input type="submit" value="Sign Up!">
-</form>
+</form> -->

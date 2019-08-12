@@ -35,9 +35,9 @@ body {
     position: absolute;
     width: 350px;
     height: 240px;
+    font-size: 14px;
     left: 625px;
     top: 493px;
-    font-size: 14px;
 }
 
 /* 이메일 기입 부분 */
@@ -119,3 +119,6 @@ input[type="submit"] {
     text-indent: -99999px;                                                              /*혹시모를 text를 저멀리 보냄 + 폰트컬러도 투명으로 처리*/
     color: rgba(0,0,0,0);
 }    
+
+
+
