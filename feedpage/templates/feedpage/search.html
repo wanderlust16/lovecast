@@ -1,11 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<br>
+<br>
+<h1>검색결과</h1>
 <div style="border: 1px solid palevioletred;">
     {% for feed in feeds %}
-        <p>글 제목: {{ feed.title }}</p>
+            <a href="/home/{{ feed.id }}">더보기</a>
+            {% if request.user == feed.author %}                                      
+            <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
+            {% endif %}
+        
+            {% if feed.anonymous %} <!--익명이면 무작위 닉네임이 뜨도록하는 if문 -->
+            <p>글쓴이: {{feed.nickname}}</p>
+            {% else %}
+            <p>글쓴이: {{ feed.author.profile.nickname }} </p>
+            {% endif %}
+            <p>글 제목: {{ feed.title }}</p>
+            {% if  feed.photo %}
+            <img  src="{{ feed.photo.url }}"  alt="">
+            {% endif %}
+            <p>{{ feed.content }}</p>
+            <p>{{ feed.hashtag_str }}</p>
+
+            
+            <!-- SUNNY, CLOUDY, RAINY-->
+            {% load mathfilters %}
+            {% with total=feed.sunny_users.count|add:feed.cloudy_users.count|add:feed.rainy_users.count %}
+            {% if user not in feed.sunny_users.all and user not in feed.cloudy_users.all and user not in feed.rainy_users.all %}
+                <p> {{total}}명이 예보했습니다 </p> 
+                <a href="/home/{{ feed.id }}/sunny"> Sunny {{feed.sunny_content}}</a>
+                <a href="/home/{{ feed.id }}/cloudy"> Cloudy {{feed.cloudy_content}}</a>
+                <a href="/home/{{ feed.id }}/rainy"> Rainy {{feed.rainy_content}}</a> 
+            {% else %}
+                <p> {{total}}명이 예보했습니다 </p>
+                {% if not total %}
+                    <a href="/home/{{ feed.id }}/sunny"> 0% Sunny</a>
+                    <a href="/home/{{ feed.id }}/cloudy"> 0% Cloudy</a>
+                    <a href="/home/{{ feed.id }}/rainy"> 0% Rainy</a>
+                {% else %}
+                    <a href="/home/{{ feed.id }}/sunny"> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
+                    <a href="/home/{{ feed.id }}/cloudy">{{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}% Cloudy {{feed.cloudy_content}}</a>
+                    <a href="/home/{{ feed.id }}/rainy">{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a>
+                {% endif %}
+            {% endif %}
+            {% endwith %}
+            <!-- ################## -->
+            
+
+            {% for c in feed.feedcomment_set.all %}
+            <p>{{ c.content }}</p>
+
+            <form action="/home/{{ feed.id }}/comments/{{ c.id }}/" method="POST">
+                {% csrf_token %}
+                {% if request.user == c.author %}  
+                <button>댓글 삭제</button>
+                {% endif %}
+            </form>
+            {% endfor %}
+            <form action="/home/{{ feed.id }}/comments/" method="POST">
+            {% csrf_token %}
+            <input type="text" name="content" />
+            <button type="submit">댓글 달기</button>
+            </form>
+        </div>
     {% endfor %}
 </div>
-
-
+<a href = "/home/"> 홈</a>
 {% endblock content %}

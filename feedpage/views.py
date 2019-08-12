@@ -26,7 +26,7 @@ def index(request):
         hashtags=request.POST['hashtags']
         nicky=Nicky()
         nickname = nicky.get_nickname()
-        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous, nickname=nickname, hashtags=hashtags)
+        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous, nickname=nickname, hashtag_str=hashtags)
         return redirect('/home')
 
 def new(request):
@@ -98,8 +98,11 @@ def mypage(request):
 
 def search(request):
     feeds=Feed.objects.all()
-    keyword = request.GET.get('hashtags', '')
-    if hashtags:
-        feeds= feeds.filter(hashtags__icontains=keyword)
-    return render(request, 'feedpage/search.html', {'feeds':feeds})
+    hashtags = request.GET.get('hashtags','')
+    for f in feeds:
+        keyword=f.hashtag_str.split("#")[1:]
+        print(keyword)
+        if hashtags in keyword:
+            feeds= feeds.filter(hashtag_str__icontains=hashtags)
+            return render(request, 'feedpage/search.html', {'feeds':feeds})
     

@@ -24,7 +24,7 @@ class Feed(models.Model):
     photo = ProcessedImageField(upload_to= 'feed_photos',
                                 processors=[ResizeToFill(600, 800)],
                                 options={'quality': 90})     
-    hashtags=models.TextField(blank=True)
+    hashtag_str=models.TextField(blank=True)
 
     def update_date(self):
         self.updated_at = timezone.now()
