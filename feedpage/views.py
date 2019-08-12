@@ -107,4 +107,3 @@ def search(request): # 해쉬태그 검색 + 결과보여주는 함수
             feeds= feeds.filter(hashtag_str__icontains=hashtags)
             return render(request, 'feedpage/search.html', {'feeds':feeds})
         
-            #수민하이

@@ -1,0 +1,124 @@
+/* 공통부분 */
+
+* {                  /* *은 공통 부분을 의미 */
+    margin: 0;
+    padding: 0;
+
+}
+
+body {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;         /* webkit 크롬 사파리 */
+    -moz-box-sizing: border-box;            /*moz 파이어폭스 */
+    word-break: break-all;                  /*word break - 줄바꿈 의미 */
+    font-family: 'Nanum+Gothic:400';
+    
+    
+}
+
+/* 전체 배경 */
+.background {
+    position: relative;                            /* div의 상대적 위치 = 상위 레이어 relative, 하위 레이어 absolute = 하위가 상위레이어에 상대적으로 움직인다*/
+    width: 1600px;
+    height: auto;
+    /*min-height: 100%;                            창의 크기에 맞게 이미지가 유동적으로 변하게 하는 코드
+    min-width: 1024px; 
+    width: 100%;
+    height: auto; 
+    position: fixed;
+    top: 0; left: 0; */
+}
+
+/* 로그인.회원가입 전체 영역 */
+
+.login_area {
+    position: absolute;
+    width: 350px;
+    height: 240px;
+    font-size: 14px;
+    left: 625px;
+    top: 493px;
+}
+
+/* 이메일 기입 부분 */
+/* 인풋 텍스트 필드 css 설명은 https://webdir.tistory.com/429 참고 */
+
+
+input[type="text"],                                /* 텍스트필드 상자 디자인 */
+input[type="password"] {
+    font-size: 15px;
+    height: auto;
+    width: 340px;
+    padding: .8em .5em;
+    border: 0px solid #999;
+    border-radius: 10px;
+    margin-bottom: 11px;
+    background: rgba(255, 255, 255, 58%);
+    
+}
+
+.email_box,
+.password_box {                                        /* 텍스트 필드 상자와 글자 전체 div*/
+    position: relative;
+}
+
+.email_box label,
+.password_box label {
+    font-size: 14px;                                  /* 텍스트 필드의 기본 글자 부분은 상위 div의 class 속성이름 +label*/
+    position: absolute;
+    left: 30px;
+    top: 14px;
+    color: #999;
+    cursor: text;
+}
+
+.login_box,
+.join_box {                                        
+    position: relative;
+}
+
+
+.button1 {
+    display: block;
+    width: 340px;
+    height: auto;
+    background: #ff8686;
+    padding: .8em .5em;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    text-decoration: none;
+    margin-bottom: 11px;
+    margin-top: 5px;
+}
+
+.button2 {
+    display: block;
+    width: 340px;
+    height: auto;
+    background: #ffc2bf;
+    padding: .8em .5em;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    text-decoration: none;
+    margin-bottom: 11px;
+}
+
+
+input[type="submit"] {
+    display:block; 
+    position:absolute;                                                                  /*위치 절대값; top:0; right:0*/
+    top: 8px;
+    right: 0;
+    width: 340px;
+    cursor: pointer;
+    opacity: 0; filter: alpha(opacity=0); -khtml-opacity: 0; -moz-opacity: 0;           /*opacity:0; 모든 브라우저에 통일*/
+    text-indent: -99999px;                                                              /*혹시모를 text를 저멀리 보냄 + 폰트컬러도 투명으로 처리*/
+    color: rgba(0,0,0,0);
+}    
+
+
+

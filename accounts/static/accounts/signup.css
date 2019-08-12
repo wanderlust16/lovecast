@@ -1,0 +1,120 @@
+/* 공통부분 */
+
+* {                  /* *은 공통 부분을 의미 */
+    margin: 0;
+    padding: 0;
+
+}
+
+body {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;         /* webkit 크롬 사파리 */
+    -moz-box-sizing: border-box;            /*moz 파이어폭스 */
+    word-break: break-all;                  /*word break - 줄바꿈 의미 */
+    font-family: 'Nanum+Gothic:400';
+    
+    
+}
+
+.background {
+    position: relative;                            /* div의 상대적 위치 = 상위 레이어 relative, 하위 레이어 absolute = 하위가 상위레이어에 상대적으로 움직인다*/
+    width: 1600px;
+    height: auto;
+
+}
+
+.square {
+    position: relative;
+    width: 1600px;
+    height: auto;
+}
+
+.signup_area {                                   /* 회원가입 전체 영역 */
+    position: absolute;
+    width: 618px;
+    height: 670px;
+    border: 1px solid white;
+    border-radius: 23px;
+    background-color: white;
+    left: 480px;
+    top: 140px;
+
+}
+
+p1 {
+    position: relative;                     /* 큰 div 안에 속하는 영역들의 위치를 지정할 땐 position relative 하고 top, left 로 위치 조절하기. margin은 아님 */
+    font-size: 24px;
+    font-weight: 700;
+    color: #483e80;
+    top: 50px;
+    left: 60px;
+    display: block;
+
+}
+
+p2 {
+    position: relative;
+    font-size: 23px;
+    font-weight: 400;
+    color: #483e80;
+    top: 55px;
+    left: 60px;
+    display: block;
+
+}
+
+.essential_box {
+    position: relative;
+    width: 305px;
+    height: 189px;
+    top: 93px;                          /*위에서부터의 top 값은 p1 타이틀에서부터의 거리 구하기 */
+    left: 60px;
+    display: block;
+    border: 1px solid;
+}
+
+.selection_box {
+    position: relative;
+    width: 305px;
+    height: 189px;
+    top: 130px;
+    left: 60px;
+    display: block;
+    border: 1px solid;
+
+}
+
+.signup_box {
+    position: absolute;
+    width: 620px;
+    height: 58px;
+    top: 613px;
+
+}
+
+
+.button1 {
+    position: absolute;
+    width: 620px;
+    height: 58px;
+    border: 0.5px solid #483e80;
+    border-bottom-right-radius: 23px;
+    border-bottom-left-radius: 23px;
+    background-color: #483e80;
+
+    font-size : 17px;
+    font-weight: 400;
+    text-align: center;
+    color: white;
+    
+}
+
+input [type="submit"] {
+    position: relative;
+    display: block;
+    width: 620px;
+    height: 58px;
+    top: 100px;
+
+    
+}
