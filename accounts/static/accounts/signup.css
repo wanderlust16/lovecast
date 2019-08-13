@@ -63,6 +63,8 @@ p2 {
 
 }
 
+/* 필수 정보 */
+
 .essential_box {
     position: relative;
     width: 305px;
@@ -78,18 +80,21 @@ p3 {
     font-weight: 700;
     color: #483e80;
     display: block;
-
+    
 }
 
 input[type="text"],
 input[type="password"] {
+    position: relative;
     font-size: 12px;
     height: 35px;
     width: 304px;
     padding: 0;
+    margin-top: 14px;
     border: 0px solid #999;
     border-radius: 18px;
     background-color: rgba(197, 197, 197, 30%);
+    text-align-last:center;
     
 
 }
@@ -98,7 +103,7 @@ input[type="password"] {
 .password_box1 label,
 .password_box2 label,
 .nickname_box label {
-    position: relative;
+    position: absolute;
     font-size: 11px;
     font-weight: 500;
     top: 25px;
@@ -107,12 +112,22 @@ input[type="password"] {
     cursor: text;
 
 }
+.email_box,
+.password_box1,
+.password_box2,
+.nickname_box {                                        /* 텍스트 필드 상자와 글자 전체 div*/
+    position: relative;
+    top: 5px;
+}
+
+
+/* 선택정보 영역 */ 
 
 .selection_box {
     position: relative;
     width: 305px;
     height: 189px;
-    top: 143px;
+    top: 160px;
     left: 60px;
     display: block;
     border: 0px solid;
@@ -134,30 +149,30 @@ p4 {                            /* 선택 정보 */
 
 .gender {   
     position: relative;
-    top: 10px;
-    height: 35px;
+    top: 12px;
+    height: 20px;
     padding-top: 10px;
-    padding-bottom: 10px; 
+    padding-bottom: 25px; 
     padding-left: 10px;
 }
 
 .gender_select  {
     position: relative;
     top: 16px;
-    left: 10px;
+    left: 12px;
 }
 
 .age,
 .lovestatus{
     position: relative;
-    top: 20px;
     height: 20px;
     padding-left: 10px;
     padding-top: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 
+/* 남 여 선택 */
 
   ul li{
     color: #AAAAAA;
@@ -165,7 +180,9 @@ p4 {                            /* 선택 정보 */
     position: relative;
     float: left;
     height: 10px;
-      border-bottom: 0px solid #333;
+    border-bottom: 0px solid #333;
+    bottom: 30px;
+    left: 70px;
   }
   
   ul li input[type=radio]{
@@ -233,46 +250,167 @@ p4 {                            /* 선택 정보 */
   input[type=radio]:checked ~ label{
     color: #483e80;
   }
-  
-  
-  
-  
-  
-/* .signup_box {
+
+/* 나이 선택 박스 */ 
+
+.select-style {
     position: relative;
-    width: 620px;
-    height: 58px;
-    top: 613px;
+    border: 2px solid #ccc;
+    width: 120px;
+    height: 18px;
+    left: 80px;
+    bottom: 17px;
+    border-radius: 40px;
+    overflow: hidden;
+    text-align: center;
+    background: white;
+    
+}
+
+
+.select-style select {
+    color: #483e80;
+    padding-top: 2px;
+    font-weight: 600;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    text-align-last:center;
+
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
+/* 나이 선택 박스 */ 
+
+.select-style-2 {
+    position: relative;
+    border: 2px solid #ccc;
+    width: 120px;
+    height: 18px;
+    left: 80px;
+    bottom: 17px;
+    border-radius: 40px;
+    overflow: hidden;
+    background: white;
+    text-align: center;
+}
+
+
+.select-style-2 select {
+    color: #483e80;
+    padding-top: 2px;
+    font-weight: 600;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    text-align-last:center;
+
+}
+
+.select-style-2 select:focus {
+    outline: none;
+}
+  
+
+/* 가입하기 버튼 부분 */
+
+.submit_box {
+    position: absolute;
+    width: 618px;
+    height: 60px;
+    bottom: 0px;
+    border-bottom-right-radius: 23px;
+    border-bottom-left-radius: 23px;
+    background-color: #483e80;
+
 
 }
 
 
-.button1 {
-    position: absolute;
-    width: 618px;
-    height: 58px;
-    border: 0.5px solid #483e80;
-    padding-top: 0px;
-    border-bottom-right-radius: 23px;
-    border-bottom-left-radius: 23px;
-    background-color: #483e80;
+.submit_button {
+    position: relative;
+    width: 81px;
+    height: 24px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+input[type="submit" i] {
     font-size : 17px;
     font-weight: 400;
     text-align: center;
     color: white;
-    
+    background: rgba(0, 0, 0, 0);
+    border: 0px;
+
 }
 
-input [type="submit"] {
+/* 프로필 넣기 */
+
+.profile_box {
     position: absolute;
-    display: block;
-    width: 620px;
-    height: 58px;
-    top: 100px;
-    cursor: pointer;
-    opacity: 0; filter: alpha(opacity=0); -khtml-opacity: 0; -moz-opacity: 0;           /*opacity:0; 모든 브라우저에 통일
-    text-indent: -99999px;                                                              /*혹시모를 text를 저멀리 보냄 + 폰트컬러도 투명으로 처리
-    color: rgba(0,0,0,0);
-    position:absolute;                                                                  /*위치 절대값; top:0; right:0*/
-   
+    width: 135px;
+    height: 135px;
+    left: 355px;
+    top: 60px;
+    border: #483e80 solid 2px;
+    border-radius: 100%;
+
+}
+
+/* 프로필 사진 */
+
+.container{
+    position: absolute;
+	width: 135px;
+    height: 135px;
+    left: 355px;
+    top: 40px;
+	margin: 50px auto;
+
+}
+
+.hidden, #uploadImg:not(.hidden) + label{
+	display: none;
+}
+
+#file{
+	display: none;
+  	margin: 0 auto;
+}
+
+#upload{
+	display: block;
+	padding: 10px 25px;
+    border: 0;
+    border-radius: 20px;
+	margin: 0 auto;
+    font-size: 12px;
+    font-weight: 400;
+	letter-spacing: 0.05em;
+	cursor: pointer;
+	background: #483e80;
+	color: #fff;
+	outline: none;
+	transition: .3s ease-in-out;
+	&:hover, &:focus{
+		background: #483e80;
+	}
+	&:active{
+		background: #483e80;
+		transition: .1s ease-in-out;
+	}
+}
+
+img{
+	display: block;
+	margin: 0 auto 15px;
 }
