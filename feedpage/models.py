@@ -38,7 +38,7 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=20, blank=True)
     gender = models.CharField(max_length=20, blank=True)
     age = models.CharField(max_length=20, blank=True)
-    status= models.CharField(max_length=20, blank=True)
+    lovestatus= models.CharField(max_length=20, blank=True)
     profile_photo = ProcessedImageField(upload_to= 'profile_photos',
                                 processors=[ResizeToFill(300, 400)],
                                 options={'quality': 90})
