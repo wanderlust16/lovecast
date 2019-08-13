@@ -55,11 +55,13 @@
           {% endwith %}
           {% for c in feed.feedcomment_set.all %}
             <p>{{ c.content }}</p>
+
+            <a href="/home/{{ feed.id }}/comments/{{ c.id }}/like">{{ c.liked_users.count }} 댓추 </a>
+            <a href="/home/{{ feed.id }}/comments/{{ c.id }}/dislike">{{ c.disliked_users.count }} 댓비추 </a>
+
             <form action="/home/{{ feed.id }}/comments/{{ c.id }}/" method="POST">
               {% csrf_token %}
-              {% if request.user == c.author %}             
-              <a href="/feeds/{{ feed.id }}/comments/{{ c.id }}/like">{{ feedcomment.liked_users.count }} 댓추 </a>
-              <a href="/feeds/{{ feed.id }}/comments/{{ c.id }}/dislike">{{ feedcomment.disliked_users.count }} 댓비추 </a>
+              {% if request.user == c.author %}                  
               <button>댓글 삭제</button>
               {% endif %}
             </form>

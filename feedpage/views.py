@@ -92,21 +92,23 @@ def userinfo(request):
     return render(request, 'feedpage/mypage.html', {'feeds':feeds})
 
 
-def comment_like(request, cpk):
-    feedcomment = FeedComment.objects.get(id = cpk)
+def comment_like(request, pk, cpk):
+    feed= Feed.objects.get(id = pk)
+    feedcomment = feed.feedcomment_set.get(id = cpk)
     commentlike_list = feedcomment.commentlike_set.filter(user_id = request.user.id)
     if commentlike_list.count() > 0:
-        comment.like_set.get(user_id = request.user.id).delete()
+        feedcomment.like_set.get(user_id = request.user.id).delete()
     else:
-        CommentLike.objects.create(user_id = request.user.id, comment_id = c.id)
+        CommentLike.objects.create(user_id = request.user.id, feed_id=feed.id, comment_id = c.id)
     return redirect ('/home')
 
-def comment_dislike(request, cpk):
-    feedcomment = FeedComment.objects.get(id = cpk)
+def comment_dislike(request, pk, cpk):
+    feed= Feed.objects.get(id = pk)
+    feedcomment = feed.feedcomment_set.get(id = cpk)
     commentdislike_list = feedcomment.commentdislike_set.filter(user_id = request.user.id)
     if commentdislike_list.count() > 0:
-        comment.dislike_set.get(user_id = request.user.id).delete()
+        feedcomment.dislike_set.get(user_id = request.user.id).delete()
     else:
-        CommentDislike.objects.create(user_id = request.user.id, comment_id = c.id)
+        CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id, comment_id = c.id)
     return redirect ('/home')
     

@@ -13,7 +13,7 @@ urlpatterns = [
     path('<int:pk>/sunny/', views.feed_sunny, name='sunny'),
     path('<int:pk>/cloudy/', views.feed_cloudy, name='cloudy'),
     path('<int:pk>/rainy/', views.feed_rainy, name='rainy'),
-    path('<int:id>/comments/<int:cpk>/like/', views.comment_like, name='commentlike'),
-    path('<int:id>/comments/<int:cpk>/dislike/', views.comment_dislike, name='commentdislike'),
+    path('<int:pk>/comments/<int:cpk>/like/', views.comment_like, name='comment_like'),
+    path('<int:pk>/comments/<int:cpk>/dislike/', views.comment_dislike, name='comment_dislike'),
     
 ]
