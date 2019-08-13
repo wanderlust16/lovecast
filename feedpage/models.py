@@ -3,11 +3,9 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver   
-from taggit.managers import TaggableManager
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
-
-
+from nicky.base import Nicky
 
 class Feed(models.Model):
     title = models.CharField(max_length=256)
@@ -22,16 +20,19 @@ class Feed(models.Model):
     sunny_users = models.ManyToManyField(User, blank=True, related_name='feeds_sunny', through='Sunny')
     cloudy_users = models.ManyToManyField(User, blank=True, related_name='feeds_cloudy', through='Cloudy')
     rainy_users = models.ManyToManyField(User, blank=True, related_name='feeds_rainy', through='Rainy')
+    nickname=models.CharField(max_length=200, blank=True)
     photo = ProcessedImageField(upload_to= 'feed_photos',
                                 processors=[ResizeToFill(600, 800)],
-                                options={'quality': 90})
+                                options={'quality': 90})     
+    hashtag_str=models.TextField(blank=True)
+
     def update_date(self):
         self.updated_at = timezone.now()
         self.save()
 
     def __str__(self):
         return self.title
-
+ 
 class Profile(models.Model):   
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     nickname = models.CharField(max_length=20, blank=True)
@@ -61,6 +62,11 @@ class FeedComment(models.Model):
     def __str__(self):
         return str(self.id)
 
+#class CommentLike(models.Model):
+#   user = models.ForeignKey(User, on_delete=models.CASCADE)
+#   comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
+#   created_at = models.DateTimeField(auto_now_add=True)
+
 class Sunny(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
@@ -76,3 +82,6 @@ class Rainy(models.Model):
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+#class HashTags(models.Model):
+#    feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
+#    content = models.TextField()

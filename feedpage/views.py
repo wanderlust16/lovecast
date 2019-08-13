@@ -4,11 +4,17 @@ from django.db.models import Count
 from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
+from nicky.base import Nicky
+from django.http import HttpResponse
 
 def index(request):
     if request.method == 'GET': 
-        feeds = Feed.objects.all()
-        ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total')
+        sort = request.GET.get('sort','')
+        ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total','-updated_at')
+        if sort == 'forecasts':
+            feeds=ranking
+        else:
+            feeds=Feed.objects.order_by('-created_at')
         return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking})
     elif request.method == 'POST': 
         title = request.POST['title']
@@ -18,7 +24,10 @@ def index(request):
         cloudy_content= request.POST['cloudy_content']
         rainy_content=request.POST['rainy_content']
         anonymous=request.POST.get('anonymous') == 'on'
-        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous)
+        hashtags=request.POST['hashtags']
+        nicky=Nicky()
+        nickname = nicky.get_nickname()
+        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous, nickname=nickname, hashtag_str=hashtags)
         return redirect('/home')
 
 def new(request):
@@ -84,12 +93,17 @@ def feed_rainy(request, pk):
         Rainy.objects.create(user_id = request.user.id, feed_id = feed.id)
     return redirect ('/home')
 
-def userinfo(request):
-    c_user= request.user
-    c_profile=Profile.objects.get(user=c_user)
+def mypage(request):
     feeds = Feed.objects.all()
     return render(request, 'feedpage/mypage.html', {'feeds':feeds})
 
-
-    
-    
+def search(request): # 해쉬태그 검색 + 결과보여주는 함수
+    feeds=Feed.objects.all()
+    hashtags = request.GET.get('hashtags','')
+    for f in feeds:
+        keyword=f.hashtag_str.split("#")[1:]
+        print(keyword)
+        if hashtags in keyword:
+            feeds= feeds.filter(hashtag_str__icontains=hashtags)
+            return render(request, 'feedpage/search.html', {'feeds':feeds})
+        
