@@ -1,22 +1,178 @@
-<h1> Sign Up! </h1>
+<!DOCTYPE html>
 
-<form method="POST" action="{%url 'signup'%}">
+{% load staticfiles%}
+    <html>
+        <head>
+            <meta charset="utf-8"
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--최신 인터넷 익스플로러로 구동한다-->
+            <meta name="viewport" content="width=device-width, initial-scale">  <!--반응형 웹페이지 선언-->
+
+            <title>오늘의 연애</title>  <!--웹페이지 이름-->
+
+            <!-- saved from url=(0013)about:internet --> <!--인터넷 익스플로러에서 발생하는 js 경고문 예방구문-->
+
+            <!-- icon link -->
+            <script src="https://kit.fontawesome.com/55af2b838e.js"></script>
+
+            <!-- font link 폰트:나눔고딕 -->
+            <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap" rel="stylesheet">
+
+            <!-- user style -->
+            <link rel="stylesheet"  href="{% static 'accounts/signup.css' %}" />  <!--사용자가 만든 css 파일을 쓴다는 의미-->
+
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+            <script src="{% static 'accounts/signup.js' %}"></script>
+
+        </head>
+
+        <body>
+            <div class = "background">
+                    <div class = "square">
+                    <img style= "margin: 0; padding: 0; width: 100%;" src="{% static 'accounts/img/black_bg2.jpg' %}"/>
+                            <div class = "signup_area">
+                            <form method="POST" action="{%url 'signup'%}" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                                <img style= "position: absolute; width: auto; height: 670px;" src="{% static 'accounts/img/logo_bg.png' %}"/>
+                                <p1> 오늘의 연애에 오신 것을 환영합니다! </p1>
+                                <p2> 당신의 연애전선은 어떤가요? </p2>
+
+                                
+                                <div class = "essential_box">
+                                    <p3> * 필수정보 </p1>
+
+                                    <div class="container">
+	                                    <div class="input">
+		                                    <input name="input" id="file" type="file">
+	                                    </div>
+                                    </div>
+
+                                    <div class = "email_box">
+                                        <label for="email_text">이메일</label>
+                                        <input type="text" name="username" value="" id="email_text">
+                                    </div>
+                                    
+                                    <div class = "password_box1">
+                                        <label for="password_text">비밀번호</label>
+                                        <input type="password" name="password1" value="" id="password_text">
+                                    </div>
+
+                                    <div class = "password_box2">
+                                        <label for="password_text">비밀번호 확인</label>
+                                        <input type="password" name="password2" value="" id="password_text">
+                                    </div>
+
+                                    <div class = "nickname_box">
+                                        <label for="nickname_text">닉네임</label>
+                                        <input type="text" name="nickname" value="" id="password_text">
+                                    </div>
+
+                                </div>
+
+                                <div class = "selection_box">
+                                    <p4> * 선택정보 </p4>
+
+                                    <div class = "gender">
+                                        <label for="gender_text">성별</label>
+                                        <div class = "gender_select">
+                                            <ul>
+                                            <li>
+                                                <input type="radio" id="f-option" name="gender"> 
+                                                <label for="f-option">남</label>
+                                                <div class="check"></div>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="s-option" name="gender">
+                                                <label for="s-option">여</label>
+                                                <div class="check"></div>
+                                            </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                    
+                                    <div class = "age">
+                                        <label for="age_text">나이</label>
+                                        <div class="select-style">
+                                            <select name = "age">
+                                                <option > - </option>
+                                                <option >15  -  19 </option>
+                                                <option >20  -  25 </option>
+                                                <option >26  -  30 </option>
+                                                <option >31  -  35 </option>
+                                                <option >36  -  40 </option>
+                                                <option >41  -  45 </option>
+                                            </select>
+                                        </div>
+                                    </div>                                   
+                                  
+                                    <div class = "lovestatus">
+                                        <label for="lovestatus_text">연애 정보</label>
+                                        <div class="select-style-2">
+                                            <select name = "lovestatus">
+                                                <option> - </option>
+                                                <option>연애 중 </option>
+                                                <option>빛나는 솔로 </option>
+                                                <option>복잡한 연애 중 </option>
+                                                <option>기혼 </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class = "submit_box">
+                                <div class = "submit_button">
+                                    <input type="submit" value="가 입 하 기">
+                                </div>
+                            </div>
+                            
+                            </form>
+                            </div>
+                    </div>
+            </div>
+        
+        </body>
+
+
+
+<!-- <h1> 오늘의 연애에 오신 것을 환영합니다! </h1>
+<h2> 당신의 연애전선은 어떤가요? </h2>
+
+<h3>*필수정보</h3>
+<form method="POST" action="{%url 'signup'%}" enctype="multipart/form-data">
     {% csrf_token %}
     이메일:
     <br>
     <input name="username" type="text" value="">
     <br>
     <br>
-    성별:
+    비밀번호:
     <br>
-    남<input name="gender" type="radio" value="남">
-    여<input name="gender" type="radio" value="여">
+    <input name="password1" type="password" value="">
+    <br>
+    <br>
+    <input name="password1" type="password" value="">
+    <br>
+    <br>
+    비밀번호 확인:
+    <br>
+    <input name="password2" type="password" value="">
     <br>
     <br>
     닉네임:
     <br>
     <input name="nickname" type="text" value="">
     <br>
+
+
+    <h3>*선택사항</h3>
+    
+    성별:
+    <br>
+    <br>
+    남<input name="gender" type="radio" value="남">
+    여<input name="gender" type="radio" value="여">
+    <br>
+    
     <br>
     나이:
     <select name="age">
@@ -28,11 +184,12 @@
         <option>24</option>
         <option>25</option>
     </select>
+    세
     <br>
     <br>
-    연애 상태
+    연애 정보
     <select name="status">
-        <option>--</option>
+        <option> - - </option>
         <option>연애 중</option>
         <option>SOLO~</option>
         <option>복잡한 연애 중</option>
@@ -40,15 +197,7 @@
     </select>
     <br>
     <br>
-    비밀번호:
-    <br>
-    <input name="password1" type="password" value="">
-    <br>
-    <br>
-    비밀번호 확인:
-    <br>
-    <input name="password2" type="password" value="">
-    <br>
-    <br>
+    프로필 사진 
+    <input name="profile_photo" type="file" /> <br />
     <input type="submit" value="Sign Up!">
-</form>
+</form> -->
