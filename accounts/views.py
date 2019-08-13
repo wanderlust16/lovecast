@@ -13,7 +13,7 @@ def signup(request):
             nickname= request.POST['nickname']
             gender= request.POST['gender']
             age= request.POST['age']
-            status= request.POST['status']
+            lovestatus= request.POST['lovestatus']
             profile_photo = request.FILES.get('profile_photo', False)
             for user in User.objects.all():
                 if hasattr(user,'Profile') and not user.Profile:
@@ -22,7 +22,7 @@ def signup(request):
             user.profile.nickname=nickname
             user.profile.age=age
             user.profile.gender=gender
-            user.profile.status=status
+            user.profile.lovestatus=lovestatus
             user.profile.profile_photo=profile_photo
             auth.login(request, user)
             return redirect('/home')

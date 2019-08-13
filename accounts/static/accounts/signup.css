@@ -353,18 +353,6 @@ input[type="submit" i] {
 
 }
 
-/* 프로필 넣기 */
-
-.profile_box {
-    position: absolute;
-    width: 135px;
-    height: 135px;
-    left: 355px;
-    top: 60px;
-    border: #483e80 solid 2px;
-    border-radius: 100%;
-
-}
 
 /* 프로필 사진 */
 
@@ -373,8 +361,7 @@ input[type="submit" i] {
 	width: 135px;
     height: 135px;
     left: 355px;
-    top: 40px;
-	margin: 50px auto;
+    top: 30px;
 
 }
 
@@ -384,7 +371,17 @@ input[type="submit" i] {
 
 #file{
 	display: none;
-  	margin: 0 auto;
+    margin: 0 auto;
+
+}
+
+#uploadImg {
+    width: 135px;
+    height: 135px;
+    left: 355px;
+    top: 60px;
+    border: #483e80 solid 2px;
+    border-radius: 100%;
 }
 
 #upload{
@@ -392,8 +389,10 @@ input[type="submit" i] {
 	padding: 10px 25px;
     border: 0;
     border-radius: 20px;
-	margin: 0 auto;
-    font-size: 12px;
+    margin-top: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 11px;
     font-weight: 400;
 	letter-spacing: 0.05em;
 	cursor: pointer;

@@ -14,5 +14,7 @@ urlpatterns = [
     path('<int:pk>/cloudy/', views.feed_cloudy, name='cloudy'),
     path('<int:pk>/rainy/', views.feed_rainy, name='rainy'),
     path('search/',views.search, name='search'),
+    path('<int:pk>/comments/<int:cpk>/like/', views.comment_like, name='comment_like'),
+    path('<int:pk>/comments/<int:cpk>/dislike/', views.comment_dislike, name='comment_dislike'),
     
 ]
