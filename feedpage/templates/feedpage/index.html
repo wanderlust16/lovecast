@@ -6,6 +6,9 @@
     <body>
       {% if user.is_authenticated %}        
         <a href = "/home/new"> 글쓰기 </a>
+        {% for forecast in forecasts %}
+        알림:{{ forecast.title }}
+        {% endfor %}
       {% endif %}   
       <br>
       <br>
@@ -73,6 +76,8 @@
 
           {% for c in feed.feedcomment_set.all %}
             <p>{{ c.content }}</p>
+            <a href="/home/{{ feed.id }}/comments/{{ c.id }}/like">{{ c.liked_users.count }} 댓추 </a>
+            <a href="/home/{{ feed.id }}/comments/{{ c.id }}/dislike">{{ c.disliked_users.count }} 댓비추 </a>
 
             <form action="/home/{{ feed.id }}/comments/{{ c.id }}/" method="POST">
               {% csrf_token %}
@@ -86,6 +91,7 @@
             <input type="text" name="content" />
             <button type="submit">댓글 달기</button>
           </form>
+
         </div>
       {% endfor %} 
 

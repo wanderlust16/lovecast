@@ -3,7 +3,7 @@
 * {                  /* *은 공통 부분을 의미 */
     margin: 0;
     padding: 0;
-
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 body {
@@ -27,6 +27,7 @@ body {
     position: relative;
     width: 1600px;
     height: auto;
+ 
 }
 
 .signup_area {                                   /* 회원가입 전체 영역 */
@@ -38,7 +39,6 @@ body {
     background-color: white;
     left: 480px;
     top: 140px;
-
 }
 
 p1 {
@@ -49,6 +49,7 @@ p1 {
     top: 50px;
     left: 60px;
     display: block;
+
 
 }
 
