@@ -59,13 +59,10 @@ class FeedComment(models.Model):
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE) 
+    liked_users = models.ManyToManyField(User, blank=True, related_name='comments_liked', through='CommentLike') 
+    disliked_users = models.ManyToManyField(User, blank=True, related_name='comments_disliked', through='CommentDislike')
     def __str__(self):
         return str(self.id)
-
-#class CommentLike(models.Model):
-#   user = models.ForeignKey(User, on_delete=models.CASCADE)
-#   comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
-#   created_at = models.DateTimeField(auto_now_add=True)
 
 class Sunny(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -82,6 +79,18 @@ class Rainy(models.Model):
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-#class HashTags(models.Model):
-#    feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
-#    content = models.TextField()
+class CommentLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    feed = models.ForeignKey(Feed, on_delete=models.CASCADE )
+    comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class CommentDislike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
+    comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Notifs(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(null=True, blank=True)

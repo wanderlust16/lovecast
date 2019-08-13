@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
-from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy
+from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, Notifs,CommentLike, CommentDislike
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 from nicky.base import Nicky
@@ -102,8 +102,37 @@ def search(request): # 해쉬태그 검색 + 결과보여주는 함수
     hashtags = request.GET.get('hashtags','')
     for f in feeds:
         keyword=f.hashtag_str.split("#")[1:]
-        print(keyword)
         if hashtags in keyword:
             feeds= feeds.filter(hashtag_str__icontains=hashtags)
             return render(request, 'feedpage/search.html', {'feeds':feeds})
+
+def comment_like(request, pk, cpk):
+    feed= Feed.objects.get(id = pk)
+    feedcomment = feed.feedcomment_set.get(id = cpk)
+    commentlike_list = feedcomment.commentlike_set.filter(user_id = request.user.id)
+    if commentlike_list.count() > 0:
+        feedcomment.like_set.get(user_id = request.user.id).delete()
+    else:
+        CommentLike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
+    return redirect ('/home')
+
+def comment_dislike(request, pk, cpk):
+    feed= Feed.objects.get(id = pk)
+    feedcomment = FeedComment.objects.get(id = cpk)
+    commentdislike_list = feedcomment.commentdislike_set.filter(user_id = request.user.id)
+    if commentdislike_list.count() > 0:
+        feedcomment.dislike_set.get(user_id = request.user.id).delete()
+    else:
+        CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
+    return redirect ('/home')
         
+def notify(request):
+    new = Notifs.objects.filter(user=request.user)
+    if new:
+        new.update(timestamp=timezone.now())
+    else:
+        Notifs.objects.create(user=request.user, timestamp=timezone.now())
+    last_checked = Notifs.objects.values_list('timestamp', flat=True).get(user=request.user)
+    forecasts= Sunny.objects.filter(feed__user = request.user, created_at__gte=last_checked).order_by('-id')
+    print(forecasts)
+    return render(request, 'feedpage/notify.html', {'forecasts': forecasts})
