@@ -358,7 +358,7 @@ input[type="submit" i] {
 
 .container{
     position: absolute;
-	width: 135px;
+	width: 140px;
     height: 135px;
     left: 355px;
     top: 30px;
@@ -411,5 +411,7 @@ input[type="submit" i] {
 
 img{
 	display: block;
-	margin: 0 auto 15px;
+    margin-bottom: 13px;
+    margin-left: auto;
+    margin-right: auto;
 }
