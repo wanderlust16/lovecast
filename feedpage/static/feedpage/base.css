@@ -94,11 +94,11 @@ header {
 /* 로그아웃 마이페이지 버튼 */
 
 
-.username   {
+.username  {
     color: white;
     text-decoration: none;
     position: relative;
-    margin: 10px;
+    margin: 12px;
     font-size: 15px;
   }
   
@@ -108,7 +108,7 @@ header {
     color: rgba(255,255,255, 50%);
     text-decoration: none;
     position: relative;
-    margin: 10px;
+    margin: 12px;
     font-size: 15px;
   }
   
