@@ -33,7 +33,7 @@
 
         <div class = "left" sytle ="text-align: center;">
           <form action="/home/search" method="get">
-            <input type="text" name="hashtags" value="{{ hashtags }}">
+            <input type="text" id="search_box" name="hashtags" value="{{ hashtags }}">
             <button type="submit" id="search_button"><i class="fa fa-search fa-lg" style= "color: #ffffff;"></i></button>
           </form>
         </div>
@@ -41,12 +41,12 @@
       
         <div class = "right" style="text-align: right;">
 
-            <div class = "username">
+            <a class = "username">
               {% if user.is_authenticated %}
                 {{  user.profile.nickname }}님
-            </div>
-            <p1><a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a></p1>
-            <p2><a href="{% url 'mypage'%}">마이페이지</a></p2>
+            </a>
+            <p1><a class = "logout" href="{% url 'logout'%}?next={{request.path}}">로그아웃</a></p1>
+            <p2><a class = "mypage" href="{% url 'mypage'%}">마이페이지</a></p2>
             <button type="submit" id="alarm_button"></i><i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></button>
           {% else %}
             <a href="{% url 'signup' %}">회원가입</a>
