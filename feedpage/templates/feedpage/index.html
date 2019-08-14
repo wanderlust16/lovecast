@@ -40,15 +40,17 @@
           {% else %}
             <p>글쓴이: {{ feed.author.profile.nickname }} </p>
           {% endif %}
+          <!--------------------->
+          
           <p>글 제목: {{ feed.title }}</p>
-
           
-          {% for pic in feed.feed_photos.all %}
-          <div style="border: 1px solid rgb(122, 221, 76);">
-            <img  src="{{ pic.photo.url }}"  alt="">
-          </div>
-          {% endfor %}
-          
+          <!--사진 여러 장 보여주기 -->
+          {% if feed.feed_photos %} 
+            {% for pic in feed.feed_photos.all %}
+              <img  src="{{ pic.photo.url }}"  alt="">
+            {% endfor %}
+          {% endif %}
+          <!--------------------->
 
           <p>{{ feed.content }}</p>
           <p>{{ feed.hashtag_str }}</p>

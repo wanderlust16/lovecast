@@ -11,7 +11,6 @@ class Photos(models.Model):
     photo = ProcessedImageField(upload_to= 'feed_photos',
                                 processors=[ResizeToFill(600, 800)],
                                 options={'quality': 90})
-    
 class Feed(models.Model):
     title = models.CharField(max_length=256)
     content = models.TextField()
@@ -36,9 +35,6 @@ class Feed(models.Model):
     def __str__(self):
         return self.title
 
- 
-    
-    
 class Profile(models.Model):   
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     nickname = models.CharField(max_length=20, blank=True)
