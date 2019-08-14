@@ -7,6 +7,10 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from nicky.base import Nicky
 
+class Photos(models.Model):
+    photo = ProcessedImageField(upload_to= 'feed_photos',
+                                processors=[ResizeToFill(600, 800)],
+                                options={'quality': 90})
 class Feed(models.Model):
     title = models.CharField(max_length=256)
     content = models.TextField()
@@ -21,9 +25,7 @@ class Feed(models.Model):
     cloudy_users = models.ManyToManyField(User, blank=True, related_name='feeds_cloudy', through='Cloudy')
     rainy_users = models.ManyToManyField(User, blank=True, related_name='feeds_rainy', through='Rainy')
     nickname=models.CharField(max_length=200, blank=True)
-    photo = ProcessedImageField(upload_to= 'feed_photos',
-                                processors=[ResizeToFill(600, 800)],
-                                options={'quality': 90})     
+    feed_photos = models.ManyToManyField(Photos, blank=True, related_name='feed_photo')
     hashtag_str=models.TextField(blank=True)
 
     def update_date(self):
@@ -32,7 +34,7 @@ class Feed(models.Model):
 
     def __str__(self):
         return self.title
- 
+
 class Profile(models.Model):   
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     nickname = models.CharField(max_length=20, blank=True)

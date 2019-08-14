@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
-from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, Notifs,CommentLike, CommentDislike
+from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, Notifs,CommentLike, CommentDislike, Photos
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 from nicky.base import Nicky
@@ -19,7 +19,6 @@ def index(request):
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
-        photo =  request.FILES.get('photo', False)
         sunny_content =request.POST['sunny_content']
         cloudy_content= request.POST['cloudy_content']
         rainy_content=request.POST['rainy_content']
@@ -27,7 +26,23 @@ def index(request):
         hashtags=request.POST['hashtags']
         nicky=Nicky()
         nickname = nicky.get_nickname()
-        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous, nickname=nickname, hashtag_str=hashtags)
+        new=Feed.objects.create(
+                title=title,
+                content=content,author=request.user, 
+                sunny_content=sunny_content, 
+                cloudy_content=cloudy_content, 
+                rainy_content=rainy_content, 
+                anonymous=anonymous, 
+                nickname=nickname, 
+                hashtag_str=hashtags, 
+                )
+        for afile in request.FILES.getlist('photo', False):
+            photos = Photos()
+            photos.photo=afile
+            photos.save()
+            new.feed_photos.add(photos)
+            new.save()
+        print(new.feed_photos.all())
         return redirect('/home')
 
 def new(request):
@@ -111,7 +126,7 @@ def comment_like(request, pk, cpk):
     feedcomment = feed.feedcomment_set.get(id = cpk)
     commentlike_list = feedcomment.commentlike_set.filter(user_id = request.user.id)
     if commentlike_list.count() > 0:
-        feedcomment.like_set.get(user_id = request.user.id).delete()
+        feedcomment.commentlike_set.get(user_id = request.user.id).delete()
     else:
         CommentLike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
@@ -121,7 +136,7 @@ def comment_dislike(request, pk, cpk):
     feedcomment = FeedComment.objects.get(id = cpk)
     commentdislike_list = feedcomment.commentdislike_set.filter(user_id = request.user.id)
     if commentdislike_list.count() > 0:
-        feedcomment.dislike_set.get(user_id = request.user.id).delete()
+        feedcomment.commentdislike_set.get(user_id = request.user.id).delete()
     else:
         CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
