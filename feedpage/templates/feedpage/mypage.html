@@ -1,62 +1,68 @@
-
-{% extends 'base.html' %}
-
-{% block content %}
-
-
 <!DOCTYPE html>
-
+{% extends 'base.html' %}
+{% block content %}
 {% load staticfiles%}
-    <html>
-      <head>
-        <meta charset="utf-8"
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--최신 인터넷 익스플로러로 구동한다-->
-        <meta name="viewport" content="width=device-width, initial-scale">  <!--반응형 웹페이지 선언-->
-
-        <title>오늘의 연애</title>  <!--웹페이지 이름-->
-
-        <!-- saved from url=(0013)about:internet --> <!--인터넷 익스플로러에서 발생하는 js 경고문 예방구문-->
-
-        <!-- icon link -->
-        <script src="https://kit.fontawesome.com/55af2b838e.js"></script>
-
-        <!-- font link 폰트:나눔고딕 -->
-        <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
-
-        <!-- user style -->
-        <link rel="stylesheet"  href="{% static 'feedpage/mypage.css' %}" />  <!--사용자가 만든 css 파일을 쓴다는 의미-->
-
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="{% static 'accounts/base.js' %}"></script>
-
-      </head>
 
 
-<h2>My Page</h2>
-<p>닉네임: {{ user.profile.nickname}} </p>
-<p> 나이: {{user.profile.age}} </p>
-<p> 성별: {{user.profile.gender}} </p>
-<p> 연애 상태: {{user.profile.status}}</p>
-<p>프로필 사진: </p> <img  src="{{ user.profile.profile_photo.url }}"  alt=""> 
-<p>내가 쓴 글</p>
-{% for feed in feeds %}
-<div style="border: 1px solid palevioletred;">
-    {% if request.user == feed.author %}
-    <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
-    {% endif %}  
-</div>
-{% endfor %} 
+<!-- css style -->
+<link rel="stylesheet"  href="{% static 'feedpage/mypage.css' %}" /> 
 
-<br>
-<br>
-<p>내가 예보한 글</p>
-{% for feed in feeds %}
-<div style="border: 1px solid blue;">
-    {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
-    <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
-    {% endif %}
-</div>
-{% endfor %} 
-<a href = "/home/"> 홈</a>
+      <div class = "all_body">
+      
+        <p>닉네임: {{ user.profile.nickname}} </p>
+        <p> 나이: {{user.profile.age}} </p>
+        <p> 성별: {{user.profile.gender}} </p>
+        <p> 연애 상태: {{user.profile.status}}</p>
+        <p>프로필 사진: </p> <img  src="{{ user.profile.profile_photo.url }}"  alt=""> 
+        <p>내가 쓴 글</p>
+        {% for feed in feeds %}
+        <div style="border: 1px solid palevioletred;">
+            {% if request.user == feed.author %}
+            <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+            {% endif %}  
+        </div>
+        {% endfor %} 
+
+        <br>
+        <br>
+        <p>내가 예보한 글</p>
+        {% for feed in feeds %}
+        <div style="border: 1px solid blue;">
+            {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
+            <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+            {% endif %}
+        </div>
+        {% endfor %} 
+        <a href = "/home/"> 홈</a>
+
+      </div>
 
 {% endblock content %}
+
+
+
+<!-- <p>닉네임: {{ user.profile.nickname}} </p>
+        <p> 나이: {{user.profile.age}} </p>
+        <p> 성별: {{user.profile.gender}} </p>
+        <p> 연애 상태: {{user.profile.status}}</p>
+        <p>프로필 사진: </p> <img  src="{{ user.profile.profile_photo.url }}"  alt=""> 
+        <p>내가 쓴 글</p>
+        {% for feed in feeds %}
+        <div style="border: 1px solid palevioletred;">
+            {% if request.user == feed.author %}
+            <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+            {% endif %}  
+        </div>
+        {% endfor %} 
+
+        <br>
+        <br>
+        <p>내가 예보한 글</p>
+        {% for feed in feeds %}
+        <div style="border: 1px solid blue;">
+            {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
+            <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+            {% endif %}
+        </div>
+        {% endfor %} 
+        <a href = "/home/"> 홈</a> -->
