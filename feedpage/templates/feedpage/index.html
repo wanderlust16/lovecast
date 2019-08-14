@@ -43,9 +43,11 @@
           <p>글 제목: {{ feed.title }}</p>
 
           
-            {% for pic in photos %}
-              <img  src="{{ pic.url }}"  alt="">
-            {% endfor %}
+          {% for pic in feed.feed_photos.all %}
+          <div style="border: 1px solid rgb(122, 221, 76);">
+            <img  src="{{ pic.photo.url }}"  alt="">
+          </div>
+          {% endfor %}
           
 
           <p>{{ feed.content }}</p>

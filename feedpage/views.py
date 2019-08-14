@@ -26,8 +26,6 @@ def index(request):
         hashtags=request.POST['hashtags']
         nicky=Nicky()
         nickname = nicky.get_nickname()
-        photos = Photos()
-        
         new=Feed.objects.create(
                 title=title,
                 content=content,author=request.user, 
@@ -39,9 +37,12 @@ def index(request):
                 hashtag_str=hashtags, 
                 )
         for afile in request.FILES.getlist('photo', False):
+            photos = Photos()
             photos.photo=afile
             photos.save()
-        photos.feed=new
+            new.feed_photos.add(photos)
+            new.save()
+        print(new.feed_photos.all())
         return redirect('/home')
 
 def new(request):
