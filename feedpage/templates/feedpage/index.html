@@ -22,30 +22,32 @@
       <!--------------------->
       <br>
       <br>
+      <!--최신순/인기순 정렬 -->
+      <select id="sort-select" onchange="location = this.value;">
+        <option class="sort-date" value="/">최신순</option>
+        <option class="sort-likes" value="?sort=forecasts">인기순</option>
+      </select>
+      <!--------------------->
       {% for feed in feeds %}
-        <!--최신순/인기순 정렬 -->
-        <select id="sort-select" onchange="location = this.value;">
-          <option class="sort-date" value="/">최신순</option>
-          <option class="sort-likes" value="?sort=forecasts">인기순</option>
-        </select>
-        <!--------------------->
         <div style="border: 1px solid palevioletred;">
           <a href="/home/{{ feed.id }}">더보기</a>
           {% if request.user == feed.author %}                                      
             <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
           {% endif %}
-        
-
-          
-          {% if feed.anonymous %} <!--익명이면 무작위 닉네임이 뜨도록하는 if문 -->
+          <!--익명이면 무작위 닉네임이 뜨도록하는 if문 -->
+          {% if feed.anonymous %} 
             <p>글쓴이: {{feed.nickname}}</p>
           {% else %}
             <p>글쓴이: {{ feed.author.profile.nickname }} </p>
           {% endif %}
           <p>글 제목: {{ feed.title }}</p>
-          {% if  feed.photo %}
-            <img  src="{{ feed.photo.url }}"  alt="">
-          {% endif %}
+
+          
+            {% for pic in photos %}
+              <img  src="{{ pic.url }}"  alt="">
+            {% endfor %}
+          
+
           <p>{{ feed.content }}</p>
           <p>{{ feed.hashtag_str }}</p>
 

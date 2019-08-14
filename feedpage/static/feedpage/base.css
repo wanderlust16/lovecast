@@ -1,0 +1,125 @@
+
+/* 공통부분 */
+* {                 
+    margin: 0;
+    padding: 0;
+
+}
+
+
+header {
+    position: fixed;
+    height: 55px;
+    z-index: 99;
+    width: 100%;
+    background: rgb(93,77,146);
+    background: linear-gradient(90deg, rgba(93,77,146,1) 5%, rgba(93,77,146,1) 30%, rgba(241,154,152,1) 85%, rgba(245,181,161,1) 100%);
+}
+
+.logo {
+    position: fixed;
+    width: 90px;
+    height: auto;
+    margin-left: 100px;
+    top: 15px;
+}
+
+
+.left {
+    position: fixed;
+    width: 500px;
+    height: 44px;
+    left: 220px;
+    top: 14px;
+}
+
+@media (max-width: 621px) {
+    .left {
+        display: none;                              /* 웹이 992px보다 커지면 토글 버튼이 보이지 않게 하는 설정 */
+    }
+}
+
+
+.right {
+    color: white;
+    position: fixed;
+    width: 280px;
+    height: auto;
+    right: 130px;
+    top: 18px;
+    font-size: 15px;
+
+}
+
+@media (max-width: 992px) {
+    .right {
+        display: none;                              /* 웹이 992px보다 커지면 토글 버튼이 보이지 않게 하는 설정 */
+    }
+}
+
+
+
+
+.username {
+    position: absolute;
+    margin-right: 20px;
+}
+
+input[type="text"] {
+    font-size: 12px;
+    width: 350px;
+    height: 26px;
+    border-radius: 16px;
+    border: 0px;
+    background: rgba(255,255,255, 36%);
+    text-align-last:center;
+}
+
+#search_button {
+    position: absolute;
+    background: rgba(255,255,255, 0%);
+    border: 0px;
+    width: 20px;
+    height: 20px;
+    right: 165px;
+    top: 4px;
+}
+
+#alarm_button {
+    position: absolute;
+    background: rgba(255,255,255, 0%);
+    border: 0px;
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+
+}
+
+/* 로그아웃 마이페이지 버튼 */
+
+
+a {
+    color: rgba(255,255,255, 50%);
+    text-decoration: none;
+    position: relative;
+    margin: 10px;
+    font-size: 15px;
+  }
+  
+  a::after {
+    position: absolute;
+    content: "";
+    border-radius: 30px;
+    background: white;
+      mix-blend-mode: exclusion;
+    width: calc(100% + 20px);
+    height: 0;
+    bottom: -4px;
+    left: -10px;
+      transition: all .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  }
+  
+  a:hover::after{
+      height: calc(100% + 8px)
+  }
+

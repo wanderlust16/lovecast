@@ -1,31 +1,67 @@
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <header>
-    <div style="text-align: right;">
-        {% if user.is_authenticated %}
-             {{  user.profile.nickname }}님, 안녕하세요
-             <a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a>
-             <a href="{% url 'mypage'%}">My Page</a> 
-        {% else %}
-             <a href="{% url 'signup' %}">회원가입</a>
-             <a href="{% url 'login'%}?next={{request.path}}">로그인</a>
-        {% endif %}
-    </div>
-  </header>
-  
-  <form action="/home/search" method="get">
-    해쉬태그 검색
-    <input type="text" name="hashtags" value="{{ hashtags }}">
-    <input type="submit" value="검색">
-  </form>
+
+{% load staticfiles%}
+    <html>
+      <head>
+        <meta charset="utf-8"
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--최신 인터넷 익스플로러로 구동한다-->
+        <meta name="viewport" content="width=device-width, initial-scale">  <!--반응형 웹페이지 선언-->
+
+        <title>오늘의 연애</title>  <!--웹페이지 이름-->
+
+        <!-- saved from url=(0013)about:internet --> <!--인터넷 익스플로러에서 발생하는 js 경고문 예방구문-->
+
+        <!-- icon link -->
+        <script src="https://kit.fontawesome.com/55af2b838e.js"></script>
+
+        <!-- font link 폰트:나눔고딕 -->
+        <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
+
+        <!-- user style -->
+        <link rel="stylesheet"  href="{% static 'feedpage/base.css' %}" />  <!--사용자가 만든 css 파일을 쓴다는 의미-->
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="{% static 'accounts/base.js' %}"></script>
+
+      </head>
 
 
+      <header>
 
-  <body>
-  {% block content %}
-  {% endblock %}
-  </body>
+        <img src="{% static 'feedpage/img/logo3.png' %}" class="logo"/>
+
+        <div class = "left" sytle ="text-align: center;">
+          <form action="/home/search" method="get">
+            <input type="text" name="hashtags" value="{{ hashtags }}">
+            <button type="submit" id="search_button"><i class="fa fa-search fa-lg" style= "color: #ffffff;"></i></button>
+          </form>
+        </div>
+      
+      
+        <div class = "right" style="text-align: right;">
+
+            <div class = "username">
+              {% if user.is_authenticated %}
+                {{  user.profile.nickname }}님
+            </div>
+            <p1><a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a></p1>
+            <p2><a href="{% url 'mypage'%}">마이페이지</a></p2>
+            <button type="submit" id="alarm_button"></i><i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></button>
+          {% else %}
+            <a href="{% url 'signup' %}">회원가입</a>
+            <a href="{% url 'login'%}?next={{request.path}}">로그인</a>
+          {% endif %}
+
+        </div>
+
+      </header>
+
+      <body>
+      {% block content %}
+      {% endblock %}
+      </body>
+
 </html>
+
+
