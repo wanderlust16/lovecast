@@ -5,36 +5,38 @@
 
 
 <!-- css style -->
-<link rel="stylesheet"  href="{% static 'feedpage/mypage.css' %}" /> 
-
-      <div class = "all_body">
-      
-        <p> 닉네임: {{ user.profile.nickname}} </p>
-        <p> 이메일: {{user.username}} </p>
-        <p>프로필 사진: </p> <img  src="{{ user.profile.profile_photo.url }}"  alt=""> 
-        <p>내가 쓴 글</p>
-        {% for feed in feeds %}
-        <div style="border: 1px solid palevioletred;">
-            {% if request.user == feed.author %}
-            <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
-            {% endif %}  
+<link rel="stylesheet"  href="{% static 'feedpage/mypage.css' %}" />
+    <div class="bg">
+        <img style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 50%; height: auto; min-width: 50%; min-height: 50%;" src="{% static 'feedpage/img/mypage_bg.jpg' %}"/>       
+            
+        <div class = "mypage_content">
+            <div class = "info">
+                <p1> 닉네임: {{ user.profile.nickname}} </p1>
+                <p2> 이메일: {{user.username}} </p2>
+                <p3>프로필 사진: </p3> <img  src="{{ user.profile.profile_photo.url }}"  alt=""> 
+            </div>
+            <div class = "list">
+                <p>내가 쓴 글</p>
+                {% for feed in feeds %}
+                <div style="border: 1px solid palevioletred;">
+                    {% if request.user == feed.author %}
+                    <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+                    {% endif %}  
+                </div>
+                    {% endfor %} 
+                <br>
+                <br>
+                <p>내가 예보한 글</p>
+                {% for feed in feeds %}
+                <div style="border: 1px solid blue;">
+                    {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
+                    <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+                    {% endif %}
+                </div>
+                {% endfor %} 
+            </div>
         </div>
-        {% endfor %} 
-
-        <br>
-        <br>
-        <p>내가 예보한 글</p>
-        {% for feed in feeds %}
-        <div style="border: 1px solid blue;">
-            {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
-            <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
-            {% endif %}
-        </div>
-        {% endfor %} 
-        <a href = "/home/"> 홈</a>
-
-      </div>
-
+    </div> 
 {% endblock content %}
 
 

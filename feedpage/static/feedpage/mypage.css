@@ -1,0 +1,22 @@
+
+.bg {
+  position: fixed; 
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+}
+
+.mypage_content  {
+  position: relative;
+  width: 852px;
+  min-height: 968px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 600px;
+  background: white;
+  border-radius: 5px;
+  border : white 1px solid;
+  box-shadow: 1px 3px 11px 0px rgba(146,146,146,1);
+  
+}
