@@ -11,10 +11,14 @@
             
         <div class = "mypage_content">
             <div class = "info">
-                <p1> 닉네임: {{ user.profile.nickname}} </p1>
-                <p2> 이메일: {{user.username}} </p2>
-                <p3>프로필 사진: </p3> <img  src="{{ user.profile.profile_photo.url }}"  alt=""> 
+                <p1></p1><img style = "width: 159px; height: 159px; border: 4px solid #efbc45; border-radius: 50%;" src="{{ user.profile.profile_photo.url }}"  alt="">
+                <div class = "info_specific">
+                    <p2> {{ user.profile.nickname}} </p1>
+                    <p3> {{user.username}} </p2>
+                    <p4> 병아리 등급 </p4>
+                </div>
             </div>
+
             <div class = "list">
                 <p>내가 쓴 글</p>
                 {% for feed in feeds %}
