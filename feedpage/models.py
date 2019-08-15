@@ -25,7 +25,7 @@ class Feed(models.Model):
     cloudy_users = models.ManyToManyField(User, blank=True, related_name='feeds_cloudy', through='Cloudy')
     rainy_users = models.ManyToManyField(User, blank=True, related_name='feeds_rainy', through='Rainy')
     nickname=models.CharField(max_length=200, blank=True)
-    feed_photos = models.ManyToManyField(Photos, blank=True, related_name='feed_photo')
+    feed_photos = models.ManyToManyField(Photos, null=True, related_name='feed_photo')
     hashtag_str=models.TextField(blank=True)
 
     def update_date(self):
@@ -43,7 +43,9 @@ class Profile(models.Model):
     lovestatus= models.CharField(max_length=20, blank=True)
     profile_photo = ProcessedImageField(upload_to= 'profile_photos',
                                 processors=[ResizeToFill(300, 400)],
-                                options={'quality': 90})
+                            options={'quality': 90})               
+    score= models.IntegerField(default= 0) #user의 점수 관리
+
     def __str__(self):  
         return 'id=%d, user id=%d, gender=%s, nickname=%s, age=%s' % (self.id, self.user.id, self.gender, self.nickname, self.age)
 
