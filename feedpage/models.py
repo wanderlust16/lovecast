@@ -96,6 +96,8 @@ class CommentDislike(models.Model):
     comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+'''
 class Notifs(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(null=True, blank=True)
+'''

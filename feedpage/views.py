@@ -165,7 +165,8 @@ def comment_dislike(request, pk, cpk):
     else:
         CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
-        
+
+'''
 def notify(request):
     new = Notifs.objects.filter(user=request.user)
     if new:
@@ -176,4 +177,4 @@ def notify(request):
     forecasts= Sunny.objects.filter(feed__user = request.user, created_at__gte=last_checked).order_by('-id')
     print(forecasts)
     return render(request, 'feedpage/notify.html', {'forecasts': forecasts})
-
+'''

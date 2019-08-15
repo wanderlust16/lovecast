@@ -2,7 +2,6 @@
 
 {% block content %}
     <h1>오늘의 연애</h1>
-    
     <body>
       {% if user.is_authenticated %}        
         <a href = "/home/new"> 글쓰기 </a>
@@ -41,9 +40,7 @@
             <p>글쓴이: {{ feed.author.profile.nickname }} </p>
           {% endif %}
           <!--------------------->
-          
           <p>글 제목: {{ feed.title }}</p>
-          
           <!--사진 여러 장 보여주기 -->
           {% if feed.feed_photos %} 
             {% for pic in feed.feed_photos.all %}
