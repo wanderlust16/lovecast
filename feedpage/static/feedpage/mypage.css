@@ -23,11 +23,12 @@
 
 .info {
   position: relative;
+  display: flex;  /* 한 div 안에 display를 flex로 하면 안의 하위 요소들이 전체 규격에서 옆으로 정렬됨!! */
   width: 730px;
   height: 177px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid;
+  border: 0px solid;
   top: 70px;
 }
 
@@ -43,7 +44,45 @@
 }
 
 .info_specific {
-  position: relative;
   width: 242px;
-  height: 
+  height: auto;
+  margin-left: 21px;
+  margin-top: auto;
+  margin-bottom: auto;
+  
+}
+
+/* 닉네임 */
+.info_nickname {
+  width: 242px;
+  color: #616161;
+  font-size: 42px;
+  font-weight: 500;
+
+}
+
+/* 아이디 */
+.info_username {
+  width: 242px;
+  color: #616161;
+  font-size: 23px;
+  font-weight: 320;
+
+}
+
+.fa-cog {
+  font-size: 15px;
+  margin-left: 5px;
+  align-content: center;
+  color: #8e8e8e;
+}
+
+/* 등급 */
+.info_rank {
+  width: 242px;
+  color: #efbc45;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top : 18px;
+
 }
