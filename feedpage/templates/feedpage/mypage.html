@@ -8,6 +8,7 @@
 <p> 성별: {{user.profile.gender}} </p>
 <p> 연애 상태: {{user.profile.status}}</p>
 
+<p>등급 점수 {{ user.profile.score }}</p>
 <!--점수 기준에 대해서는 더 논의 해 볼 것.-->
 {% if user.profile.score < 100 %}
 <p> 연애 하수 </p>

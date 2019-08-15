@@ -62,11 +62,25 @@ def show(request, id):
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
+        result= request.POST['result'] #수정할 때 결과 확정 
         feed = Feed.objects.get(id=id)
         feed.title= title
         feed.content=content
+        feed.result=result
         feed.save()
         feed.update_date()
+        if feed.result=='Sunny':
+            for a in feed.sunny_users.all():
+                a.profile.score+=100
+                a.profile.save()
+        elif feed.result=='Cloudy':
+            for a in feed.cloudy_users.all():
+                a.profile.score+=100
+                a.profile.save()
+        elif feed.result=='Rainy':
+            for a in feed.rainy_users.all():
+                a.profile.score+=100
+                a.profile.save()
         return redirect('/home/'+str(id))
 
 def delete(request, id):
@@ -162,3 +176,4 @@ def notify(request):
     forecasts= Sunny.objects.filter(feed__user = request.user, created_at__gte=last_checked).order_by('-id')
     print(forecasts)
     return render(request, 'feedpage/notify.html', {'forecasts': forecasts})
+

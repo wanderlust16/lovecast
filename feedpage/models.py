@@ -27,6 +27,7 @@ class Feed(models.Model):
     nickname=models.CharField(max_length=200, blank=True)
     feed_photos = models.ManyToManyField(Photos, null=True, related_name='feed_photo')
     hashtag_str=models.TextField(blank=True)
+    result= models.CharField(default='not confirmed', max_length=200) #결과 확정. 
 
     def update_date(self):
         self.updated_at = timezone.now()
@@ -44,7 +45,7 @@ class Profile(models.Model):
     profile_photo = ProcessedImageField(upload_to= 'profile_photos',
                                 processors=[ResizeToFill(300, 400)],
                             options={'quality': 90})               
-    score= models.IntegerField(default= 0) #user의 점수 관리
+    score= models.IntegerField(default= 0) #user 등급 위한 점수 관리
 
     def __str__(self):  
         return 'id=%d, user id=%d, gender=%s, nickname=%s, age=%s' % (self.id, self.user.id, self.gender, self.nickname, self.age)

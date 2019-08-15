@@ -59,22 +59,37 @@
           <!-- SUNNY, CLOUDY, RAINY-->
           {% load mathfilters %}
           {% with total=feed.sunny_users.count|add:feed.cloudy_users.count|add:feed.rainy_users.count %}
-            {% if user not in feed.sunny_users.all and user not in feed.cloudy_users.all and user not in feed.rainy_users.all %}
-                <p> {{total}}명이 예보했습니다 </p> 
-                <a href="/home/{{ feed.id }}/sunny"> Sunny {{feed.sunny_content}}</a>
-                <a href="/home/{{ feed.id }}/cloudy"> Cloudy {{feed.cloudy_content}}</a>
-                <a href="/home/{{ feed.id }}/rainy"> Rainy {{feed.rainy_content}}</a> 
+
+            {% if feed.result == 'not confirmed' %}
+              {% if user not in feed.sunny_users.all and user not in feed.cloudy_users.all and user not in feed.rainy_users.all %}
+                  <p> {{total}}명이 예보했습니다 </p> 
+                  <a href="/home/{{ feed.id }}/sunny"> Sunny {{feed.sunny_content}}</a>
+                  <a href="/home/{{ feed.id }}/cloudy"> Cloudy {{feed.cloudy_content}}</a>
+                  <a href="/home/{{ feed.id }}/rainy"> Rainy {{feed.rainy_content}}</a> 
+              {% else %}
+                <p> {{total}}명이 예보했습니다 </p>
+                  {% if not total %}
+                    <a href="/home/{{ feed.id }}/sunny"> 0% Sunny</a>
+                    <a href="/home/{{ feed.id }}/cloudy"> 0% Cloudy</a>
+                    <a href="/home/{{ feed.id }}/rainy"> 0% Rainy</a>
+                  {% else %}
+                    <a href="/home/{{ feed.id }}/sunny"> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
+                    <a href="/home/{{ feed.id }}/cloudy">{{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}% Cloudy {{feed.cloudy_content}}</a>
+                    <a href="/home/{{ feed.id }}/rainy">{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a>
+                  {% endif %}
+              {% endif %}
             {% else %}
-              <p> {{total}}명이 예보했습니다 </p>
-                {% if not total %}
-                  <a href="/home/{{ feed.id }}/sunny"> 0% Sunny</a>
-                  <a href="/home/{{ feed.id }}/cloudy"> 0% Cloudy</a>
-                  <a href="/home/{{ feed.id }}/rainy"> 0% Rainy</a>
-                {% else %}
-                  <a href="/home/{{ feed.id }}/sunny"> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
-                  <a href="/home/{{ feed.id }}/cloudy">{{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}% Cloudy {{feed.cloudy_content}}</a>
-                  <a href="/home/{{ feed.id }}/rainy">{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a>
-                {% endif %}
+              <h1>투표종료 {{ feed.result }}</h1>
+              {% if not total %}
+                <a> 0% Sunny</a>
+                <a> 0% Cloudy</a>
+                <a> 0% Rainy</a>
+              {% else %}
+                <a>{{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
+                <a>{{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}% Cloudy {{feed.cloudy_content}}</a>
+                <a>{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a>
+              {% endif %}
+          
             {% endif %}
           {% endwith %}
           <!-- ################## -->
