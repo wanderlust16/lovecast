@@ -22,24 +22,41 @@
             </div>
 
             <div class = "list">
-                <p>내가 쓴 글</p>
-                {% for feed in feeds %}
-                <div style="border: 1px solid palevioletred;">
+                <div class = "written_list">
+                    <p>내가 쓴 글</p>
+                    <div class = "list_header">
+                        <p>글 제목</p> <p>작성일</p> <p>예보</p> <p>댓글</p> <p>수정/확정</p>
+                    </div>
+
+                    {% for feed in feeds %}
                     {% if request.user == feed.author %}
-                    <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+                    <a class = "content" href="/home/{{ feed.id }}">
+                        <div class = "all_content">
+                            <div class = "feed_title">{{ feed.title }}</div>
+                            <div class = "date"> 2018 . 01 . 25 </div>
+                            <div class = "forecast"> <img style = "width: 68px; height: auto; margin: 0; " src = "{% static 'feedpage/img/forecast_logo.png' %}"/></div>
+                            <div class = "forecast_number"> 255 </div>
+                            <div class = "comment"> 1200 </div>
+                            <div class = "edit_submit_button"> 수정   확정 </div>
+                        </div>
+                    </a>
                     {% endif %}  
+                    {% endfor %}
+                
+                   
                 </div>
-                    {% endfor %} 
-                <br>
-                <br>
-                <p>내가 예보한 글</p>
-                {% for feed in feeds %}
-                <div style="border: 1px solid blue;">
-                    {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
-                    <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
-                    {% endif %}
+
+                <!--<div class = "forecast_list">
+                    <p>내가 예보한 글</p>
+                    {% for feed in feeds %}
+                    <div style="border: 1px solid blue;">
+                        {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
+                        <a href="/home/{{ feed.id }}">글 제목: {{ feed.title }}</a>
+                        {% endif %}
+                        {% endfor %} 
+                    </div> -->
                 </div>
-                {% endfor %} 
+                
             </div>
         </div>
     </div> 
