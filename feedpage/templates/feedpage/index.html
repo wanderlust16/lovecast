@@ -34,16 +34,22 @@
           {% if request.user == feed.author %}                                      
             <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
           {% endif %}
+        
 
-          <p>글쓴이 {{ feed.author.username }}</p>
+          
+          {% if feed.anonymous %} <!--익명이면 무작위 닉네임이 뜨도록하는 if문 -->
+            <p>글쓴이: {{feed.nickname}}</p>
+          {% else %}
+            <p>글쓴이: {{ feed.author.profile.nickname }} </p>
+          {% endif %}
           <p>글 제목: {{ feed.title }}</p>
           {% if  feed.photo %}
             <img  src="{{ feed.photo.url }}"  alt="">
           {% endif %}
           <p>{{ feed.content }}</p>
-        
-          {% load mathfilters %} 
+          <p>{{ feed.hashtag_str }}</p>
 
+           
           <!-- SUNNY, CLOUDY, RAINY-->
           {% load mathfilters %}
           {% with total=feed.sunny_users.count|add:feed.cloudy_users.count|add:feed.rainy_users.count %}
@@ -75,7 +81,7 @@
 
             <form action="/home/{{ feed.id }}/comments/{{ c.id }}/" method="POST">
               {% csrf_token %}
-              {% if request.user == c.author %}                  
+              {% if request.user == c.author %}  
               <button>댓글 삭제</button>
               {% endif %}
             </form>
@@ -85,7 +91,7 @@
             <input type="text" name="content" />
             <button type="submit">댓글 달기</button>
           </form>
-            
+
         </div>
       {% endfor %} 
 

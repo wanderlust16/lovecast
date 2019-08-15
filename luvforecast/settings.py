@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'feedpage.apps.FeedpageConfig',
     'accounts.apps.AccountsConfig',
-    'mathfilters',  
+    'mathfilters',
     'taggit',
 
 ]
