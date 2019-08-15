@@ -17,6 +17,10 @@ def index(request):
             feeds=Feed.objects.order_by('-created_at')
         return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking})
     elif request.method == 'POST': 
+        #글 POST시 점수 +해주기
+        request.user.profile.score+=10  #글 하나 씩 쓸 때마다 10점 추가 
+        request.user.profile.save()
+
         title = request.POST['title']
         content = request.POST['content']
         sunny_content =request.POST['sunny_content']
@@ -36,13 +40,16 @@ def index(request):
                 nickname=nickname, 
                 hashtag_str=hashtags, 
                 )
-        for afile in request.FILES.getlist('photo', False):
-            photos = Photos()
-            photos.photo=afile
-            photos.save()
-            new.feed_photos.add(photos)
-            new.save()
-        print(new.feed_photos.all())
+
+        #사진 안 올릴 때도 가능하게 if문 추가
+        if request.FILES:
+            for afile in request.FILES.getlist('photo', False):
+                photos = Photos()
+                photos.photo=afile
+                photos.save()
+                new.feed_photos.add(photos)
+                new.save()
+        print(request.user.profile.score)
         return redirect('/home')
 
 def new(request):
@@ -74,6 +81,10 @@ def edit(request, id):
 def create_comment(request, id):
     content = request.POST['content']
     FeedComment.objects.create(feed_id=id, content=content, author = request.user)
+    #댓글 POST시 점수 +해주기
+    request.user.profile.score+=2
+    request.user.profile.save()
+    print(request.user.profile.score)
     return redirect('/home')
 
 def delete_comment(request, id, cid):
