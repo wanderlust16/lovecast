@@ -10,9 +10,7 @@
       <div class = "all_body">
       
         <p> 닉네임: {{ user.profile.nickname}} </p>
-        <p> 이메일: {{user.profile.username}} </p>
-        <p> 성별: {{user.profile.gender}} </p>
-        <p> 연애 상태: {{user.profile.lovestatus}}</p>
+        <p> 이메일: {{user.username}} </p>
         <p>프로필 사진: </p> <img  src="{{ user.profile.profile_photo.url }}"  alt=""> 
         <p>내가 쓴 글</p>
         {% for feed in feeds %}

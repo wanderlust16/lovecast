@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
-from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, Notifs,CommentLike, CommentDislike
+from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, Notifs,CommentLike, CommentDislike, Photos
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 from nicky.base import Nicky
@@ -17,9 +17,12 @@ def index(request):
             feeds=Feed.objects.order_by('-created_at')
         return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking})
     elif request.method == 'POST': 
+        #글 POST시 점수 +해주기
+        request.user.profile.score+=10  #글 하나 씩 쓸 때마다 10점 추가 
+        request.user.profile.save()
+
         title = request.POST['title']
         content = request.POST['content']
-        photo =  request.FILES.get('photo', False)
         sunny_content =request.POST['sunny_content']
         cloudy_content= request.POST['cloudy_content']
         rainy_content=request.POST['rainy_content']
@@ -27,7 +30,26 @@ def index(request):
         hashtags=request.POST['hashtags']
         nicky=Nicky()
         nickname = nicky.get_nickname()
-        Feed.objects.create(title=title,content=content,author=request.user,photo=photo, sunny_content=sunny_content, cloudy_content=cloudy_content, rainy_content=rainy_content, anonymous=anonymous, nickname=nickname, hashtag_str=hashtags)
+        new=Feed.objects.create(
+                title=title,
+                content=content,author=request.user, 
+                sunny_content=sunny_content, 
+                cloudy_content=cloudy_content, 
+                rainy_content=rainy_content, 
+                anonymous=anonymous, 
+                nickname=nickname, 
+                hashtag_str=hashtags, 
+                )
+
+        #사진 안 올릴 때도 가능하게 if문 추가
+        if request.FILES:
+            for afile in request.FILES.getlist('photo', False):
+                photos = Photos()
+                photos.photo=afile
+                photos.save()
+                new.feed_photos.add(photos)
+                new.save()
+        print(request.user.profile.score)
         return redirect('/home')
 
 def new(request):
@@ -59,6 +81,10 @@ def edit(request, id):
 def create_comment(request, id):
     content = request.POST['content']
     FeedComment.objects.create(feed_id=id, content=content, author = request.user)
+    #댓글 POST시 점수 +해주기
+    request.user.profile.score+=2
+    request.user.profile.save()
+    print(request.user.profile.score)
     return redirect('/home')
 
 def delete_comment(request, id, cid):
@@ -111,7 +137,7 @@ def comment_like(request, pk, cpk):
     feedcomment = feed.feedcomment_set.get(id = cpk)
     commentlike_list = feedcomment.commentlike_set.filter(user_id = request.user.id)
     if commentlike_list.count() > 0:
-        feedcomment.like_set.get(user_id = request.user.id).delete()
+        feedcomment.commentlike_set.get(user_id = request.user.id).delete()
     else:
         CommentLike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
@@ -121,7 +147,7 @@ def comment_dislike(request, pk, cpk):
     feedcomment = FeedComment.objects.get(id = cpk)
     commentdislike_list = feedcomment.commentdislike_set.filter(user_id = request.user.id)
     if commentdislike_list.count() > 0:
-        feedcomment.dislike_set.get(user_id = request.user.id).delete()
+        feedcomment.commentdislike_set.get(user_id = request.user.id).delete()
     else:
         CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
