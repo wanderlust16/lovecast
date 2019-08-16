@@ -69,10 +69,16 @@
 
 
       <div class = "optionbox">
-        <!--선택지 보기 이름 input받기-->
-        <input type = "text" name="sunny_content" id = "option1"/>
-        <input type = "text" name="cloudy_content" id = "option1"/>
-        <input type = "text" name="rainy_content" id = "option1"/>
+        <div class = "weather">
+          <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}"/>
+          <img style = "width: 56px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}"/>
+          <img style = "width: 45px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}"/>
+        </div>
+        <div class = "option_blank">
+          <input type = "text" name="sunny_content" id = "option1"/>
+          <input type = "text" name="cloudy_content" id = "option1"/>
+          <input type = "text" name="rainy_content" id = "option1"/>
+        </div>
       </div>
 
       <div class = "finish_writing">

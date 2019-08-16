@@ -16,7 +16,7 @@
     top: 150px;
     border-radius: 8px;
     width: 666px;
-    height: 622px;
+    height: 680px;
     background: white;
     box-shadow: 3.18px 4.79px 8px 0px rgba(0,0,0,0.62);
 }
@@ -324,12 +324,30 @@ p0 {
     height: 120px;
     display: block;
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     margin-left: auto;
     margin-right: auto;
     background: #f3f3f3;
     border-radius: 10px;
     border: 0px solid;
+}
+
+.weather {
+    width: 586px;
+    height: 54px;
+}
+
+
+.optionbox img {
+    position: relative;
+    margin-left: 73px;
+    margin-right: 73px;
+    top: 22px;
+}
+
+.option_blank {
+    width: 586px;
+    height: 66px;
 }
 
 #option1 {
@@ -339,12 +357,11 @@ p0 {
     height: 30px;
     border: 0px;
     border-radius: 23px;
-    margin: 29px;
-    top: 38px;
- 
+    margin-left: 29px;
+    margin-right: 29px;
+    top: 20px;
+    
 }
-
-
 
 /*글쓰기 버튼 */
 
