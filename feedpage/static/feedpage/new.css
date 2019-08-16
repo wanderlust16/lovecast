@@ -1,0 +1,242 @@
+.bg {
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+  
+  }
+
+
+
+.writing_box {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    top: 150px;
+    border-radius: 8px;
+    width: 666px;
+    height: 622px;
+    background: white;
+    box-shadow: 3.18px 4.79px 8px 0px rgba(0,0,0,0.62);
+}
+
+/*제목 쓰기 - 익명 모드 */
+
+.title {
+    position: relative;
+    width: 666px;
+    height: 50px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background: #f3f3f3;
+    display: flex;
+
+}
+
+.title_box {                    /* 제목 쓰는 전체 div */
+    position: absolute;
+    height: 45px;
+    width: 515px;
+    left : 40px;
+    text-align: initial;
+
+}
+
+.title_box label {          /* 제목 글자 */
+    position: absolute;
+    font-size: 14px;
+    font-weight: 500;
+    color: #616161;
+    top: 18px;
+    cursor: text;
+}
+
+#text_title {           /* 제목 박스 */
+    font-size: 14px;
+    font-weight: 500;
+    color: #616161;
+    height: auto;
+    width: 450px;
+    text-align: initial;
+    border: 0px solid;
+    margin-top: 13px;
+    background: rgba(0,0,0,0.0);
+}
+
+
+/* 익명 모드 버튼 구역 */
+
+.anonymous_box {
+    position: absolute;
+    left : 580px;
+    top: 14px;
+}
+
+/*익명 모드 버튼 */
+
+
+ul.ks-cboxtags li{
+  display: inline-flex;
+  cursor: pointer;
+
+}
+ul.ks-cboxtags li label{
+    align-self: center;
+    background-color: white;
+    color: #adadad;
+    font-size: 5px;
+    border-radius: 12px;
+    padding : 6px;
+    transition: all .2s;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,1);
+    cursor: pointer;
+}
+
+
+ul.ks-cboxtags li label::before {
+    display: inline-block;
+    background-color: white;
+    color: #f15398;
+    font-size: 5px;
+    border-radius: 12px;
+    padding : 6px;
+    transition: all .2s;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,1);
+    cursor: pointer;
+    transition: transform .3s ease-in-out;
+}
+
+ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+    transform: rotate(-360deg);
+    transition: transform .3s ease-in-out;
+}
+
+ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+    color: #f15398;
+    border: 1px solid #f15398;
+    background-color: white;
+    transition: all .2s;
+}
+
+ul.ks-cboxtags li input[type="checkbox"] {
+  display: absolute;
+  opacity: 0;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+}
+ul.ks-cboxtags li input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+}
+ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+  border: 1px solid #f15398;
+}
+
+
+
+
+/*내용 글쓰기*/
+.story {
+    position: relative;
+    width: 666px;
+    min-height: 315px;
+    display: block;
+    margin-top: 12px;
+
+}
+
+.story label {
+    position: absolute;
+    font-size: 13px;
+    font-weight: 400;
+    color: #616161;
+    margin-left: 40px;
+    cursor: text;
+    top: 15px;
+}
+
+
+
+#text_story {
+    width: 581px;
+    height: auto;
+    margin-left: 40px;
+    border: 0px solid;
+    margin-top: 15px;
+}
+
+hr {
+    border : 0.75px solid #a9a9a9;
+    width: 581px;
+    margin-top : 270px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+/*해쉬태그*/
+.hashtag {
+    position: relative;
+    width: 666px;
+    min-height: 79px;
+    border: 0px solid;
+}
+
+.justtag {
+    position: relative;
+    width: 610px;
+    height: 45px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.shape {
+    position: relative;
+    height: 27px;
+    width: 71px;
+    border-radius: 14px;
+    font-size: 9px;
+    font-weight: 400;
+    text-align: center;
+    color: #616161;
+    background: #f3f3f3;
+    margin: auto;
+}
+p {
+    position: relative;
+    margin: auto;
+    top: 7px;
+
+}
+
+
+
+
+
+
+/*선택지 넣기*/
+
+.optionbox {
+    position: relative;
+    width: 666px;
+    min-height: 116px;
+    display: block;
+    border: 1px solid;
+
+}
+
+.finish_writing {
+    position: relative;
+    width: 666px;
+    height: 53px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background: #483e80;
+    text-align-last: center;
+
+}

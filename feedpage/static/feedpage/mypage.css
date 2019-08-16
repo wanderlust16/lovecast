@@ -55,7 +55,7 @@
 
 /* 닉네임 */
 .info_nickname {
-  width: 242px;
+  width: auto;
   color: #616161;
   font-size: 42px;
   font-weight: 500;
@@ -64,7 +64,7 @@
 
 /* 아이디 */
 .info_username {
-  width: 242px;
+  width: auto;
   color: #616161;
   font-size: 23px;
   font-weight: 320;

@@ -3,33 +3,77 @@
 {% block content %}
 {% load staticfiles%}
 
-  <div class = "all_body">
-    <h1>글쓰기</h1>
-    <form action="/home/" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      <p>익명으로 쓰기 <input type="checkbox" name="anonymous"/> </p>
-      <p>제목</p>
-      <input name="title" /> <br />
-      <p>어떤 고민이 있으신가요?</p>
-      <input name="content" /> <br />
-      <p>photo</p>
-      <input multiple="multiple" name="photo" type="file" /> <br />
-      
-      <!--선택지 보기 이름 input받기-->
-      <p>Sunny</p>
-      <input name="sunny_content" /><br />
-      <p>Cloudy</p>
-      <input name="cloudy_content" /><br />
-      <p>Rainy</p>
-      <input name="rainy_content" /><br />
-    
-      <!--hashtags-->
-      <p>태그달기</p>
-      <input name="hashtags" /> <br />
 
-      <input type="submit" value="submit" />
-    </form>
+<!-- css style -->
+<link rel="stylesheet"  href="{% static 'feedpage/new.css' %}" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="{% static 'feedpage/mypage.js' %}"></script>
 
+
+  <div class = "bg">
+    <img style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 50%; height: auto; min-width: 50%; min-height: 50%;" src="{% static 'feedpage/img/new_bg.jpg' %}"/>
   </div>
+
+    <div class = "writing_box">
+      <div class = "title">
+        <form action="/home/" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class = "title_box">
+            <label for="title_text">제목</label>
+            <input type = "text" name="title" id = "text_title"/>
+          </div>
+
+          <div class = "anonymous_box">
+            <ul class="ks-cboxtags">
+            <li><input type="checkbox" id="checkboxOne" name="anonymous" ><label for="checkboxOne">익명모드</label></li>
+            </ul>
+          </div>
+          <!-- <div class = "anonymous_box">익명 모드 <input type="checkbox" name="anonymous"/> </div> -->
+      </div>
+
+      <div class = "story">
+        <label for="story_text">어떤 고민이 있으신가요?</label>
+        <input type = "text" name="content" id = "text_story"/>
+        <hr>
+      </div>
+
+      <div class = "hashtag">
+        <div class = "justtag">
+          <div class = "shape"><p>#모태솔로</p></div>
+          <div class = "shape"><p>#연애중</p></div>
+          <div class = "shape"><p>#고무신</p></div>
+          <div class = "shape"><p>#짝사랑</p></div>
+          <div class = "shape"><p>#소개팅</p></div>
+          <div class = "shape"><p>#이별후</p></div>
+          <div class = "shape"><p>#썸</p></div>
+        </div>
+
+        <div class = "puttag">
+          <div clas = "hastag_text">
+            <input type = "text" name="hashtags"/>
+          </div>
+
+          <div clas = "photo">
+            <input multiple="multiple" name="photo" type="file" alt = "사진"/>
+          </div>
+      </div>
+    </div>
+
+      <div class = "optionbox">
+        <!--선택지 보기 이름 input받기-->
+        <p1>Sunny</p1>
+        <input type = "text" name="sunny_content" />
+        <p2>Cloudy</p2>
+        <input type = "text" name="cloudy_content" />
+        <p3>Rainy</p3>
+        <input type = "text" name="rainy_content" />
+      </div>
+
+      <div class = "finish_writing">
+        <input type="submit" value="submit" />
+      </form>
+      </div>
+    </div>
+
   
 {% endblock content %}
