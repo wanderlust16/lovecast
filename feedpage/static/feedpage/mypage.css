@@ -117,8 +117,8 @@
 }
 
 .list_header > p {
-  margin-left : 56px;
-  margin-right: 53px;
+  margin-left : auto;
+  margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
   font-size: 14px;
@@ -247,8 +247,8 @@
 }
 
 .list_header2 > p {
-  margin-left : 56px;
-  margin-right: 53px;
+  margin-left : auto;
+  margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
   font-size: 14px;
@@ -322,7 +322,7 @@
 .all_content > .comment {
   position: absolute;
   text-align: center;
-  left: 390px;
+  left: 393px;
   width: 100px;
   border: 0px solid;
   
