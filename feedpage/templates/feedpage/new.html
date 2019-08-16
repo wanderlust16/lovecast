@@ -7,7 +7,7 @@
 <!-- css style -->
 <link rel="stylesheet"  href="{% static 'feedpage/new.css' %}" />
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="{% static 'feedpage/mypage.js' %}"></script>
+<script src="{% static 'feedpage/new.js' %}"></script>
 
 
   <div class = "bg">
@@ -49,15 +49,24 @@
         </div>
 
         <div class = "puttag">
-          <div clas = "hastag_text">
-            <input type = "text" name="hashtags"/>
+          <div class = "hashtag_text">
+            <label for="hashtag_text"># 태그를 입력해주세요.</label>
+            <input type = "text" name="hashtags" id = "hashtag_line"/>
           </div>
 
-          <div clas = "photo">
-            <input multiple="multiple" name="photo" type="file" alt = "사진"/>
-          </div>
+          <label class="input-file">
+            <b class="btn btn-primary">
+              <p0><i class="fas fa-image"></i> 사진넣기</p0></b>
+            <input type="file" class="fileInput" multiple="multiple"name="photo" >
+          </label>
+        
+          <!--<div class = "photo">
+            <input multiple="multiple" name="photo" type="file" id = "photo_button"/>
+          </div> -->
+        
       </div>
     </div>
+
 
       <div class = "optionbox">
         <!--선택지 보기 이름 input받기-->
