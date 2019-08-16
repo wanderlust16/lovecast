@@ -60,7 +60,7 @@
     width: 450px;
     text-align: initial;
     border: 0px solid;
-    margin-top: 13px;
+    margin-top: 15px;
     background: rgba(0,0,0,0.0);
 }
 
@@ -217,7 +217,7 @@ p {
 
 .puttag {
     position: relative;
-    width: 610px;
+    width: 410px;
     height: 45px;
     display: flex;
     margin-left: auto;
@@ -275,7 +275,7 @@ p {
     text-align: center;
     background: #f3f3f3;
     border-radius: 12px;
-    width: 70px;
+    width: 100px;
     height: 25px;
 }
   }
@@ -320,13 +320,33 @@ p0 {
 
 .optionbox {
     position: relative;
-    width: 666px;
-    min-height: 116px;
+    width: 586px;
+    height: 120px;
     display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #f3f3f3;
+    border-radius: 10px;
+    border: 0px solid;
+}
 
+#option1 {
+    position: relative;
+    background: white;
+    width: 134px;
+    height: 30px;
+    border: 0px;
+    border-radius: 23px;
+    margin: 29px;
+    top: 38px;
+ 
 }
 
 
+
+/*글쓰기 버튼 */
 
 .finish_writing {
     position: relative;
@@ -336,5 +356,26 @@ p0 {
     border-bottom-left-radius: 8px;
     background: #483e80;
     text-align-last: center;
+
+}
+
+.submit_button {
+    position: relative;
+    width: 81px;
+    height: 53px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    font-size : 18px;
+    font-weight: 300;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0);
+    border: 0px;
+    margin-top: 13px;
+    cursor: pointer;
 
 }
