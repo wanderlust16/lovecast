@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
-from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, CommentLike, CommentDislike, Photos
+from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, CommentLike, CommentDislike, Photos, Notification
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 from nicky.base import Nicky
@@ -165,18 +165,7 @@ def comment_dislike(request, pk, cpk):
         CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
 
-'''
-def notify(request):
-    new = Notifs.objects.filter(user=request.user)
-    if new:
-        new.update(timestamp=timezone.now())
-    else:
-        Notifs.objects.create(user=request.user, timestamp=timezone.now())
-    last_checked = Notifs.objects.values_list('timestamp', flat=True).get(user=request.user)
-    forecasts= Sunny.objects.filter(feed__user = request.user, created_at__gte=last_checked).order_by('-id')
-    print(forecasts)
-    return render(request, 'feedpage/notify.html', {'forecasts': forecasts})
-'''
+
 def profile_edit(request):
     if request.method == 'GET': 
         return render(request, 'feedpage/profile_edit.html')
@@ -187,5 +176,12 @@ def profile_edit(request):
         request.user.profile.nickname=nickname
         request.user.profile.lovestatus=lovestatus
         request.user.profile.profile_photo=profile_photo
+        print(request.user.profile.profile_photo)
         request.user.profile.save()
         return redirect('/home/mypage')
+
+def show_notifications(request):
+    notif= Notification.objects.all()
+    return render(request, '/feedpage/notify.html', {'notif': notif})
+def delete_notifications(request): 
+    
