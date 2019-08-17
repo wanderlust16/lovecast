@@ -1,4 +1,4 @@
-
+/* 입력창에 커서 올렸을 때 글자 사라지는 interaction */
 
 $(document).ready(function() { 
     var placeholderTarget = $('.email_box input[type="text"], .password_box input[type="password"]'); 

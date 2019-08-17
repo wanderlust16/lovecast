@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 
 $(function(){
-	var container = $('.container'), inputFile = $('#file'), img, btn, txt = '사진 넣기', txtAfter = '다른 사진 넣기';
+	var container = $('.container'), inputFile = $('#file'), img, btn, txt = '프로필 사진', txtAfter = '프로필 사진 수정';
 			
 	if(!container.find('#upload').length){
 		container.find('.input').append('<input type="button" value="'+txt+'" id="upload">');
