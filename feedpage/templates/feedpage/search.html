@@ -3,8 +3,13 @@
 {% block content %}
 {% load staticfiles%}
 
-<div class = "all_body">
 
+<!-- css style -->
+<link rel="stylesheet"  href="{% static 'feedpage/mypage.css' %}" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="{% static 'feedpage/mypage.js' %}"></script>
+
+<div class = "all_body">
     <h1>검색결과</h1>
     <div style="border: 1px solid palevioletred;">
         {% for feed in feeds %}
@@ -69,7 +74,5 @@
         {% endfor %}
     </div>
     <a href = "/home/"> 홈</a>
-    
 </div>
-
 {% endblock content %}

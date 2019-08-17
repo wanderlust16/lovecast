@@ -46,7 +46,7 @@
               {% if user.is_authenticated %}
                 {{  user.profile.nickname }}님
             </a>
-            <p1><a class = "logout" href="{% url 'logout'%}?next={{request.path}}">로그아웃</a></p1>
+            <p1><a class = "logout" href="{% url 'login'%}?next={{request.path}}">로그아웃</a></p1>
             <p2><a class = "mypage" href="{% url 'mypage'%}">마이페이지</a></p2>
             <button type="submit" id="alarm_button"></i><i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></button>
           {% else %}

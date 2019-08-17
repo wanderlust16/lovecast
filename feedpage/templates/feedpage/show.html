@@ -4,14 +4,20 @@
 {% load staticfiles%}
 
 
-    <div class = "all_body">
-      <a href="/home">home</a>
-      <a href="/home/{{feed.id}}/edit/"> edit </a>
-      <p>{{ feed.title }}</p>
-      <p>{{ feed.content }}</p>
-      {% if  feed.photo %}
-          <img  src="{{ feed.photo.url }}"  alt="">
-      {% endif %}
+<!-- css style -->
+<link rel="stylesheet"  href="{% static 'feedpage/mypage.css' %}" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="{% static 'feedpage/mypage.js' %}"></script>
+
+    <div class="all_body">
+      <div>
+        <a href="/home">home</a>
+        <a href="/home/{{feed.id}}/edit/"> edit </a>
+        <p>{{ feed.title }}</p>
+        <p>{{ feed.content }}</p>
+        {% if  feed.photo %}
+            <img  src="{{ feed.photo.url }}"  alt="">
+        {% endif %}
+      </div>
     </div>
-    
 {% endblock content %}

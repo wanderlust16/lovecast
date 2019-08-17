@@ -46,7 +46,7 @@
 
 .info_specific {
   width: 242px;
-  height: auto;
+  height: 120px;
   margin-left: 21px;
   margin-top: auto;
   margin-bottom: auto;
@@ -88,6 +88,16 @@
 
 }
 
+/*점수 */
+.score {
+    position: relative;
+    color: #483e80;
+    font-size: 15px;
+    font-weight: 500;
+    left: 110px;
+    bottom: 20px;
+}
+
 /* 내가 쓴 글 */
 
 .written_list > p {
@@ -126,7 +136,7 @@
   color: #616161;
 }
 
-.content {
+/* .content {
   position: relative;
   width: 658px;
   height: auto;
@@ -137,8 +147,7 @@
   font-size: 14px;
   text-decoration: none;
   color: #616161;
-
-}
+} */
 
 .all_content {
   display: flex;
@@ -149,7 +158,12 @@
   margin-bottom: 27px;
 
 }
-
+.contents_factor {
+  display: flex;
+  width: 900px;
+  margin-left: 55px;
+  margin-right: 55px;
+}
 
 /* <a class = "content" href="/home/{{ feed.id }}">
   <div class = "all_content">
@@ -197,10 +211,9 @@
   border: 0px solid;
   
 }
-.all_content > .edit_submit_button {
+.edit_submit_button {
   position: absolute;
   align-content: center;
-  left: 565px;
   border: 0px solid;
   color: #8e8e8e;
   
@@ -256,13 +269,24 @@
   color: #616161;
 }
 
-.content {
+.content1 {
+  width: 570px;
   position: relative;
-  width: 658px;
   height: auto;
   display: flex;
-  margin-left: 55px;
-  margin-right: 55px;
+  margin-top: 33px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #616161;
+
+}
+
+
+.content2 {
+  position: relative;
+  height: auto;
+  display: flex;
+
   margin-top: 33px;
   font-size: 14px;
   text-decoration: none;
@@ -291,11 +315,11 @@
    <div class = "edit_submit_button"> 수정 확정 </div>
 </div>*/
 
-.all_content > .feed_title {
+.content1 > .feed_title {
   position: absolute;
   align-content: initial;
 }
-.all_content > .date {
+.content1 > .date {
   position: absolute;
   text-align: center;
   left: 125px;
@@ -303,7 +327,7 @@
   border: 0px solid;
   
 }
-.all_content > .forecast {
+.content1 > .forecast {
   position: absolute;
   align-content: flex-end;
   left: 260px;
@@ -311,7 +335,7 @@
   height: 18px;
   border: 0px solid;
 }
-.all_content > .forecast_number {
+.content1 > .forecast_number {
   position: absolute;
   align-content: initial;
   left: 340px;
@@ -319,7 +343,7 @@
   border: 0px solid;
   
 }
-.all_content > .comment {
+.content1 > .comment {
   position: absolute;
   text-align: center;
   left: 393px;
@@ -327,10 +351,10 @@
   border: 0px solid;
   
 }
-.all_content > .edit_submit_button {
+.edit_submit_button {
   position: absolute;
   align-content: center;
-  left: 565px;
+  left: 13px;
   border: 0px solid;
   color: #8e8e8e;
   

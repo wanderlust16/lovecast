@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
-from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, Notifs,CommentLike, CommentDislike, Photos
+from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, CommentLike, CommentDislike, Photos
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 from nicky.base import Nicky
@@ -29,7 +29,7 @@ def index(request):
         anonymous=request.POST.get('anonymous') == 'on'
         hashtags=request.POST['hashtags']
         nicky=Nicky()
-        nickname = nicky.get_nickname()
+        nickname = nicky.get_nickname()[0]
         new=Feed.objects.create(
                 title=title,
                 content=content,author=request.user, 
@@ -62,11 +62,25 @@ def show(request, id):
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
+        result= request.POST['result'] #수정할 때 결과 확정 
         feed = Feed.objects.get(id=id)
         feed.title= title
         feed.content=content
+        feed.result=result
         feed.save()
         feed.update_date()
+        if feed.result=='Sunny':
+            for a in feed.sunny_users.all():
+                a.profile.score+=100
+                a.profile.save()
+        elif feed.result=='Cloudy':
+            for a in feed.cloudy_users.all():
+                a.profile.score+=100
+                a.profile.save()
+        elif feed.result=='Rainy':
+            for a in feed.rainy_users.all():
+                a.profile.score+=100
+                a.profile.save()
         return redirect('/home/'+str(id))
 
 def delete(request, id):
@@ -151,7 +165,8 @@ def comment_dislike(request, pk, cpk):
     else:
         CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
-        
+
+'''
 def notify(request):
     new = Notifs.objects.filter(user=request.user)
     if new:
@@ -162,3 +177,4 @@ def notify(request):
     forecasts= Sunny.objects.filter(feed__user = request.user, created_at__gte=last_checked).order_by('-id')
     print(forecasts)
     return render(request, 'feedpage/notify.html', {'forecasts': forecasts})
+'''
