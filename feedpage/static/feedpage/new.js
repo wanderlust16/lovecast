@@ -1,10 +1,15 @@
 
-$('.fileInput').change(function() {
-    var numfiles = $(this)[0].files.length;
-    var parent = $(this).closest('.input-file');
-    parent.find('ins').remove();
-    for (i = 0; i < numfiles; i++) { 
-      parent.append('<ins>' + $(this)[0].files[i].name + '</ins>')
-    }
-  });
-  
+$(document).ready(function() { 
+  var placeholderTarget = $('.title_box input[type="text"], .story input[type="text"], .hashtag_text input[type="text"]'); 
+
+  //포커스시 
+  placeholderTarget.on('focus', function(){ 
+      $(this).siblings('label').fadeOut('fast'); }); 
+      
+  //포커스아웃시
+  placeholderTarget.on('focusout', function(){ 
+      if($(this).val() == ''){ 
+          $(this).siblings('label').fadeIn('fast'); 
+      } 
+  }); 
+});

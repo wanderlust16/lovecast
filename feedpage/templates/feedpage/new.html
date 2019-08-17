@@ -19,8 +19,7 @@
         <form action="/home/" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <div class = "title_box">
-            <label for="title_text">제목</label>
-            <input type = "text" name="title" id = "text_title"/>
+            <input type = "text" name="title" id = "text_title" placeholder = "제목"/>
           </div>
 
           <div class = "anonymous_box">
@@ -32,8 +31,7 @@
       </div>
 
       <div class = "story">
-        <label for="story_text">어떤 고민이 있으신가요?</label>
-        <input type = "text" name="content" id = "text_story"/>
+        <input type = "text" name="content" id = "text_story" placeholder = "어떤 고민이 있으신가요?"/>
         <hr>
       </div>
 
@@ -50,13 +48,12 @@
 
         <div class = "puttag">
           <div class = "hashtag_text">
-            <label for="hashtag_text"># 태그를 입력해주세요.</label>
-            <input type = "text" name="hashtags" id = "hashtag_line"/>
+            <input type = "text" name="hashtags" id = "hashtag_line" placeholder = "#을 붙여서 입력해주세요."/>
           </div>
 
           <label class="input-file">
             <b class="btn btn-primary">
-              <p0><i class="fas fa-image"></i> 사진넣기</p0></b>
+              <p0><i class="fas fa-image"></i>사진넣기</p0></b>
             <input type="file" class="fileInput" multiple="multiple"name="photo" >
           </label>
         
@@ -75,9 +72,9 @@
           <img style = "width: 45px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}"/>
         </div>
         <div class = "option_blank">
-          <input type = "text" name="sunny_content" id = "option1"/>
-          <input type = "text" name="cloudy_content" id = "option1"/>
-          <input type = "text" name="rainy_content" id = "option1"/>
+          <input type = "text" name="sunny_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
+          <input type = "text" name="cloudy_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
+          <input type = "text" name="rainy_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
         </div>
       </div>
 

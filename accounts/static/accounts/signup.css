@@ -412,3 +412,16 @@ img{
     margin-left: auto;
     margin-right: auto;
 }
+
+/*input text 상자 눌렀을 때 효과 */
+
+input:focus {
+    outline: none;
+    
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
