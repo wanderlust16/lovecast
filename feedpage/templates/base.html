@@ -23,7 +23,7 @@
         <link rel="stylesheet"  href="{% static 'feedpage/base.css' %}" />  <!--사용자가 만든 css 파일을 쓴다는 의미-->
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="{% static 'accounts/base.js' %}"></script>
+        <script src="{% static 'feedpage/base.js' %}"></script>
 
       </head>
 
@@ -48,13 +48,25 @@
             </a>
             <p1><a class = "logout" href="{% url 'login'%}?next={{request.path}}">로그아웃</a></p1>
             <p2><a class = "mypage" href="{% url 'mypage'%}">마이페이지</a></p2>
-            <a href= "{% url 'show_notifications' %}"><button type="submit" id="alarm_button">
-              
-            <i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></button></a> <!--수정-->
-            {{ user.notification_set.count }}
-          {% else %}
-            <a href="{% url 'signup' %}">회원가입</a>
-            <a href="{% url 'login'%}?next={{request.path}}">로그인</a>
+
+            <!--알람버튼 -->
+            <a class="button" href= "#popup1"><i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></a>
+            <div id="popup1" class="overlay">
+              <div class="popup">
+                <div class ="top_alarm">
+                  <div class = "text_alarm"><h2>예보 알림</h2></div>
+                  <a class="close" href="#">&times;</a>
+                </div>
+                <div class="alarm_content">
+                    {% for notif in notifs %}
+                    <h2>{{ notif.created_at|timesince }}전 {{ notif.title }} {{ notif.message }}</h2>
+                    <form action="/home/notification/{{ notif.id }}/" method="POST">
+                        {% csrf_token %}
+                        <button>읽음으로 표시</button>
+                    </form>
+                    {% endfor %}
+                </div>
+              </div>
           {% endif %}
 
         </div>
@@ -66,6 +78,24 @@
       {% endblock %}
       </body>
 
-</html>
+
+     
+
+      <!--
+
+      <a class="button" href= "#popup1"><i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></button></a>
+    </div>
+
+    <div id="popup1" class="overlay">
+	    <div class="popup">
+        <div class ="top_alarm">
+          <div class = "text_alarm"><h2>예보 알림</h2></div>
+          <a class="close" href="#">&times;</a>
+        </div>
+        <div class="alarm_content">
+          <button>읽음으로 표시</button>
+        </div>
+      </div>
+알람팝업 창-->
 
 

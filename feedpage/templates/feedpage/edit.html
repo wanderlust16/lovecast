@@ -1,23 +1,78 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
-
 {% block content %}
+{% load staticfiles%}
 
 
-<h1>Edit Feed</h1>
-    <form action="/home/{{ feed.id }}/" method="POST">
-      {% csrf_token %}
-      <p>title</p>
-      <input name="title" value="{{feed.title}}" /> <br />
-      <p>content</p>
-      <input name="content" value= "{{feed.content}}" /> <br />
-      <p>결과 확정하기</p>
-        <input name="result" type="radio" value="{{ feed.sunny_content }}"> {{ feed.sunny_content }}
-        <br>
-        <input name="result" type="radio" value="{{ feed.sunny_content }}"> {{ feed.sunny_content }}
-        <br>
-        <input name="result" type="radio" value="{{ feed.sunny_content }}"> {{ feed.sunny_content }}
-      <br>
-      <input type="submit" value="submit" />
-      
-    </form>
+<!-- css style -->
+<link rel="stylesheet"  href="{% static 'feedpage/edit.css' %}" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="{% static 'feedpage/edit.js' %}"></script>
+
+    <div class="bg">
+        <img style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 50%; height: auto; min-width: 50%; min-height: 50%;" src="{% static 'feedpage/img/edit_bg.jpg' %}"/>       
+    </div>    
+    
+      <div class="writing_box">
+        <div class = "title">
+          <form action="/home/{{ feed.id }}/" method="POST">
+            {% csrf_token %}
+            <div class = "title_box">
+              <input name="title" value="{{feed.title}}" id = "text_title" />
+            </div>
+        </div>
+
+        <div class = "story">
+            <input name="content" value= "{{feed.content}}" id="text_story"/>
+            <hr>
+        </div>
+
+        <div class = "allclear"><p10>예보 확정하기</p10></div>
+        <div class = "optionbox">
+          <div class = "weather">
+            <div class = "sunny">
+              <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}" />
+            </div>
+            <div class = "cloudy">
+              <img style = "width: 53px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}" />
+            </div>
+            <div class = "rainy">
+              <img style = "width: 48px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}" id="rainy"/>
+            </div>
+          </div>
+
+          <div class = "option_blank">
+            <div class = "option1">
+                <label class="container"> <div id ="option1"><p11>{{feed.sunny_content}}<p11></div>
+                  <input name="result" value="Sunny" type="checkbox"  > 
+                  <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <div class = "option2">
+              <label class="container2"> <div id ="option2"><p11>{{feed.cloudy_content}}<p11></div>
+                <input name="result"  value="Cloudy" type="checkbox" >
+                <span class="checkmark2"></span>
+              </label>
+            </div>
+
+            <div class = "option3">
+              <label class="container3"> <div id ="option3"><p11>{{feed.rainy_content}}<p11></div>
+                <input name="result" value="Rainy" type="checkbox" >
+                <span class="checkmark3"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class = "finish_writing">
+          <div class = "submit_button">
+            <input type="submit" value="수정하기"/>
+          </form>
+          </div>
+        </div>
+      </div>
+
 {% endblock %}
+
+
