@@ -1,14 +1,6 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
+
 {% block content %}
-{% load staticfiles%}
-
-
-<!-- css style -->
-<link rel="stylesheet"  href="{% static 'feedpage/mypage.css' %}" />
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="{% static 'feedpage/mypage.js' %}"></script>
-  <div class ="all_body">
     <h1>오늘의 연애</h1>
     <body>
       {% if user.is_authenticated %}        
@@ -122,5 +114,5 @@
         </div>
       {% endfor %} 
 
-  </div>
+       
 {% endblock content %}
