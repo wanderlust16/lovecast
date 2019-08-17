@@ -28,10 +28,11 @@
         <body>
             <div class = "background">
                     <div class = "square">
-                    <img style= "margin: 0; padding: 0; width: 100%;" src="{% static 'accounts/img/black_bg2.jpg' %}"/>
+                        <img style= "position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 50%; height: auto; min-width: 50%; min-height: 50%;" src="{% static 'accounts/img/black_bg2.jpg' %}"/>
+                    </div>
                             <div class = "signup_area">
-                            <form method="POST" action="{%url 'signup'%}" enctype="multipart/form-data">
-                            {% csrf_token %}
+                                <form method="POST" action="{%url 'signup'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
 
                                 <img style= "position: absolute; width: auto; height: 670px;" src="{% static 'accounts/img/logo_bg.png' %}"/>
                                 <p1> 오늘의 연애에 오신 것을 환영합니다! </p1>
@@ -119,14 +120,14 @@
                                     </div>
                                 </div>
 
-                            <div class = "submit_box">
-                                <div class = "submit_button">
-                                    <input type="submit" value="가 입 하 기">
+                                <div class = "submit_box">
+                                    <div class = "submit_button">
+                                        <input type="submit" value="가 입 하 기">
+                                    </div>
                                 </div>
-                            </div>
                             
                             </form>
-                            </div>
+                        </div>
                     </div>
             </div>
         

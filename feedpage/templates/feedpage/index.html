@@ -1,128 +1,405 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>오늘의 연애</h1>
+{% load staticfiles%}
+
+<link rel="stylesheet"  href="{% static 'feedpage/index.css' %}" />
+<script src="https://kit.fontawesome.com/55af2b838e.js"></script>
+<script src="{% static 'feedpage/index.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider-min.js"></script>
+  
+  <div class=bg>
+    <img style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 100%; height: auto; min-width: 50%; min-height: 50%;" src="{% static 'feedpage/img/index_background.png' %}"/>
+  </div>  
+
     <body>
       {% if user.is_authenticated %}        
-        <a href = "/home/new"> 글쓰기 </a>
+        
         {% for forecast in forecasts %}
         알림:{{ forecast.title }}
         {% endfor %}
       {% endif %}   
       <br>
       <br>
+      <div class="all-container">
+
       <!--TOP 5 인기 순 정렬 -->
-      <div style="border: 1px solid rgb(122, 221, 76);">
-        <P>인기 게시글 TOP 5</P>
+      <div class="sidebar_wrapper">
+        <P style="font-size:17px; color: #616161; margin-bottom: 18px">인기 게시글 TOP 5</P>
         {% for topfive in ranking|slice:":5" %}
-          <p> {{ forloop.counter }}위 {{ topfive.title }} <a href="/home/{{ topfive.id }}">바로가기</a> </p>
+          <div class="rank-box"> 
+            <div class="rank-order">
+              <p> <strong> {{ forloop.counter }}위 </strong> </p>
+            </div>
+            <div class="rank-text">
+              <p> {{ topfive.title }} </p>
+            </div> 
+            <div class="rank-go">
+              <a href="/home/{{ topfive.id }}"><i style="color:#616161;" class="fas fa-paper-plane"></i></a> </p>
+            </div> 
+          </div>
+
         {% endfor %}
       </div>
       <!--------------------->
-      <br>
-      <br>
       <!--최신순/인기순 정렬 -->
-      <select id="sort-select" onchange="location = this.value;">
-        <option class="sort-date" value="/">최신순</option>
-        <option class="sort-likes" value="?sort=forecasts">인기순</option>
-      </select>
-      <!--------------------->
+      <div class="order_wrapper">
+        <select id="sort-select" class="select-class" onchange="location = this.value;">
+          <option class="sort-date" value="/">최신순</option>
+          <option class="sort-likes" value="?sort=forecasts">인기순</option>
+        </select>
+      </div> 
+      <!-----------글쓰기 ---------->
+      <a href = "/home/new"> <img style="display:flex; position:absolute; top: 80px; left:50%; margin-left:-325px; width: 651px; height: auto;" src="{% static 'feedpage/img/write.png' %}"/> </a>
+      
+      <!--피드 내용-->
       {% for feed in feeds %}
-        <div style="border: 1px solid palevioletred;">
-          <a href="/home/{{ feed.id }}">더보기</a>
-          {% if request.user == feed.author %}                                      
-            <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
-          {% endif %}
+        <div class="contents_wrapper">
           
+          <div class="feed_head">
+            <div class= "feed_title">
+              <p> {{ feed.title }}</p>
+            </div>
+            <div class="feed_delete">
+              {% if request.user == feed.author %}                                      
+                <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')"><i style="color:#616161;"class="fas fa-times"></i></a>
+              {% endif %}
+            </div>
+          </div>
+
+        <div class="hashtag">
+          <p style="font-size:12px;">{{ feed.hashtag_str }}</p>
+        </div>
+        
+        
+         
           <!--익명이면 무작위 닉네임이 뜨도록하는 if문 -->
           {% if feed.anonymous %} 
-            <p>글쓴이: {{feed.nickname}}</p>
+            <p style="font-size:13.5px; text-align:right; color:#A9A9A9;">글쓴이   {{feed.nickname}}</p>
           {% else %}
-            <p>글쓴이: {{ feed.author.profile.nickname }} </p>
+            <p style="font-size:13.5px; text-align:right; color:#A9A9A9;">글쓴이  {{ feed.author.profile.nickname }} </p>
           {% endif %}
+            <p style="font-size:13.5px; text-align:right; color:#A9A9A9;">{{ feed.created_at|timesince }} 전</p>
           <!--------------------->
-          <p>글 제목: {{ feed.title }}</p>
+          <div class = "feed_content">
+            <p style="font-size:15px; text-align:left; color:#616161;">{{ feed.content }}</p>
+          </div>
+          <br>
+          <div class="content_more">
+            <a href="/home/{{ feed.id }}" style="color:#483e80; font-size:13px;text-align:right;">...더보기</a>
+          </div>
+          <br>
+
           <!--사진 여러 장 보여주기 -->
+          
           {% if feed.feed_photos %} 
+          <div class="flexslider">
+            <ul class="slides">
             {% for pic in feed.feed_photos.all %}
-              <img  src="{{ pic.photo.url }}"  alt="">
+              <li><img  style="width:100%;" src="{{ pic.photo.url }}"  alt=""></li>
             {% endfor %}
+            </ul>
+          </div>
           {% endif %}
           <!--------------------->
-
-          <p>{{ feed.content }}</p>
-          <p>{{ feed.hashtag_str }}</p>
-
-           
+          <br>
+        
+        
           <!-- SUNNY, CLOUDY, RAINY-->
+          <!--투표 할 수 있는 상황-->
+        <div class="forecast">
           {% load mathfilters %}
           {% with total=feed.sunny_users.count|add:feed.cloudy_users.count|add:feed.rainy_users.count %}
-            <!-- 예보 확정-->
             {% if feed.result == 'not confirmed' %}
               {% if user not in feed.sunny_users.all and user not in feed.cloudy_users.all and user not in feed.rainy_users.all %}
-                  <p> {{total}}명이 예보했습니다 </p> 
-                  <a href="/home/{{ feed.id }}/sunny"> Sunny {{feed.sunny_content}}</a>
-                  <a href="/home/{{ feed.id }}/cloudy"> Cloudy {{feed.cloudy_content}}</a>
-                  <a href="/home/{{ feed.id }}/rainy"> Rainy {{feed.rainy_content}}</a> 
+                  <div class="forecast_title"> 
+                    <img style="width:60px; height:auto;" src= "{% static 'feedpage/img/three.png' %}" />
+                    <div class="forecast_number"><p> {{total}}명이 예보했습니다 </p> </div>
+                  </div>
+
+                  <div class = "optionbox">
+                    <div class = "weather">
+                      <div class = "sunny">
+                        <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}" />
+                      </div>
+                      <div class = "cloudy">
+                        <img style = "width: 53px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}" />
+                      </div>
+                      <div class = "rainy">
+                        <img style = "width: 48px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}" id="rainy"/>
+                      </div>
+                    </div>
+
+                    <div class = "option_blank">
+                      <div class = "option1">
+                        <label class="container">
+                          <div id ="option1">
+                            <p id=optionfont>  <p id = "optionfont"> {{feed.sunny_content}}</p></div>
+                        </label>
+                        <a href="/home/{{ feed.id }}/sunny"> <span class="checkmark"></span></a>
+                      </div>
+                      
+                      <div class = "option2">
+                        <label class="container2">
+                          <div id ="option2">
+                            <p id=optionfont> <p id = "optionfont">{{feed.cloudy_content}}</p></div>
+                        </label>
+                        <a href="/home/{{ feed.id }}/cloudy"><span class="checkmark2"></span></a>
+                      </div>
+
+                      <div class = "option3">
+                        <label class="container3">
+                          <div id ="option3">
+                            <p id = "optionfont"> <p id = "optionfont"> {{feed.rainy_content}}</p></div>
+                        </label>
+                        <a href="/home/{{ feed.id }}/rainy"><span class="checkmark3"></span></a>
+                      </div>
+                    </div>
+                  </div>
+                  
               {% else %}
-                <p> {{total}}명이 예보했습니다 </p>
+              <!--이미 내가 했으면: 내가 한 걸 표시해주고 다른 거는 못하게! 코드 더 간단하게-->
+                <div class="forecast_title"> 
+                    <img style="width:60px; height:auto;" src= "{% static 'feedpage/img/three.png' %}" />
+                    <div class="forecast_number"><p> {{total}}명이 예보했습니다 </p> </div>
+                  </div>
                   {% if not total %}
                     <a href="/home/{{ feed.id }}/sunny"> 0% Sunny</a>
                     <a href="/home/{{ feed.id }}/cloudy"> 0% Cloudy</a>
                     <a href="/home/{{ feed.id }}/rainy"> 0% Rainy</a>
                   {% else %}
-                  <!--버튼 decactivate-->
-                      {% if user in feed.sunny_users.all %}
-                        <a href="/home/{{ feed.id }}/sunny"> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
-                        <a>{{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}% Cloudy {{feed.cloudy_content}}</a>
-                        <a>{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a>
+                  <!--확정되서 버튼 decactivate-->
+                  <!--sunny-->
+                    {% if user in feed.sunny_users.all %}
+                      <div class = "optionbox">
+                        <div class = "weather">
+                          <div class = "sunny">
+                            <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}" />
+                          </div>
+                          <div class = "cloudy">
+                            <img style = "width: 53px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}" />
+                          </div>
+                          <div class = "rainy">
+                            <img style = "width: 48px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}" id="rainy"/>
+                          </div>
+                        </div>
+
+                        <div class = "option_blank">
+                          <div class = "option1">
+                            <label class="container">
+                              <div id ="option1">
+                                <p id=optionfont> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.sunny_content}}</p></div>
+                            </label>
+                            <a href="/home/{{ feed.id }}/sunny"> <span class="s-checkmark"></span></a>
+                          </div>
+                          
+                          <div class = "option2">
+                            <label class="container2">
+                              <div id ="option2">
+                                <p id=optionfont> {{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.cloudy_content}}</p></div>
+                            </label>
+                            <span class="checkmark2"></span>
+                          </div>
+
+                          <div class = "option3">
+                            <label class="container3">
+                              <div id ="option3">
+                                <p id = "optionfont"> {{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.rainy_content}}</p></div>
+                            </label>
+                            <span class="checkmark3"></span>
+                          </div>
+                        </div>
+                      </div>
+                      
                       {% elif user in feed.cloudy_users.all %}
-                        <a> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
-                        <a href="/home/{{ feed.id }}/cloudy">{{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}% Cloudy {{feed.cloudy_content}}</a>
-                        <a>{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a>
+
+                      <div class = "optionbox">
+                        <div class = "weather">
+                          <div class = "sunny">
+                            <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}" />
+                          </div>
+                          <div class = "cloudy">
+                            <img style = "width: 53px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}" />
+                          </div>
+                          <div class = "rainy">
+                            <img style = "width: 48px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}" id="rainy"/>
+                          </div>
+                        </div>
+
+                        <div class = "option_blank">
+                          <div class = "option1">
+                            <label class="container">
+                              <div id ="option1">
+                                <p id=optionfont> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.sunny_content}}</p></div>
+                            </label>
+                            <span class="checkmark"></span>
+                          </div>
+                          
+                          <div class = "option2">
+                            <label class="container2">
+                              <div id ="option2">
+                                <p id=optionfont> {{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.cloudy_content}}</p></div>
+                            </label>
+                            <a href="/home/{{ feed.id }}/cloudy"><span class="s-checkmark2"></span></a>
+                          </div>
+
+                          <div class = "option3">
+                            <label class="container3">
+                              <div id ="option3">
+                                <p id = "optionfont"> {{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.rainy_content}}</p></div>
+                            </label>
+                            <span class="checkmark3"></span>
+                          </div>
+                        </div>
+                      </div>
+                      
                       {% elif user in feed.rainy_users.all %}
-                        <a> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
-                        <a>{{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}% Cloudy {{feed.cloudy_content}}</a>
-                        <a href="/home/{{ feed.id }}/rainy">{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a>
+                        <div class = "optionbox">
+                        <div class = "weather">
+                          <div class = "sunny">
+                            <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}" />
+                          </div>
+                          <div class = "cloudy">
+                            <img style = "width: 53px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}" />
+                          </div>
+                          <div class = "rainy">
+                            <img style = "width: 48px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}" id="rainy"/>
+                          </div>
+                        </div>
+
+                        <div class = "option_blank">
+                          <div class = "option1">
+                            <label class="container">
+                              <div id ="option1">
+                                <p id=optionfont> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.sunny_content}}</p></div>
+                            </label>
+                            <span class="checkmark"></span>
+                          </div>
+                          
+                          <div class = "option2">
+                            <label class="container2">
+                              <div id ="option2">
+                                <p id=optionfont> {{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.cloudy_content}}</p></div>
+                            </label>
+                            <span class="checkmark2"></span>
+                          </div>
+
+                          <div class = "option3">
+                            <label class="container3">
+                              <div id ="option3">
+                                <p id = "optionfont"> {{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.rainy_content}}</p></div>
+                            </label>
+                            <a href="/home/{{ feed.id }}/rainy"><span class="s-checkmark3"></span></a>
+                          </div>
+                        </div>
+                      </div>
                       {% endif %}
                   {% endif %}
               {% endif %}
             {% else %}
-              <h1>투표종료 {{ feed.result }}</h1>
+
+            <div class=forecast_title>
+              <img style="width:60px; height:auto;" src= "{% static 'feedpage/img/three.png' %}" />
+              <div class=forecast_done> <p>투표종료 {{ feed.result }}</p></div>
+            </div>
               {% if not total %}
                 <a> 0% Sunny</a>
                 <a> 0% Cloudy</a>
                 <a> 0% Rainy</a>
+              <!--종료되면 못하게!-->
               {% else %}
-                <a>{{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
+              <div class = "f-optionbox">
+                    <div class = "weather">
+                      <div class = "sunny">
+                        <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}" />
+                      </div>
+                      <div class = "cloudy">
+                        <img style = "width: 53px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}" />
+                      </div>
+                      <div class = "rainy">
+                        <img style = "width: 48px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}" id="rainy"/>
+                      </div>
+                    </div>
+
+                    <div class = "option_blank">
+                      <div class = "option1">
+                        <label class="container">
+                          <div id ="option1">
+                            <p id="f-optionfont"> {{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.sunny_content}}</p></div>
+                        </label>
+                        <span class="checkmark"></span>
+                      </div>
+                      
+                      <div class = "option2">
+                        <label class="container2">
+                          <div id ="option2">
+                            <p id="f-optionfont"> {{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.cloudy_content}} </p></div>
+                        </label>
+                        <span class="checkmark2"></span>
+                      </div>
+
+                      <div class = "option3">
+                        <label class="container3">
+                          <div id ="option3">
+                            <p id ="f-optionfont"> {{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}%  {{feed.rainy_content}} </p></div>
+                        </label>
+                        <span class="checkmark3"></span>
+                      </div>
+                    </div>
+                  </div>
+                {% comment %} <a>{{ feed.sunny_users.count|div:total|mul:100|floatformat:"0" }}% Sunny {{feed.sunny_content}}</a>
                 <a>{{ feed.cloudy_users.count|div:total|mul:100|floatformat:"0" }}% Cloudy {{feed.cloudy_content}}</a>
-                <a>{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a>
+                <a>{{ feed.rainy_users.count|div:total|mul:100|floatformat:"0" }}% Rainy {{feed.rainy_content}}</a> {% endcomment %}
               {% endif %}
           
             {% endif %}
           {% endwith %}
+        </div>
           <!-- ################## -->
           
+          <div class="line"></div>
+          <br>
 
           {% for c in feed.feedcomment_set.all %}
-            <p>{{ c.content }}</p>
-            <a href="/home/{{ feed.id }}/comments/{{ c.id }}/like">{{ c.liked_users.count }} 댓추 </a>
-            <a href="/home/{{ feed.id }}/comments/{{ c.id }}/dislike">{{ c.disliked_users.count }} 댓비추 </a>
-
-            <form action="/home/{{ feed.id }}/comments/{{ c.id }}/" method="POST">
-              {% csrf_token %}
-              {% if request.user == c.author %}  
-              <button>댓글 삭제</button>
-              {% endif %}
-            </form>
+          <div class="comment_wrapper">
+            <div class = "comment_delete">
+              <form action="/home/{{ feed.id }}/comments/{{ c.id }}/" method="POST">
+                {% csrf_token %}
+                {% if request.user == c.author %}  
+                <button><i style="color:#616161;"class="fas fa-times"></i></button>
+                {% endif %}
+              </form>
+            </div>
+            <div class="comment_content">
+              <p>{{ c.content }}</p>
+            </div>
+            <div class = "comment_like">
+              <a style="color:#616161; text-decoration:none;" href="/home/{{ feed.id }}/comments/{{ c.id }}/like"> <i style="color:#483e80;" class="fas fa-thumbs-up"></i> {{ c.liked_users.count }} </a>
+            </div>
+            <div class = "comment_hate">
+              <a style="color:#616161; text-decoration:none;" href="/home/{{ feed.id }}/comments/{{ c.id }}/dislike"> <i style="color:#483e80;" class="fas fa-thumbs-down"></i>{{ c.disliked_users.count }} </a>
+            </div>
+            
+          
+          </div>
           {% endfor %}
+
           <form action="/home/{{ feed.id }}/comments/" method="POST">
             {% csrf_token %}
-            <input type="text" name="content" />
-            <button type="submit">댓글 달기</button>
+            <div class="comment_box">
+              
+              <input type="text" id = "text_comment" name="content" />
+              
+              
+              <button class="comment_submit" type="submit">댓글 달기</button>
+              
+            </div>
           </form>
 
         </div>
-      {% endfor %} 
-       
+      {% endfor %}
+      </div> 
+
+
 {% endblock content %}
