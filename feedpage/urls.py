@@ -16,5 +16,7 @@ urlpatterns = [
     path('search/',views.search, name='search'),
     path('<int:pk>/comments/<int:cpk>/like/', views.comment_like, name='comment_like'),
     path('<int:pk>/comments/<int:cpk>/dislike/', views.comment_dislike, name='comment_dislike'),
-    
+    path('profile_edit/', views.profile_edit, name='profile_edit'),
+    path('notification/', views.show_notifications, name='show_notifications'),
+    path('notification/<int:nid>/', views.delete_notifications, name='delete_notifications'),
 ]

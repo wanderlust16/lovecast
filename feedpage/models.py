@@ -25,7 +25,7 @@ class Feed(models.Model):
     cloudy_users = models.ManyToManyField(User, blank=True, related_name='feeds_cloudy', through='Cloudy')
     rainy_users = models.ManyToManyField(User, blank=True, related_name='feeds_rainy', through='Rainy')
     nickname=models.CharField(max_length=200, blank=True)
-    feed_photos = models.ManyToManyField(Photos, null=True, related_name='feed_photo')
+    feed_photos = models.ManyToManyField(Photos, related_name='feed_photo')
     hashtag_str=models.TextField(blank=True)
     result= models.CharField(default='not confirmed', max_length=200) #결과 확정. 
 
@@ -36,6 +36,13 @@ class Feed(models.Model):
     def __str__(self):
         return self.title
 
+class Notification(models.Model):
+    title= models.CharField(max_length=256)
+    message= models.TextField()
+    viewed= models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+
 class Profile(models.Model):   
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     nickname = models.CharField(max_length=20, blank=True)
@@ -43,8 +50,8 @@ class Profile(models.Model):
     age = models.CharField(max_length=20, blank=True)
     lovestatus= models.CharField(max_length=20, blank=True)
     profile_photo = ProcessedImageField(upload_to= 'profile_photos',
-                                processors=[ResizeToFill(300, 400)],
-                            options={'quality': 90})               
+                                        processors=[ResizeToFill(300, 400)],
+                                        options={'quality': 90})               
     score= models.IntegerField(default= 0) #user 등급 위한 점수 관리
 
     def __str__(self):  
@@ -97,8 +104,5 @@ class CommentDislike(models.Model):
     comment = models.ForeignKey(FeedComment, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-'''
-class Notifs(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(null=True, blank=True)
-'''
+
+

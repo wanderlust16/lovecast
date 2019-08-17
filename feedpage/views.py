@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
-from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, CommentLike, CommentDislike, Photos
+from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, CommentLike, CommentDislike, Photos, Notification
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 from nicky.base import Nicky
@@ -20,7 +20,6 @@ def index(request):
         #글 POST시 점수 +해주기
         request.user.profile.score+=10  #글 하나 씩 쓸 때마다 10점 추가 
         request.user.profile.save()
-
         title = request.POST['title']
         content = request.POST['content']
         sunny_content =request.POST['sunny_content']
@@ -29,7 +28,7 @@ def index(request):
         anonymous=request.POST.get('anonymous') == 'on'
         hashtags=request.POST['hashtags']
         nicky=Nicky()
-        nickname = nicky.get_nickname()
+        nickname = nicky.get_nickname()[0]
         new=Feed.objects.create(
                 title=title,
                 content=content,author=request.user, 
@@ -49,7 +48,7 @@ def index(request):
                 photos.save()
                 new.feed_photos.add(photos)
                 new.save()
-        print(request.user.profile.score)
+        
         return redirect('/home')
 
 def new(request):
@@ -94,11 +93,17 @@ def edit(request, id):
 
 def create_comment(request, id):
     content = request.POST['content']
+    feed= Feed.objects.get(id=id)
     FeedComment.objects.create(feed_id=id, content=content, author = request.user)
     #댓글 POST시 점수 +해주기
     request.user.profile.score+=2
     request.user.profile.save()
-    print(request.user.profile.score)
+    #게시글 주인한테 알림 띄우기
+    Notification.objects.create(
+        title= '[댓글알림]',
+        message= "게시글에 댓글이 달렸습니다",
+        user= feed.author,
+    )
     return redirect('/home')
 
 def delete_comment(request, id, cid):
@@ -113,6 +118,11 @@ def feed_sunny(request, pk):
         feed.sunny_set.get(user_id = request.user.id).delete()
     else:
         Sunny.objects.create(user_id = request.user.id, feed_id = feed.id)
+    Notification.objects.create(
+        title= '[예보알림]',
+        message= "게시글에 예보가 달렸습니다",
+        user= feed.author
+    )
     return redirect ('/home')
 
 def feed_cloudy(request, pk):
@@ -122,6 +132,11 @@ def feed_cloudy(request, pk):
         feed.cloudy_set.get(user_id = request.user.id).delete()
     else:
         Cloudy.objects.create(user_id = request.user.id, feed_id = feed.id)
+    Notification.objects.create(
+        title= '[예보알림]',
+        message= "게시글에 예보가 달렸습니다",
+        user= feed.author
+    )
     return redirect ('/home')
 
 def feed_rainy(request, pk):
@@ -131,6 +146,11 @@ def feed_rainy(request, pk):
         feed.rainy_set.get(user_id = request.user.id).delete()
     else:
         Rainy.objects.create(user_id = request.user.id, feed_id = feed.id)
+    Notification.objects.create(
+        title= '[예보알림]',
+        message= "게시글에 예보가 달렸습니다",
+        user= feed.author
+    )
     return redirect ('/home')
 
 def mypage(request):
@@ -166,15 +186,25 @@ def comment_dislike(request, pk, cpk):
         CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
 
-'''
-def notify(request):
-    new = Notifs.objects.filter(user=request.user)
-    if new:
-        new.update(timestamp=timezone.now())
-    else:
-        Notifs.objects.create(user=request.user, timestamp=timezone.now())
-    last_checked = Notifs.objects.values_list('timestamp', flat=True).get(user=request.user)
-    forecasts= Sunny.objects.filter(feed__user = request.user, created_at__gte=last_checked).order_by('-id')
-    print(forecasts)
-    return render(request, 'feedpage/notify.html', {'forecasts': forecasts})
-'''
+
+def profile_edit(request):
+    if request.method == 'GET': 
+        return render(request, 'feedpage/profile_edit.html')
+    elif request.method == 'POST': 
+        nickname = request.POST['nickname']
+        lovestatus = request.POST['lovestatus']
+        profile_photo = request.FILES.get('profile_photo', False)
+        request.user.profile.nickname=nickname
+        request.user.profile.lovestatus=lovestatus
+        request.user.profile.profile_photo=profile_photo
+        request.user.profile.save()
+        return redirect('/home/mypage')
+
+def show_notifications(request):
+    notifs= Notification.objects.filter(user=request.user, viewed=False)
+    return render(request, 'feedpage/notify.html', {'notifs': notifs})
+
+def delete_notifications(request, nid):
+    notif= Notification.objects.get(id=nid)
+    notif.delete()
+    return redirect('/home/notification')

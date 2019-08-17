@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> Edit Profile </h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>닉네임 수정</p>
+        <input name="nickname" value="{{ user.profile.nickname }}" /> <br />
+        <p>연애 상태 수정</p>
+        <select name="lovestatus">
+                <option> - </option>
+                <option>연애 중 </option>
+                <option>빛나는 솔로 </option>
+                <option>복잡한 연애 중 </option>
+                <option>기혼 </option>
+        </select>
+        
+        <p>프로필 사진 수정</p>
+        <input name="profile_photo" type="file" /> <br />
+
+        <input type="submit" value="수정하기!">
+    </form>
+    
+{% endblock %}

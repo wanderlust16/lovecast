@@ -67,14 +67,26 @@
 
       <div class = "optionbox">
         <div class = "weather">
-          <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}"/>
-          <img style = "width: 56px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}"/>
-          <img style = "width: 45px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}"/>
+          <div class = "sunny">
+            <img style = "width: 38px; height: auto;" src="{% static 'feedpage/img/sunny.png' %}" />
+          </div>
+          <div class = "cloudy">
+            <img style = "width: 53px; height: auto;" src="{% static 'feedpage/img/cloudy.png' %}" />
+          </div>
+          <div class = "rainy">
+            <img style = "width: 48px; height: auto;" src="{% static 'feedpage/img/rainy.png' %}" id="rainy"/>
+          </div>
         </div>
         <div class = "option_blank">
-          <input type = "text" name="sunny_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
-          <input type = "text" name="cloudy_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
-          <input type = "text" name="rainy_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
+          <div class = "option1">
+            <input type = "text" name="sunny_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
+          </div>
+          <div class = "option2">
+            <input type = "text" name="cloudy_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
+          </div>
+          <div class = "option3">
+            <input type = "text" name="rainy_content" id = "option1" placeholder = "선택지를 입력해주세요."/>
+          </div>
         </div>
       </div>
 
