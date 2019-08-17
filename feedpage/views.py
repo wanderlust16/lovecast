@@ -20,7 +20,6 @@ def index(request):
         #글 POST시 점수 +해주기
         request.user.profile.score+=10  #글 하나 씩 쓸 때마다 10점 추가 
         request.user.profile.save()
-
         title = request.POST['title']
         content = request.POST['content']
         sunny_content =request.POST['sunny_content']
@@ -29,7 +28,7 @@ def index(request):
         anonymous=request.POST.get('anonymous') == 'on'
         hashtags=request.POST['hashtags']
         nicky=Nicky()
-        nickname = nicky.get_nickname()
+        nickname = nicky.get_nickname()[0]
         new=Feed.objects.create(
                 title=title,
                 content=content,author=request.user, 
@@ -178,3 +177,15 @@ def notify(request):
     print(forecasts)
     return render(request, 'feedpage/notify.html', {'forecasts': forecasts})
 '''
+def profile_edit(request):
+    if request.method == 'GET': 
+        return render(request, 'feedpage/profile_edit.html')
+    elif request.method == 'POST': 
+        nickname = request.POST['nickname']
+        lovestatus = request.POST['lovestatus']
+        profile_photo = request.FILES.get('profile_photo', False)
+        request.user.profile.nickname=nickname
+        request.user.profile.lovestatus=lovestatus
+        request.user.profile.profile_photo=profile_photo
+        request.user.profile.save()
+        return redirect('/home/mypage')
