@@ -138,3 +138,107 @@ header {
     position: relative;
     top: 55px;
 }
+
+/* 팝업 레이어 */
+  
+  .button {
+    font-size: 12px;
+    position: absolute;
+    background: rgba(255,255,255, 0%);
+    border: 0px;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+
+  }
+
+  /*.button:hover {
+    background: #06D85F;
+  }*/
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .overlay:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .popup {
+    position: relative;
+    width: 433px;
+    min-height: 465px;
+    background: #fff;
+    border-radius: 8px;
+    transition: all 5s ease-in-out;
+    top: 56px;
+    float: right;
+  }
+  
+  .top_alarm {
+    position: relative;
+    width: 433px;
+    height: 50px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background: #483e80;
+    float: top;
+    display: flex;
+  }
+
+.text_alarm {
+    position: relative;
+    height: 50px;
+    width: 150px;
+
+}
+
+.text_alarm > h2 {
+    position: absolute;
+    font-size: 13px;
+    font-weight: 400;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+    
+  }
+
+  .popup .close {  /*X 모양*/
+    position: absolute;
+    margin-left: 170px;
+    transition: all 200ms;
+    font-size: 25px;
+    font-weight: 500;
+    text-decoration: none;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+  }
+
+  .popup .close:hover {
+    color: white;
+  }
+  .popup .content {
+    max-height: 30%;
+    overflow: auto;
+  }
+  
+  @media screen and (max-width: 700px){
+    .box{
+      width: 70%;
+    }
+    .popup{
+      width: 70%;
+    }
+  }
