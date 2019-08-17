@@ -258,23 +258,27 @@ header {
   /*알람 내용*/
 
   .alarm_content {
+    position: relative;
     height: auto;
     text-align: initial;
-    margin-left: 25px;
+    margin-left: 35px;
+    margin-top: 25px;
   }
 
   .alarm_content > h2 {
-    font-size : 15px;
+    position: relative;
+    font-size : 13px;
     font-weight: 500;
     color: #616161;
-    margin-bottom: 15px;
-    width: fit-content;
+    margin-bottom: 12px;
+ 
   }
 
   .select_button_box {
-    position: absolute;
+    position: relative;
     width: fit-content;
-    left: 400px;
+    left: 370px;
+    bottom:33px;
   }
  #button11 {
     border: 0px;
@@ -283,3 +287,7 @@ header {
     color: #a9a9a9;
     background: rgba(0,0,0,0);
   }
+
+#cloud_icon{
+  margin-right: 9px;
+}
