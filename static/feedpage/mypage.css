@@ -1,0 +1,366 @@
+
+.bg {
+  position: fixed; 
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+
+}
+
+/* 스크롤이 되는 전체 피드 - position relative: 상하 위치값은 top bottom으로 하기!! 양옆은 margin auto */
+.mypage_content  {
+  position: relative;
+  width: 852px;
+  top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  background: white;
+  border-radius: 5px;
+  border : white 1px solid;
+  box-shadow: 1px 3px 11px 0px rgba(146,146,146,1);
+  
+}
+
+.info {
+  position: relative;
+  display: flex;  /* 한 div 안에 display를 flex로 하면 안의 하위 요소들이 전체 규격에서 옆으로 정렬됨!! */
+  width: 730px;
+  height: 177px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0px solid;
+  top: 70px;
+}
+
+
+.list {
+  position: relative;
+  width: 730px;
+  min-height: 682px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0px solid;
+  top: 140px;
+}
+
+.info_specific {
+  width: 242px;
+  height: 120px;
+  margin-left: 21px;
+  margin-top: auto;
+  margin-bottom: auto;
+  
+}
+
+/* 닉네임 */
+.info_nickname {
+  width: auto;
+  color: #616161;
+  font-size: 42px;
+  font-weight: 500;
+
+}
+
+/* 아이디 */
+.info_username {
+  width: auto;
+  color: #616161;
+  font-size: 23px;
+  font-weight: 320;
+
+}
+
+.fa-cog {
+  font-size: 15px;
+  margin-left: 5px;
+  align-content: center;
+  color: #8e8e8e;
+}
+
+/* 등급 */
+.info_rank {
+  width: 242px;
+  color: #efbc45;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top : 18px;
+
+}
+
+/*점수 */
+.score {
+    position: relative;
+    color: #483e80;
+    font-size: 15px;
+    font-weight: 500;
+    left: 110px;
+    bottom: 20px;
+}
+
+/* 내가 쓴 글 */
+
+.written_list > p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #616161;
+  margin-left: 50px;
+  margin-bottom: 25px;
+
+}
+
+.written_list {
+  margin-bottom: 20px;
+
+}
+
+.list_header {
+  position: relative;
+  display: flex;
+  width: 730px;
+  height: 48px;
+  border-radius: 25px;
+  background: #f3f3f3;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.list_header > p {
+  margin-left : auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 14px;
+  font-weight: 400;
+  color: #616161;
+}
+
+/* .content {
+  position: relative;
+  width: 658px;
+  height: auto;
+  display: flex;
+  margin-left: 55px;
+  margin-right: 55px;
+  margin-top: 33px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #616161;
+} */
+
+.all_content {
+  display: flex;
+  align-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #616161;
+  margin-bottom: 27px;
+
+}
+.contents_factor {
+  display: flex;
+  width: 900px;
+  margin-left: 55px;
+  margin-right: 55px;
+}
+
+/* <a class = "content" href="/home/{{ feed.id }}">
+  <div class = "all_content">
+  <div class = "feed_title">{{ feed.title }}</div>
+  <div class = "date"> 2018.01.25 </div>
+  <div class = "forecast"> <img style = "width: 68px; height: auto; margin: 0; " src = "{% static 'feedpage/img/forecast_logo.png' %}"/></div>
+  <div class = "forecast_number"> 255 </div>
+  <div class = "comment"> 1200 </div>
+   <div class = "edit_submit_button"> 수정 확정 </div>
+</div>*/
+
+.all_content > .feed_title {
+  position: absolute;
+  align-content: initial;
+}
+.all_content > .date {
+  position: absolute;
+  text-align: center;
+  left: 125px;
+  width: 88px;
+  border: 0px solid;
+  
+}
+.all_content > .forecast {
+  position: absolute;
+  align-content: flex-end;
+  left: 260px;
+  width: 68px;
+  height: 18px;
+  border: 0px solid;
+}
+.all_content > .forecast_number {
+  position: absolute;
+  align-content: initial;
+  left: 340px;
+  top: 3px;
+  border: 0px solid;
+  
+}
+.all_content > .comment {
+  position: absolute;
+  text-align: center;
+  left: 390px;
+  width: 100px;
+  border: 0px solid;
+  
+}
+.edit_submit_button {
+  position: absolute;
+  align-content: center;
+  border: 0px solid;
+  color: #8e8e8e;
+  
+}
+
+/* 내가 예보한 글 */
+
+.list2 {
+  position: relative;
+  width: 730px;
+  min-height: 682px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0px solid;
+
+}
+
+
+.written_list2 > p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #616161;
+  margin-left: 50px;
+  margin-bottom: 25px;
+
+}
+
+.written_list2 {
+  margin-top: 50px;
+  margin-bottom: 20px;
+
+}
+
+.list_header2 {
+  position: relative;
+  display: flex;
+  width: 730px;
+  height: 48px;
+  border-radius: 25px;
+  background: #f3f3f3;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.list_header2 > p {
+  margin-left : auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 14px;
+  font-weight: 400;
+  color: #616161;
+}
+
+.content1 {
+  width: 570px;
+  position: relative;
+  height: auto;
+  display: flex;
+  margin-top: 33px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #616161;
+
+}
+
+
+.content2 {
+  position: relative;
+  height: auto;
+  display: flex;
+
+  margin-top: 33px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #616161;
+
+}
+
+.all_content {
+  display: flex;
+  align-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #616161;
+  margin-bottom: 27px;
+
+}
+
+
+/* <a class = "content" href="/home/{{ feed.id }}">
+  <div class = "all_content">
+  <div class = "feed_title">{{ feed.title }}</div>
+  <div class = "date"> 2018.01.25 </div>
+  <div class = "forecast"> <img style = "width: 68px; height: auto; margin: 0; " src = "{% static 'feedpage/img/forecast_logo.png' %}"/></div>
+  <div class = "forecast_number"> 255 </div>
+  <div class = "comment"> 1200 </div>
+   <div class = "edit_submit_button"> 수정 확정 </div>
+</div>*/
+
+.content1 > .feed_title {
+  position: absolute;
+  align-content: initial;
+}
+.content1 > .date {
+  position: absolute;
+  text-align: center;
+  left: 125px;
+  width: 88px;
+  border: 0px solid;
+  
+}
+.content1 > .forecast {
+  position: absolute;
+  align-content: flex-end;
+  left: 260px;
+  width: 68px;
+  height: 18px;
+  border: 0px solid;
+}
+.content1 > .forecast_number {
+  position: absolute;
+  align-content: initial;
+  left: 340px;
+  top: 3px;
+  border: 0px solid;
+  
+}
+.content1 > .comment {
+  position: absolute;
+  text-align: center;
+  left: 393px;
+  width: 100px;
+  border: 0px solid;
+  
+}
+.edit_submit_button {
+  position: absolute;
+  align-content: center;
+  left: 13px;
+  border: 0px solid;
+  color: #8e8e8e;
+  
+}
+
+
+
+
+

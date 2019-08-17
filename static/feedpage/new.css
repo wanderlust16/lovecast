@@ -1,0 +1,438 @@
+.bg {
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+  
+  }
+
+.writing_box {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    top: 150px;
+    border-radius: 8px;
+    width: 666px;
+    height: 680px;
+    background: white;
+    box-shadow: 3.18px 4.79px 8px 0px rgba(0,0,0,0.62);
+}
+
+/*제목 쓰기 - 익명 모드 */
+
+.title {
+    position: relative;
+    width: 666px;
+    height: 50px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background: #f3f3f3;
+    display: flex;
+
+}
+
+.title_box {                    /* 제목 쓰는 전체 div */
+    position: relative;
+    height: 50px;
+    width: 515px;
+    left : 40px;
+    text-align: initial;
+    align-content: center;
+
+}
+
+.title_box label {          /* 제목 글자 */
+    position: absolute;
+    font-size: 14px;
+    font-weight: 500;
+    color: #616161;
+    top: 18px;
+    cursor: text;
+}
+
+#text_title {           /* 제목 박스 */
+    font-size: 14px;
+    font-weight: 500;
+    color: #616161;
+    height: auto;
+    width: 450px;
+    text-align: initial;
+    border: 0px solid;
+    margin-top: 16px;
+    background: rgba(0,0,0,0.0);
+}
+
+
+/* 익명 모드 버튼 구역 */
+
+.anonymous_box {
+    position: absolute;
+    left : 580px;
+    top: 14px;
+}
+
+/*익명 모드 버튼 */
+
+
+ul.ks-cboxtags li{
+  display: inline-flex;
+  cursor: pointer;
+
+}
+ul.ks-cboxtags li label{
+    align-self: center;
+    background-color: white;
+    color: #adadad;
+    font-size: 5px;
+    border-radius: 12px;
+    padding : 6px;
+    transition: all .2s;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,1);
+    cursor: pointer;
+}
+
+
+ul.ks-cboxtags li label::before {
+    display: inline-block;
+    background-color: white;
+    color: #f15398;
+    font-size: 5px;
+    border-radius: 12px;
+    padding : 6px;
+    transition: all .2s;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,1);
+    cursor: pointer;
+    transition: transform .3s ease-in-out;
+}
+
+ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+    transform: rotate(-360deg);
+    transition: transform .3s ease-in-out;
+}
+
+ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+    color: #f15398;
+    border: 1px solid #f15398;
+    background-color: white;
+    transition: all .2s;
+}
+
+ul.ks-cboxtags li input[type="checkbox"] {
+  display: absolute;
+  opacity: 0;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+}
+ul.ks-cboxtags li input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+}
+ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+  border: 1px solid #f15398;
+}
+
+
+
+
+/*내용 글쓰기*/
+.story {
+    position: relative;
+    width: 666px;
+    min-height: 315px;
+    display: block;
+    margin-top: 12px;
+
+}
+
+.story label {
+    position: absolute;
+    font-size: 13px;
+    font-weight: 400;
+    color: #616161;
+    margin-left: 40px;
+    cursor: text;
+    top: 15px;
+}
+
+
+
+#text_story {
+    font-size: 13px;
+    font-weight: 400;
+    width: 581px;
+    height: auto;
+    margin-left: 40px;
+    border: 0px solid;
+    margin-top: 15px;
+}
+
+hr {
+    border : 0.75px solid #a9a9a9;
+    width: 581px;
+    margin-top : 270px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+/*해쉬태그*/
+.hashtag {
+    position: relative;
+    width: 666px;
+    min-height: 79px;
+    border: 0px solid;
+}
+
+.justtag {
+    position: relative;
+    width: 610px;
+    height: 45px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.shape {
+    position: relative;
+    height: 27px;
+    width: 71px;
+    border-radius: 14px;
+    font-size: 9px;
+    font-weight: 400;
+    text-align: center;
+    color: #616161;
+    background: #f3f3f3;
+    margin: auto;
+    
+}
+p {
+    position: relative;
+    margin: auto;
+    top: 7px;
+
+}
+
+/* 태그 입력하기 */
+
+.puttag {
+    position: relative;
+    width: 410px;
+    height: 45px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+/* 전체 모양 */ 
+.hashtag_text {
+    position: relative;
+    height: 27px;
+    min-width: 200px;
+    border-radius: 12px;
+    background: #f3f3f3;
+    margin: auto;
+}
+
+
+#hashtag_line {
+    position: relative;
+    height: 27px;
+    min-width: 200px;
+    border: 0px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0);
+    text-align-last: center;
+}
+
+
+.hashtag_text label {
+    position: absolute;
+    font-size: 9px;
+    font-weight: 500;
+    margin-left: 55px;
+    top: 8px;
+    cursor: text;
+    color: #616161;
+}
+
+
+/* 사진 넣기 */
+.input-file { 
+    position:relative; 
+    overflow:hidden;  
+    padding:0;
+    display:block;
+    max-width:100%;
+    cursor:pointer;
+    margin: auto;
+  }
+  
+  .input-file .btn { 
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 10px;
+    font-weight: 400;
+    color: #616161;
+    text-align: center;
+    background: #f3f3f3;
+    border-radius: 12px;
+    width: 100px;
+    height: 25px;
+}
+  }
+  
+  .input-file .material-icons {
+    float: center;
+    font-size:16px; 
+    line-height:inherit;
+    margin-right:4px;
+  }
+  
+  .input-file ins { 
+    white-space:nowrap; 
+    display: block;
+    max-width:100%; 
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    font-size:12px;
+  }
+  
+  .input-file:after {
+    content:""; 
+    display:block; clear:both; 
+  } 
+  
+  .input-file input { 
+    width:0.1px; 
+    height:0.1px;
+    opacity:0;
+    overflow:hidden;
+    position:absolute; 
+    top:-100px;
+    z-index:-1; 
+  }
+
+p0 {
+    position: relative;
+    top: 8px;
+  }
+
+/* 문항 선택지 넣기*/
+
+.optionbox {
+    position: relative;
+    width: 586px;
+    height: 120px;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #f3f3f3;
+    border-radius: 10px;
+    border: 0px solid;
+}
+
+.weather {
+    height: 65px;
+    display: flex;
+}
+
+
+.optionbox img {
+    position: relative;
+    top: 10px;
+}
+
+.sunny,
+.cloudy,
+.rainy {
+    width: 48px;
+    height: 50px;
+    margin: auto;
+}
+
+.option_blank {
+    width: 586px;
+    height: 40px;
+    display: flex;
+}
+
+
+.option_blank label {
+    position: absolute;
+    font-size: 12px;
+    color: #616161;
+}
+
+/*옵션 입력 text창 */
+
+#option1 {
+    position: relative;
+    background: white;
+    width: 140px;
+    height: 30px;
+    border: 0px;
+    border-radius: 23px;
+    text-align-last: center;
+}
+.option1,
+.option2,
+.option3 {
+    width: 140px;
+    height: 30px;
+    margin: auto;
+    
+}
+/*글쓰기 버튼 */
+
+.finish_writing {
+    position: relative;
+    width: 666px;
+    height: 53px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background: #483e80;
+    text-align-last: center;
+
+}
+
+.submit_button {
+    position: relative;
+    width: 81px;
+    height: 53px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    font-size : 18px;
+    font-weight: 300;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0);
+    border: 0px;
+    margin-top: 13px;
+    cursor: pointer;
+
+}
+
+/*input text 상자 눌렀을 때 효과 */
+
+input:focus {
+    outline: none;
+    
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
