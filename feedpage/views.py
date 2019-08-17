@@ -9,13 +9,15 @@ from django.http import HttpResponse
 
 def index(request):
     if request.method == 'GET': 
+        notifs= Notification.objects.filter(user=request.user, viewed=False)
         sort = request.GET.get('sort','')
         ranking= Feed.objects.annotate(total=Count('sunny_users')+Count('cloudy_users')+Count('rainy_users')).order_by('-total','-updated_at')
+        
         if sort == 'forecasts':
             feeds=ranking
         else:
             feeds=Feed.objects.order_by('-created_at')
-        return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking})
+        return render(request, 'feedpage/index.html', {'feeds': feeds, 'ranking':ranking, 'notifs':notifs})
     elif request.method == 'POST': 
         #글 POST시 점수 +해주기
         request.user.profile.score+=10  #글 하나 씩 쓸 때마다 10점 추가 
@@ -52,12 +54,14 @@ def index(request):
         return redirect('/home')
 
 def new(request):
-    return render(request, 'feedpage/new.html')
+    notifs= Notification.objects.filter(user=request.user, viewed=False)
+    return render(request, 'feedpage/new.html', {'notifs':notifs} )
 
 def show(request, id):
     if request.method == 'GET': 
         feed = Feed.objects.get(id=id)
-        return render(request, 'feedpage/show.html', {'feed': feed})
+        notifs= Notification.objects.filter(user=request.user, viewed=False)
+        return render(request, 'feedpage/show.html', {'feed': feed, 'notifs':notifs})
     elif request.method == 'POST': 
         title = request.POST['title']
         content = request.POST['content']
@@ -88,8 +92,9 @@ def delete(request, id):
     return redirect('/home')
 
 def edit(request, id):
+    notifs= Notification.objects.filter(user=request.user, viewed=False)
     feed = Feed.objects.get(id=id)
-    return render(request, 'feedpage/edit.html', {'feed':feed})
+    return render(request, 'feedpage/edit.html', {'feed':feed, 'notifs': notifs})
 
 def create_comment(request, id):
     content = request.POST['content']
@@ -100,8 +105,8 @@ def create_comment(request, id):
     request.user.profile.save()
     #게시글 주인한테 알림 띄우기
     Notification.objects.create(
-        title= '[댓글알림]',
-        message= "게시글에 댓글이 달렸습니다",
+        title= '',
+        message= '['+feed.title +']'+ "  에 댓글이 달렸습니다",
         user= feed.author,
     )
     return redirect('/home')
@@ -119,8 +124,8 @@ def feed_sunny(request, pk):
     else:
         Sunny.objects.create(user_id = request.user.id, feed_id = feed.id)
     Notification.objects.create(
-        title= '[예보알림]',
-        message= "게시글에 예보가 달렸습니다",
+        title= '',
+        message= '['+feed.title +']'+ '  에 예보가 달렸습니다',
         user= feed.author
     )
     return redirect ('/home')
@@ -133,8 +138,8 @@ def feed_cloudy(request, pk):
     else:
         Cloudy.objects.create(user_id = request.user.id, feed_id = feed.id)
     Notification.objects.create(
-        title= '[예보알림]',
-        message= "게시글에 예보가 달렸습니다",
+        title= '',
+        message= '['+feed.title +']'+ '  에 예보가 달렸습니다',
         user= feed.author
     )
     return redirect ('/home')
@@ -147,8 +152,8 @@ def feed_rainy(request, pk):
     else:
         Rainy.objects.create(user_id = request.user.id, feed_id = feed.id)
     Notification.objects.create(
-        title= '[예보알림]',
-        message= "게시글에 예보가 달렸습니다",
+        title= '',
+        message= '['+feed.title +']'+ '  에 예보가 달렸습니다',
         user= feed.author
     )
     return redirect ('/home')
@@ -159,12 +164,13 @@ def mypage(request):
 
 def search(request): # 해쉬태그 검색 + 결과보여주는 함수
     feeds=Feed.objects.all()
+    notifs= Notification.objects.filter(user=request.user, viewed=False)
     hashtags = request.GET.get('hashtags','')
     for f in feeds:
         keyword=f.hashtag_str.split("#")[1:]
         if hashtags in keyword:
             feeds= feeds.filter(hashtag_str__icontains=hashtags)
-            return render(request, 'feedpage/search.html', {'feeds':feeds})
+            return render(request, 'feedpage/search.html', {'feeds':feeds, 'notifs':notifs})
 
 def comment_like(request, pk, cpk):
     feed= Feed.objects.get(id = pk)
@@ -186,7 +192,6 @@ def comment_dislike(request, pk, cpk):
         CommentDislike.objects.create(user_id = request.user.id, feed_id=feed.id , comment_id = feedcomment.id)
     return redirect ('/home')
 
-
 def profile_edit(request):
     if request.method == 'GET': 
         return render(request, 'feedpage/profile_edit.html')
@@ -202,9 +207,10 @@ def profile_edit(request):
 
 def show_notifications(request):
     notifs= Notification.objects.filter(user=request.user, viewed=False)
-    return render(request, 'feedpage/notify.html', {'notifs': notifs})
+    return render(request, 'base.html', {'notifs': notifs})
 
 def delete_notifications(request, nid):
     notif= Notification.objects.get(id=nid)
     notif.delete()
-    return redirect('/home/notification')
+    return redirect('/home')
+
