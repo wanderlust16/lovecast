@@ -27,8 +27,8 @@
 
         <body>
             <div class = "background">
-                    <img style= "margin: 0; padding: 0; width: 100%;" src="{% static 'accounts/img/background2.jpg' %}"/>
-                
+                    <img style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 50%; height: auto; min-width: 50%; min-height: 50%;" src="{% static 'accounts/img/background2.jpg' %}"/>
+            </div>
                     <div class = "login_area">
                         <form method="post" action="{% url 'login' %}">
                         {% csrf_token %} 

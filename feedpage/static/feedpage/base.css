@@ -140,17 +140,30 @@ header {
 }
 
 /* 팝업 레이어 */
-  
-  .button {
-    font-size: 12px;
+
+  .button_icon {          /* 종모양 아이콘 */
+    position: relative;
+    width: fit-content;
+    margin-left: 12px;
+    margin-right: 12px;
+    font-size: 17px;
     position: absolute;
     background: rgba(255,255,255, 0%);
-    border: 0px;
-    top: 3px;
-    width: 20px;
-    height: 20px;
-    margin-left: 20px;
+    text-decoration: none;
 
+    }
+
+  .count_icon {         /* 숫자세는 아이콘 */
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+  }
+
+  .count_icon > p {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    position: relative;
   }
 
   /*.button:hover {
@@ -175,7 +188,7 @@ header {
   
   .popup {
     position: relative;
-    width: 433px;
+    width: 500px;
     min-height: 465px;
     background: #fff;
     border-radius: 8px;
@@ -186,7 +199,7 @@ header {
   
   .top_alarm {
     position: relative;
-    width: 433px;
+    width: 500px;
     height: 50px;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
@@ -198,7 +211,7 @@ header {
 .text_alarm {
     position: relative;
     height: 50px;
-    width: 150px;
+    width: 190px;
 
 }
 
@@ -215,9 +228,9 @@ header {
 
   .popup .close {  /*X 모양*/
     position: absolute;
-    margin-left: 170px;
+    margin-left: 200px;
     transition: all 200ms;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 500;
     text-decoration: none;
     color: white;
@@ -242,3 +255,40 @@ header {
       width: 70%;
     }
   }
+
+  /*알람 내용*/
+
+  .alarm_content {
+    position: relative;
+    height: auto;
+    text-align: initial;
+    margin-left: 35px;
+    margin-top: 25px;
+  }
+
+  .alarm_content > h2 {
+    position: relative;
+    font-size : 13px;
+    font-weight: 500;
+    color: #616161;
+    margin-bottom: 12px;
+ 
+  }
+
+  .select_button_box {
+    position: relative;
+    width: fit-content;
+    left: 370px;
+    bottom:33px;
+  }
+ #button11 {
+    border: 0px;
+    font-size: 11px;
+    font-weight: 400;
+    color: #a9a9a9;
+    background: rgba(0,0,0,0);
+  }
+
+#cloud_icon{
+  margin-right: 9px;
+}
