@@ -21,40 +21,44 @@
                     <div class = "info_username"> {{user.username}} 
                     <a href="/home/profile_edit"><i id = "settings button" class="fas fa-cog fa-sm"></i></a>  <!--바뀜-->
                     </div>
-                    <p>점수확인테스트 {{ user.profile.score }}</p>
-                    {% if user.profile.score < 100 %}
+
+                        {% if user.profile.score < 100 %}
                         <div class = "info_rank"> <i class="fas fa-seedling"></i>    새싹 등급 </div>
-                    {% elif user.profile.score >= 100 and user.profile.score < 200 %}
+                            {% elif user.profile.score >= 100 and user.profile.score < 200 %}
                         <div class = "info_rank"> <i class="fas fa-baby"></i>    유아 등급 </div>
-                    {% else %}
+                            {% else %}
                         <div class = "info_rank"> <i class="fas fa-leaf"></i>    잎새 등급 </div>
-                    {% endif %}
+                            {% endif %}
+                            <div class = "score"><i class="fas fa-heart"></i>  {{ user.profile.score }}점</div>
 
                 </div>
             </div>
 
             <div class = "list">
                 <div class = "written_list">
-                    <p>내가 쓴 글</p>
+                        <p>내가 쓴 글</p>
                     <div class = "list_header">
                         <p>글 제목</p> <p>작성일</p> <p>예보</p> <p>댓글</p> <p>수정/확정</p>
                     </div>
 
-                    {% for feed in feeds %} 
+                    {% for feed in feeds %}
                     {% if request.user == feed.author %}
                     {% load mathfilters %} <!--바뀜-->
                     {% with total=feed.sunny_users.count|add:feed.cloudy_users.count|add:feed.rainy_users.count %} <!--바뀜-->
-                    <a class = "content" href="/home/{{ feed.id }}">
                         <div class = "all_content">
-                            <div class = "feed_title">{{ feed.title }}</div>
-                            <div class = "date"> {{ feed.created_at|date:"Y.m.d" }} </div> <!--바뀜-->
-                            <div class = "forecast"> <img style = "width: 68px; height: auto; margin: 0; " src = "{% static 'feedpage/img/forecast_logo.png' %}"/></div>
-                            <div class = "forecast_number"> {{ total }} </div> <!--바뀜-->
-                            <div class = "comment"> {{ feed.feedcomment_set.count }} </div> <!--바뀜-->
-                            <div class = "edit_submit_button"> 수정   확정 </div>
+                            <div class = "contents_factor">
+                                <a class = "content1" href="/home/{{ feed.id }}">
+                                    <div class = "feed_title">{{ feed.title }}</div>
+                                    <div class = "date"> {{ feed.created_at|date:"Y.m.d" }} </div> <!--바뀜-->
+                                    <div class = "forecast"> <img style = "width: 68px; height: auto; margin: 0; " src = "{% static 'feedpage/img/forecast_logo.png' %}"/></div>
+                                    <div class = "forecast_number"> {{ total }} </div> <!--바뀜-->
+                                    <div class = "comment"> {{ feed.feedcomment_set.count }} </div> <!--바뀜-->
+                                <a class = "content2" href="/home/{{ feed.id }}/edit">
+                                    <div class = "edit_submit_button"> <i class="fas fa-edit"></i></i></div>
+                            </div>
                         </div>
                     </a>
-                    {% endwith %}<!--바뀜-->
+                    {% endwith %}
                     {% endif %}  
                     {% endfor %}
                 </div>
@@ -64,28 +68,28 @@
                 <div class = "written_list2">
                     <p>내가 예보한 글</p>
                     <div class = "list_header2">
-                        <p>글 제목</p> 
-                        <p>작성일</p> 
-                        <p>예보</p> 
-                        <p>댓글</p> 
-                        <p>수정/확정</p>
+                        <p>글 제목</p> <p>작성일</p> <p>예보</p> <p>댓글</p> <p>수정/확정</p>
                     </div>
 
                     {% for feed in feeds %}
                     {% if request.user in feed.sunny_users.all or request.user in feed.cloudy_users.all or request.user in feed.rainy_users.all %}
+                    {% load mathfilters %} <!--바뀜-->
+                    {% with total=feed.sunny_users.count|add:feed.cloudy_users.count|add:feed.rainy_users.count %} <!--바뀜-->
                     <a class = "content" href="/home/{{ feed.id }}">
                         <div class = "all_content">
-                            {% load mathfilters %} <!--바뀜-->
-                            {% with total=feed.sunny_users.count|add:feed.cloudy_users.count|add:feed.rainy_users.count %} <!--바뀜-->
-                            <div class = "feed_title">{{ feed.title }}</div>
-                            <div class = "date"> {{ feed.created_at|date:"Y.m.d" }} </div> <!--바뀜-->
-                            <div class = "forecast"> <img style = "width: 68px; height: auto; margin: 0; " src = "{% static 'feedpage/img/forecast_logo.png' %}"/></div>
-                            <div class = "forecast_number"> {{ total }} </div> <!--바뀜-->
-                            <div class = "comment"> {{ feed.feedcomment_set.count }} </div> <!--바뀜-->
-                            <div class = "edit_submit_button"> 수정   확정 </div>
-                            {% endwith %} <!--바뀜-->
+                            <div class = "contents_factor">
+                                <a class = "content1" href="/home/{{ feed.id }}">
+                                    <div class = "feed_title">{{ feed.title }}</div>
+                                    <div class = "date"> {{ feed.created_at|date:"Y.m.d" }} </div> <!--바뀜-->
+                                    <div class = "forecast"> <img style = "width: 68px; height: auto; margin: 0; " src = "{% static 'feedpage/img/forecast_logo.png' %}"/></div>
+                                    <div class = "forecast_number"> {{ total }} </div> <!--바뀜-->
+                                    <div class = "comment"> {{ feed.feedcomment_set.count }} </div> <!--바뀜-->
+                                <a class = "content2" href="/home/{{ feed.id }}/edit">
+                                    <div class = "edit_submit_button"> <i class="fas fa-edit"></i></div>
+                            </div>
                         </div>        
                     </a>
+                    {% endwith %}
                     {% endif %}
                     {% endfor %} 
                 </div>

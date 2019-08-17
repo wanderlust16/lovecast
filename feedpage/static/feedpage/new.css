@@ -340,21 +340,28 @@ p0 {
 }
 
 .weather {
-    width: 586px;
-    height: 54px;
+    height: 65px;
+    display: flex;
 }
 
 
 .optionbox img {
     position: relative;
-    margin-left: 73px;
-    margin-right: 73px;
-    top: 22px;
+    top: 10px;
+}
+
+.sunny,
+.cloudy,
+.rainy {
+    width: 48px;
+    height: 50px;
+    margin: auto;
 }
 
 .option_blank {
     width: 586px;
-    height: 66px;
+    height: 40px;
+    display: flex;
 }
 
 
@@ -369,16 +376,20 @@ p0 {
 #option1 {
     position: relative;
     background: white;
-    width: 134px;
+    width: 140px;
     height: 30px;
     border: 0px;
     border-radius: 23px;
-    margin-left: 29px;
-    margin-right: 29px;
-    top: 20px;
     text-align-last: center;
 }
-
+.option1,
+.option2,
+.option3 {
+    width: 140px;
+    height: 30px;
+    margin: auto;
+    
+}
 /*글쓰기 버튼 */
 
 .finish_writing {
