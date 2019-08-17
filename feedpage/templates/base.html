@@ -50,7 +50,8 @@
             <p2><a class = "mypage" href="{% url 'mypage'%}">마이페이지</a></p2>
 
             <!--알람버튼 -->
-            <a class="button" href= "#popup1"><i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></a>
+            <a class="button_icon" href= "#popup1"><i class="fas fa-bell fa-sm" style= "color: #ffffff;"></i>
+            <div class = "count_icon" ><p>{{ user.notification_set.count }}</p></div> </a>
             <div id="popup1" class="overlay">
               <div class="popup">
                 <div class ="top_alarm">
@@ -58,18 +59,18 @@
                   <a class="close" href="#">&times;</a>
                 </div>
                 <div class="alarm_content">
-                  <button>읽음으로 표시</button>
+                    {% for notif in notifs %}
+                    <h2>{{ notif.created_at|timesince }}전 {{ notif.title }} {{ notif.message }}</h2>
+                    <div class = "select_button_box">
+                      <form action="/home/notification/{{ notif.id }}/" method="POST" id = "select_button">
+                          {% csrf_token %}
+                          <button id = "button11">읽음으로 표시</button>
+                      </form>
+                    </div>
+                    {% endfor %}
                 </div>
               </div>
-
-            <!--알림버튼 수정전
-            <a href= "{% url 'show_notifications' %}"><button type="submit" id="alarm_button">
-            <i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></button></a>
-            {{ user.notification_set.count }}
-          {% else %}
-            <a href="{% url 'signup' %}">회원가입</a>
-            <a href="{% url 'login'%}?next={{request.path}}">로그인</a>
-          {% endif %}-->
+          {% endif %}
 
         </div>
 
@@ -81,21 +82,9 @@
       </body>
 
 
-      <!--팝업 내용 -->
+     
 
-    <h1>알림</h1>
-
-    {% for notif in notifs %}
-    <h2>{{ notif.created_at|timesince }}전 {{ notif.title }} {{ notif.message }}</h2>
-    <form action="/home/notification/{{ notif.id }}/" method="POST">
-        {% csrf_token %}
-        <button>읽음으로 표시</button>
-    </form>
-    {% endfor %}
-
-
-
-      <!--알람팝업 창-->
+      <!--
 
       <a class="button" href= "#popup1"><i class="fas fa-bell fa-lg" style= "color: #ffffff;"></i></button></a>
     </div>
@@ -110,6 +99,6 @@
           <button>읽음으로 표시</button>
         </div>
       </div>
-
+알람팝업 창-->
 
 

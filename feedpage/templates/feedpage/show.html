@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class = "all_body">
     <div>
       <a href="/home">home</a>
       <a href="/home/{{feed.id}}/edit/"> edit </a>
@@ -11,5 +10,4 @@
           <img  src="{{ feed.photo.url }}"  alt="">
       {% endif %}
     </div>
-  </div>
 {% endblock content %}
