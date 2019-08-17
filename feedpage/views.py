@@ -160,7 +160,8 @@ def feed_rainy(request, pk):
 
 def mypage(request):
     feeds = Feed.objects.all()
-    return render(request, 'feedpage/mypage.html', {'feeds':feeds})
+    notifs= Notification.objects.filter(user=request.user, viewed=False)
+    return render(request, 'feedpage/mypage.html', {'feeds':feeds, 'notifs':notifs})
 
 def search(request): # 해쉬태그 검색 + 결과보여주는 함수
     feeds=Feed.objects.all()
