@@ -18,18 +18,24 @@
     </div>
 
     <!--제목-->
-      <div class="feed_title">
-        <p>{{ feed.title }}</p>
+      <div class="feed_head">
+        <div class= "feed_title">
+          <p> {{ feed.title }}</p>
+        </div>
+        <div class="feed_delete">
+          {% if request.user == feed.author %}                                      
+            <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')"><i style="color:#616161;"class="fas fa-times"></i></a>
+          {% endif %}
+        </div>
       </div>
+
       <div class="hashtag">
         <p style="font-size:12px;">{{ feed.hashtag_str }}</p>
       </div>
 
       <!--글쓴이 이름-->
 
-      {% if request.user == feed.author %}                                      
-        <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')"><i style="color:#616161;"class="fas fa-times"></i></a>
-      {% endif %}
+      
           <!--익명이면 무작위 닉네임이 뜨도록하는 if문 -->
           {% if feed.anonymous %} 
             <p style="font-size:13.5px; text-align:right; color:#A9A9A9;">글쓴이   {{feed.nickname}}</p>

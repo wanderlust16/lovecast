@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     $('[type="checkbox"]').change(function(){
     if(this.checked){

@@ -100,6 +100,13 @@ body {
     /* box-shadow: 3.18px 4.79px 8px 0px rgba(0,0,0,0.100); */
 }
 
+.feed_head{
+    display:flex;
+}
+.feed_delete{
+    position:absolute;
+    right:15px;
+}
 .feed_title{
     font-size:18px; 
     text-align:left; 

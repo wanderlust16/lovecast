@@ -43,7 +43,8 @@
         <div class = "right" style="text-align: right;">
 
             <a class = "username">
-          {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
+            <!--  <img style = "width: 28px; height: 28px; border-radius: 50%; margin-left: 1px; margin-right: 1px; margin-top: auto; margin-bottom: auto;" src="{{ user.profile.profile_photo.url }}"  alt="">-->
               {{  user.profile.nickname }}님
             </a>
             <p1><a class = "logout" href="{% url 'login'%}?next={{request.path}}">로그아웃</a></p1>

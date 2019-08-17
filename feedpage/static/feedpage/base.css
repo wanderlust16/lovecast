@@ -100,6 +100,7 @@ header {
     position: relative;
     margin: 12px;
     font-size: 15px;
+    
   }
   
 
@@ -110,6 +111,7 @@ header {
     position: relative;
     margin: 12px;
     font-size: 15px;
+    
   }
   
   .logout::after,
