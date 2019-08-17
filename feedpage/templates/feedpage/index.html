@@ -33,6 +33,7 @@
           {% if request.user == feed.author %}                                      
             <a href = "/home/{{feed.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
           {% endif %}
+          
           <!--익명이면 무작위 닉네임이 뜨도록하는 if문 -->
           {% if feed.anonymous %} 
             <p>글쓴이: {{feed.nickname}}</p>

@@ -6,6 +6,7 @@
 
 }
 
+/* 상단바 */
 
 header {
     position: fixed;
@@ -15,6 +16,7 @@ header {
     background: rgb(93,77,146);
     background: linear-gradient(90deg, rgba(93,77,146,1) 5%, rgba(93,77,146,1) 30%, rgba(241,154,152,1) 85%, rgba(245,181,161,1) 100%);
 }
+
 
 .logo {
     position: fixed;
@@ -33,17 +35,18 @@ header {
     top: 14px;
 }
 
+/*웹이 621px보다 작아질 때 사라지게 하는 설정 */
+
 @media (max-width: 621px) {
     .left {
-        display: none;                              /* 웹이 992px보다 커지면 토글 버튼이 보이지 않게 하는 설정 */
+        display: none;                              
     }
 }
-
 
 .right {
     color: white;
     position: fixed;
-    width: 280px;
+    width: 500px;
     height: auto;
     right: 130px;
     top: 18px;
@@ -53,21 +56,14 @@ header {
 
 @media (max-width: 992px) {
     .right {
-        display: none;                              /* 웹이 992px보다 커지면 토글 버튼이 보이지 않게 하는 설정 */
+        display: none;                              
     }
 }
 
 
-
-
-.username {
-    position: absolute;
-    margin-right: 20px;
-}
-
-input[type="text"] {
+#search_box {
     font-size: 12px;
-    width: 350px;
+    width: 400px;
     height: 26px;
     border-radius: 16px;
     border: 0px;
@@ -81,7 +77,7 @@ input[type="text"] {
     border: 0px;
     width: 20px;
     height: 20px;
-    right: 165px;
+    right: 115px;
     top: 4px;
 }
 
@@ -98,15 +94,26 @@ input[type="text"] {
 /* 로그아웃 마이페이지 버튼 */
 
 
-a {
-    color: rgba(255,255,255, 50%);
+.username  {
+    color: white;
     text-decoration: none;
     position: relative;
-    margin: 10px;
+    margin: 12px;
     font-size: 15px;
   }
   
-  a::after {
+
+.logout,
+.mypage {
+    color: rgba(255,255,255, 50%);
+    text-decoration: none;
+    position: relative;
+    margin: 12px;
+    font-size: 15px;
+  }
+  
+  .logout::after,
+  .mypage::after {
     position: absolute;
     content: "";
     border-radius: 30px;
@@ -119,7 +126,15 @@ a {
       transition: all .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   }
   
-  a:hover::after{
+  .logout:hover::after,
+  .mypage:hover::after{
       height: calc(100% + 8px)
   }
 
+
+  /* 상단바 아래 body 공통 부분 위치값 설정 */
+
+  .all_body {
+    position: relative;
+    top: 55px;
+}

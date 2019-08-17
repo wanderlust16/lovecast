@@ -50,14 +50,14 @@ class Profile(models.Model):
     def __str__(self):  
         return 'id=%d, user id=%d, gender=%s, nickname=%s, age=%s' % (self.id, self.user.id, self.gender, self.nickname, self.age)
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):  
-    if created:
-        Profile.objects.create(user=instance)
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):  
+        if created:
+            Profile.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):  
-    instance.profile.save()
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):  
+        instance.profile.save()
 
 class FeedComment(models.Model):
     content = models.TextField()
@@ -66,6 +66,7 @@ class FeedComment(models.Model):
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE) 
     liked_users = models.ManyToManyField(User, blank=True, related_name='comments_liked', through='CommentLike') 
     disliked_users = models.ManyToManyField(User, blank=True, related_name='comments_disliked', through='CommentDislike')
+    
     def __str__(self):
         return str(self.id)
 

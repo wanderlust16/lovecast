@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Count
-from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, Notifs,CommentLike, CommentDislike, Photos
+from .models import Profile, Feed, FeedComment, Sunny, Cloudy, Rainy, CommentLike, CommentDislike, Photos
 from django.contrib.auth.models import User
 from django.db.models import F,Sum
 from nicky.base import Nicky
